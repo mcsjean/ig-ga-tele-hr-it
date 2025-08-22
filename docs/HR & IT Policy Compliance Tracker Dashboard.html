@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vmobile HR & IT Policy Compliance Tracker – HTML Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --light-blue: #e0f2fe;
+            --dark-grey: #2c2f34;
+            --medium-grey: #495057;
+            --light-grey: #f8f9fa;
+            --success-green: #28a745;
+            --danger-red: #dc3545;
+            --warning-orange: #ffc107;
+            --at-risk-red-outline: #dc3545;
+            --header-bg: var(--primary-blue);
+            --header-fg: #fff;
+            --card-bg: #fff;
+            --card-shadow: 0 2px 8px rgba(44,47,52,0.07);
+            --border-radius: 8px;
+            --table-header-bg: var(--primary-blue);
+            --table-header-fg: #fff;
+            --table-row-alt: var(--light-blue);
+            --table-hover: #e3eaf4;
+            --modal-bg: #fff;
+            --modal-overlay: rgba(0,0,0,0.5);
+            --font-family: 'Segoe UI', 'Arial', sans-serif;
+            --font-size-base: 16px;
+            --font-size-lg: 1.25rem;
+            --font-size-sm: 0.95rem;
+            --transition: 0.2s;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 32px;
+        }
+        [data-theme="dark"] {
+            --header-bg: #181a1b;
+            --header-fg: #e0f2fe;
+            --card-bg: #222426;
+            --card-shadow: 0 2px 8px rgba(0,0,0,0.17);
+            --table-header-bg: #212529;
+            --table-header-fg: #e0f2fe;
+            --table-row-alt: #222b36;
+            --table-hover: #293445;
+            --modal-bg: #23272b;
+            --font-family: 'Segoe UI', 'Arial', sans-serif;
+            --font-size-base: 16px;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            background: var(--light-grey);
+            color: var(--medium-grey);
+            transition: background 0.3s, color 0.3s;
+        }
+        [data-theme="dark"] body {
+            background: #181a1b;
+            color: #e0f2fe;
+        }
+        header {
+            background: var(--header-bg);
+            color: var(--header-fg);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        .dark-toggle-btn {
+            background: transparent;
+            border: 2px solid var(--header-fg);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: var(--header-fg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: border-color var(--transition), color var(--transition);
+        }
+        .dark-toggle-btn:focus {
+            outline: 2px solid var(--primary-blue);
+        }
+        main {
+            display: flex;
+            flex-direction: row;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .dashboard-main {
+            flex: 1 1 0;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+        .dashboard-right {
+            width: 340px;
+            min-width: 280px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            position: sticky;
+            top: 80px;
+            align-self: flex-start;
+        }
+        @media (max-width: 1200px) {
+            main {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                padding: var(--spacing-md);
+            }
+            .dashboard-right {
+                width: 100%;
+                min-width: 0;
+                position: static;
+                margin-bottom: var(--spacing-lg);
+            }
+        }
+        @media (max-width: 900px) {
+            .dashboard-main {
+                gap: var(--spacing-md);
+            }
+            .kpi-row {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+            .charts-row {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+        }
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-sm);
+                padding: var(--spacing-md);
+            }
+            main {
+                padding: var(--spacing-sm);
+            }
+            .dashboard-right {
+                padding: var(--spacing-md);
+            }
+            .filter-bar {
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+        }
+        .kpi-row {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        .kpi-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) var(--spacing-md);
+            flex: 1 1 0;
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+        }
+        .kpi-title {
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--spacing-xs);
+            color: var(--medium-grey);
+        }
+        .kpi-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+        .kpi-delta {
+            font-size: var(--font-size-sm);
+            margin-left: var(--spacing-xs);
+            vertical-align: middle;
+        }
+        .kpi-sparkline {
+            width: 80px;
+            height: 36px;
+            margin-top: var(--spacing-xs);
+        }
+        .kpi-badge {
+            position: absolute;
+            top: var(--spacing-xs);
+            right: var(--spacing-xs);
+            padding: 2px 8px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #fff;
+            background-color: var(--success-green);
+        }
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 2fr 2fr 1.2fr;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        @media (max-width: 1200px) {
+            .charts-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 700px) {
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        .chart-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: var(--spacing-md);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            position: relative;
+            min-width: 0;
+        }
+        .chart-title {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--medium-grey);
+        }
+        .chart-legend {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            margin-top: var(--spacing-xs);
+        }
+        .legend-toggle {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            background: transparent;
+            border: none;
+            color: var(--primary-blue);
+        }
+        .legend-toggle[aria-pressed="true"] {
+            font-weight: 700;
+            text-decoration: underline;
+        }
+        .filter-bar {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+        .filter-label {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--medium-grey);
+        }
+        .filter-select, .filter-multiselect, .filter-date, .filter-search {
+            border: 1px solid var(--medium-grey);
+            border-radius: var(--border-radius);
+            padding: 6px 10px;
+            background: var(--light-grey);
+            font-size: var(--font-size-sm);
+            outline: none;
+            color: var(--medium-grey);
+            transition: border-color var(--transition);
+            min-width: 120px;
+        }
+        .filter-select:focus, .filter-multiselect:focus, .filter-date:focus, .filter-search:focus {
+            border-color: var(--primary-blue);
+        }
+        .filter-chips {
+            display: flex;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
+            margin-left: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+        }
+        .filter-chip {
+            background: var(--primary-blue);
+            color: #fff;
+            border-radius: 16px;
+            padding: 3px 14px;
+            font-size: 0.92em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+        .filter-chip .chip-remove {
+            font-size: 1.05em;
+            cursor: pointer;
+            margin-left: 2px;
+        }
+        .filter-chip:focus {
+            outline: 2px solid var(--primary-blue);
+        }
+        .table-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        .table-title {
+            font-size: var(--font-size-sm);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            color: var(--medium-grey);
+        }
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: var(--font-size-sm);
+        }
+        thead {
+            background: var(--table-header-bg);
+            color: var(--table-header-fg);
+        }
+        th, td {
+            padding: 10px 16px;
+            text-align: left;
+            min-width: 90px;
+        }
+        tbody tr:nth-child(even) {
+            background: var(--table-row-alt);
+        }
+        tbody tr:hover {
+            background: var(--table-hover);
+            cursor: pointer;
+        }
+        .badge-compliant {
+            background: var(--success-green);
+            color: #fff;
+            border-radius: 16px;
+            padding: 4px 10px;
+            font-size: 0.93em;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+        .badge-pending {
+            background: var(--warning-orange);
+            color: #212529;
+            border-radius: 16px;
+            padding: 4px 10px;
+            font-size: 0.93em;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+        .badge-overdue {
+            background: var(--danger-red);
+            color: #fff;
+            border-radius: 16px;
+            padding: 4px 10px;
+            font-size: 0.93em;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+        .badge-at-risk {
+            border: 2px solid var(--at-risk-red-outline);
+            color: var(--danger-red);
+            background: transparent;
+            border-radius: 16px;
+            padding: 4px 10px;
+            font-size: 0.93em;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+        .badge-on-track {
+            background: var(--success-green);
+            color: #fff;
+            border-radius: 16px;
+            padding: 4px 10px;
+            font-size: 0.93em;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+        .badge-behind {
+            background: var(--danger-red);
+            color: #fff;
+            border-radius: 16px;
+            padding: 4px 10px;
+            font-size: 0.93em;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+        .pagination {
+            display: flex;
+            gap: var(--spacing-xs);
+            justify-content: flex-end;
+            margin-top: var(--spacing-sm);
+        }
+        .page-btn {
+            background: var(--light-blue);
+            border: none;
+            color: var(--primary-blue);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 1.05em;
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+        .page-btn.active, .page-btn:focus {
+            background: var(--primary-blue);
+            color: #fff;
+            outline: none;
+        }
+        .modal-overlay {
+            position: fixed;
+            top:0; left:0; right:0; bottom:0;
+            background: var(--modal-overlay);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal {
+            background: var(--modal-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: var(--spacing-lg);
+            min-width: 320px;
+            max-width: 480px;
+            max-height: 80vh;
+            overflow-y: auto;
+            outline: none;
+        }
+        .modal-header {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+        .modal-close {
+            position: absolute;
+            top: var(--spacing-xs);
+            right: var(--spacing-xs);
+            background: transparent;
+            border: none;
+            font-size: 1.2em;
+            color: var(--medium-grey);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+        }
+        .modal-close:focus {
+            outline: 2px solid var(--primary-blue);
+        }
+        .modal-section {
+            margin-bottom: var(--spacing-md);
+        }
+        .modal-table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: var(--font-size-sm);
+        }
+        .modal-table th, .modal-table td {
+            padding: 6px 8px;
+        }
+        .modal-table thead {
+            background: var(--table-header-bg);
+            color: var(--table-header-fg);
+        }
+        .modal-table tbody tr:nth-child(even) {
+            background: var(--table-row-alt);
+        }
+        .modal-table tbody tr:hover {
+            background: var(--table-hover);
+        }
+        .no-results {
+            text-align: center;
+            color: var(--danger-red);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            padding: var(--spacing-md);
+        }
+        aside .aside-title {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary-blue);
+        }
+        aside ul {
+            padding-left: 18px;
+            margin-bottom: var(--spacing-md);
+        }
+        aside .aside-subtitle {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--medium-grey);
+            margin-top: var(--spacing-md);
+        }
+        aside dl {
+            margin-bottom: var(--spacing-md);
+        }
+        aside dt {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-top: var(--spacing-xs);
+        }
+        aside dd {
+            margin-left: var(--spacing-md);
+            color: var(--medium-grey);
+            margin-bottom: var(--spacing-xs);
+        }
+        footer {
+            background: var(--header-bg);
+            color: var(--header-fg);
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: center;
+            font-size: var(--font-size-sm);
+        }
+        /* Accessibility focus rings */
+        button:focus, .filter-select:focus, .filter-multiselect:focus, .filter-date:focus, .filter-search:focus, .filter-chip:focus, .page-btn:focus {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            Vmobile HR &amp; IT Policy Compliance Tracker
+        </div>
+        <div class="header-actions">
+            <span id="last-refresh" aria-label="Last refresh timestamp"></span>
+            <button class="dark-toggle-btn" id="dark-toggle" aria-label="Toggle dark mode" aria-pressed="false" tabindex="0">
+                <span id="dark-toggle-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+    <main>
+        <div class="dashboard-main">
+            <nav aria-label="Filters" id="nav-filters">
+                <form class="filter-bar" id="filter-form" autocomplete="off">
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-dept">Department</label>
+                        <select id="filter-dept" class="filter-multiselect" multiple size="1" aria-label="Filter by Department">
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-location">Location</label>
+                        <select id="filter-location" class="filter-multiselect" multiple size="1" aria-label="Filter by Location">
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-emptype">Employment Type</label>
+                        <select id="filter-emptype" class="filter-select" aria-label="Filter by Employment Type">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-date-from">Ack Window From</label>
+                        <input type="date" id="filter-date-from" class="filter-date" aria-label="Acknowledgment window from date">
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-date-to">Ack Window To</label>
+                        <input type="date" id="filter-date-to" class="filter-date" aria-label="Acknowledgment window to date">
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label" for="filter-search">Search</label>
+                        <input type="search" id="filter-search" class="filter-search" placeholder="Name or PolicyID" aria-label="Search by name or PolicyID">
+                    </div>
+                </form>
+                <div class="filter-chips" id="active-filter-chips" aria-label="Active filters"></div>
+            </nav>
+            <section class="kpi-row" aria-label="Key Performance Indicators">
+                <article class="kpi-card" id="kpi-overall">
+                    <span class="kpi-title">Overall Compliance</span>
+                    <span class="kpi-value" id="kpi-overall-value"></span>
+                    <span class="kpi-delta" id="kpi-overall-delta"></span>
+                    <canvas class="kpi-sparkline" id="spark-overall" aria-label="Overall Compliance Sparkline"></canvas>
+                </article>
+                <article class="kpi-card" id="kpi-ack">
+                    <span class="kpi-title">Acknowledgment Completion</span>
+                    <span class="kpi-value" id="kpi-ack-value"></span>
+                    <span class="kpi-delta" id="kpi-ack-delta"></span>
+                    <canvas class="kpi-sparkline" id="spark-ack" aria-label="Acknowledgment Sparkline"></canvas>
+                </article>
+                <article class="kpi-card" id="kpi-training">
+                    <span class="kpi-title">Training Completion</span>
+                    <span class="kpi-value" id="kpi-training-value"></span>
+                    <span class="kpi-delta" id="kpi-training-delta"></span>
+                    <canvas class="kpi-sparkline" id="spark-training" aria-label="Training Completion Sparkline"></canvas>
+                </article>
+                <article class="kpi-card" id="kpi-overdue">
+                    <span class="kpi-title">Overdue Items</span>
+                    <span class="kpi-value" id="kpi-overdue-value"></span>
+                    <span class="kpi-delta" id="kpi-overdue-delta"></span>
+                    <canvas class="kpi-sparkline" id="spark-overdue" aria-label="Overdue Sparkline"></canvas>
+                </article>
+                <article class="kpi-card" id="kpi-atrisk">
+                    <span class="kpi-title">At-Risk Departments</span>
+                    <span class="kpi-value" id="kpi-atrisk-value"></span>
+                    <span class="kpi-delta" id="kpi-atrisk-delta"></span>
+                    <canvas class="kpi-sparkline" id="spark-atrisk" aria-label="At Risk Sparkline"></canvas>
+                </article>
+            </section>
+            <section class="charts-row" aria-label="Compliance Charts">
+                <article class="chart-card" id="chart-policy-compliance-card">
+                    <div class="chart-title">Compliance by Policy</div>
+                    <canvas id="chart-policy-compliance" height="180" aria-label="Stacked Bar Chart: Compliance by Policy"></canvas>
+                    <div class="chart-legend" id="legend-policy-compliance"></div>
+                </article>
+                <article class="chart-card" id="chart-monthly-trend-card">
+                    <div class="chart-title">Monthly Compliance Trend</div>
+                    <canvas id="chart-monthly-trend" height="180" aria-label="Line Chart: Monthly Compliance Trend"></canvas>
+                    <div class="chart-legend" id="legend-monthly-trend"></div>
+                </article>
+                <article class="chart-card" id="chart-overdue-dept-card">
+                    <div class="chart-title">Top 10 Overdue by Department</div>
+                    <canvas id="chart-overdue-dept" height="180" aria-label="Horizontal Bar Chart: Overdue by Department"></canvas>
+                    <div class="chart-legend" id="legend-overdue-dept"></div>
+                </article>
+                <article class="chart-card" id="chart-emptype-card">
+                    <div class="chart-title">Compliance by Employment Type</div>
+                    <canvas id="chart-emptype" height="180" aria-label="Donut Chart: Employment Type Compliance"></canvas>
+                    <div class="chart-legend" id="legend-emptype"></div>
+                </article>
+            </section>
+            <section class="table-section" aria-label="Overdue Employees Table">
+                <div class="table-title">Overdue Employees (Click row for compliance history)</div>
+                <div class="table-container" id="overdue-table-container"></div>
+                <div class="pagination" id="overdue-pagination"></div>
+            </section>
+            <section class="table-section" aria-label="Policy Inventory Table">
+                <div class="table-title">Policy Inventory &amp; Targets</div>
+                <div class="table-container" id="policy-table-container"></div>
+            </section>
+        </div>
+        <aside class="dashboard-right" aria-label="Vmobile Compliance Standards">
+            <div class="aside-title">Vmobile Compliance Standards</div>
+            <ul>
+                <li>Default target: ≥95% compliance in 15 business days</li>
+                <li>High-risk policies: ≥98% compliance in 10 business days</li>
+                <li>Contractors: compliance required within 7 business days</li>
+                <li>Escalation: Manager &rarr; HRBP &rarr; IT Security</li>
+            </ul>
+            <div class="aside-subtitle">Definitions</div>
+            <dl>
+                <dt>Compliant</dt>
+                <dd>Acknowledged (and training, if required) on or before due date</dd>
+                <dt>Pending</dt>
+                <dd>Not acknowledged, but due date not passed</dd>
+                <dt>Overdue</dt>
+                <dd>Due date passed, acknowledgment/training missing</dd>
+                <dt>At-Risk Department</dt>
+                <dd>Current compliance below policy target threshold</dd>
+            </dl>
+        </aside>
+    </main>
+    <footer>
+        Data source: Vmobile HRIS (Workday), LMS (Cornerstone), IT IAM (Okta) nightly sync &nbsp;|&nbsp;
+        Contact: HR &amp; IT Governance Office
+    </footer>
+    <div id="modal-overlay" style="display:none;"></div>
+    <script>
+    // --- Seeded Random Generator for Determinism ---
+    function mulberry32(seed) {
+        let t = seed;
+        return function() {
+            t += 0x6D2B79F5;
+            let r = Math.imul(t ^ t >>> 15, 1 | t);
+            r ^= r + Math.imul(r ^ r >>> 7, 61 | r);
+            return ((r ^ r >>> 14) >>> 0) / 4294967296;
+        }
+    }
+    const rand = mulberry32(20240616);
+
+    // --- Static Data ---
+    const DEPARTMENTS = [
+        "HR", "Finance", "Sales", "IT", "Operations",
+        "Customer Support", "Marketing", "Network Engineering", "Retail"
+    ];
+    const LOCATIONS = [
+        "Dallas HQ", "Austin NOC", "Houston Care Center", "Remote – US", "Remote – Global"
+    ];
+    const EMP_TYPES = ["FT", "PT", "Contractor", "Intern"];
+    const EMP_TYPE_FULL = {
+        "FT": "Full-Time",
+        "PT": "Part-Time",
+        "Contractor": "Contractor",
+        "Intern": "Intern"
+    };
+    const POLICY_LIST = [
+        {id:"POL-IT-SEC-001", name:"Information Security", owner:"IT", risk:"High"},
+        {id:"POL-IT-AU-002", name:"Acceptable Use", owner:"IT", risk:"Medium"},
+        {id:"POL-IT-DP-003", name:"Data Privacy & Handling", owner:"IT", risk:"High"},
+        {id:"POL-HR-COC-004", name:"Code of Conduct", owner:"HR", risk:"High"},
+        {id:"POL-HR-AH-005", name:"Anti-Harassment", owner:"HR", risk:"Medium"},
+        {id:"POL-HR-RW-006", name:"Remote Work & BYOD", owner:"HR", risk:"Medium"},
+        {id:"POL-IT-AM-007", name:"Access Management & MFA", owner:"IT", risk:"High"},
+        {id:"POL-IT-SD-008", name:"Secure Dev & Change Control", owner:"IT", risk:"High"},
+        {id:"POL-IT-IR-009", name:"Incident Reporting", owner:"IT", risk:"Medium"},
+        {id:"POL-HR-RR-010", name:"Records Retention", owner:"HR", risk:"Low"},
+        {id:"POL-HR-TR-011", name:"Training & Awareness", owner:"HR", risk:"Medium"},
+        {id:"POL-IT-EN-012", name:"Encryption & Key Management", owner:"IT", risk:"High"}
+    ];
+
+    // --- Policy Metadata ---
+    const POLICY_META = POLICY_LIST.map((p,i) => {
+        const version = "v2025." + (2 + (i%3));
+        const lastUpdated = new Date(2024, 1 + (i%10), 5 + (i%5)).toISOString().split('T')[0];
+        const cadence = (i%2==0) ? "Annual" : "Quarterly";
+        const targetCompliance = p.risk === "High" ? 98 : (p.risk === "Low" ? 95 : 96);
+        const slaDays = p.owner==="HR" ? (p.risk==="High"?10:15) : (p.risk==="High"?10:12);
+        return {
+            ...p,
+            currentVersion: version,
+            lastUpdated: lastUpdated,
+            cadence: cadence,
+            targetCompliance: targetCompliance,
+            slaDays: slaDays,
+            linkedTraining: (i%2===0)
+        };
+    });
+
+    // --- Synthetic Employee Generation ---
+    const EMP_COUNT = Math.floor(550 + rand()*300); // 550–850
+    const EMPLOYEES = [];
+    // EmploymentType mix
+    const FT_TARGET = Math.round(EMP_COUNT*0.75);
+    const PT_TARGET = Math.round(EMP_COUNT*0.075);
+    const CONTRACTOR_TARGET = Math.round(EMP_COUNT*0.14);
+    const INTERN_TARGET = EMP_COUNT - FT_TARGET - PT_TARGET - CONTRACTOR_TARGET;
+    let empTypePool = [];
+    for(let i=0;i<FT_TARGET;i++) empTypePool.push("FT");
+    for(let i=0;i<PT_TARGET;i++) empTypePool.push("PT");
+    for(let i=0;i<CONTRACTOR_TARGET;i++) empTypePool.push("Contractor");
+    for(let i=0;i<INTERN_TARGET;i++) empTypePool.push("Intern");
+    // Shuffle pool
+    for(let i=empTypePool.length-1;i>0;i--) {
+        let j = Math.floor(rand()* (i+1));
+        [empTypePool[i], empTypePool[j]] = [empTypePool[j], empTypePool[i]];
+    }
+    // Names
+    const FIRST_NAMES = ["James","Mary","John","Patricia","Robert","Jennifer","Michael","Linda","William","Elizabeth","David","Barbara","Richard","Susan","Joseph","Jessica","Thomas","Sarah","Charles","Karen","Daniel","Nancy","Matthew","Lisa","Anthony","Betty","Mark","Margaret","Paul","Sandra","Steven","Ashley","Andrew","Kimberly","Joshua","Emily","Kevin","Donna","Brian","Michelle","George","Dorothy","Edward","Carol"];
+    const LAST_NAMES = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez","Hernandez","Lopez","Gonzalez","Wilson","Anderson","Thomas","Taylor","Moore","Jackson","Martin","Lee","Perez","Thompson","White","Harris","Sanchez","Clark","Ramirez","Lewis","Robinson","Walker","Young","Allen","King","Wright","Scott","Torres","Nguyen","Hill","Flores","Green","Adams","Nelson","Baker","Hall","Rivera"];
+    const MANAGERS = [];
+    for(let i=0;i<DEPARTMENTS.length;i++){
+        let fn = FIRST_NAMES[Math.floor(rand()*FIRST_NAMES.length)];
+        let ln = LAST_NAMES[Math.floor(rand()*LAST_NAMES.length)];
+        MANAGERS.push(fn+" "+ln);
+    }
+    for(let i=0;i<EMP_COUNT;i++){
+        let empType = empTypePool[i];
+        let dept = DEPARTMENTS[Math.floor(rand()*DEPARTMENTS.length)];
+        let loc = LOCATIONS[Math.floor(rand()*LOCATIONS.length)];
+        let fn = FIRST_NAMES[Math.floor(rand()*FIRST_NAMES.length)];
+        let ln = LAST_NAMES[Math.floor(rand()*LAST_NAMES.length)];
+        let empID = "E"+("000"+(1000+i)).slice(-4);
+        let hireYear = 2017 + Math.floor(rand()*7);
+        let hireMonth = Math.floor(rand()*12);
+        let hireDay = 1 + Math.floor(rand()*28);
+        let hireDate = new Date(hireYear, hireMonth, hireDay).toISOString().split('T')[0];
+        let mgrIdx = DEPARTMENTS.indexOf(dept);
+        let manager = MANAGERS[mgrIdx];
+        EMPLOYEES.push({
+            EmpID: empID,
+            Name: fn + " " + ln,
+            Department: dept,
+            Location: loc,
+            EmploymentType: empType,
+            Manager: manager,
+            HireDate: hireDate
+        });
+    }
+
+    // --- Compliance Status Generation ---
+    function addMonths(dateStr, n){
+        let d = new Date(dateStr);
+        d.setMonth(d.getMonth()+n);
+        return d.toISOString().split('T')[0];
+    }
+    // For monthly aggregates, need 12 months trailing
+    const MONTHS = [];
+    const now = new Date();
+    for(let i=11;i>=0;i--){
+        let d = new Date(now.getFullYear(), now.getMonth()-i, 1);
+        MONTHS.push(d.toISOString().slice(0,7));
+    }
+    // Compliance records: For each employee × in-scope policy
+    // We'll need to ensure: overall compliance 88–96%, contractors & remote global highest overdue, at least 2 depts at risk, overdue table with 120–180 rows
+    const EMP_POLICY_COMPLIANCE = []; // {EmpID, PolicyID, RequiredTraining, DueDate, AcknowledgedDate, TrainingCompletedDate, LastReminderDate}
+    // Helper: Assign compliance status
+    function assignCompliance(emp, policy, idx){
+        let requiredTraining = policy.linkedTraining;
+        // DueDate: random in last 30–120 days
+        let dueDaysAgo = Math.floor(30+rand()*90);
+        let dueDate = new Date(now.getTime()-dueDaysAgo*24*3600*1000);
+        let dueDateStr = dueDate.toISOString().split('T')[0];
+        // Acknowledged/Training: logic for overall compliance rate
+        // Contractors and Remote Global: higher overdue
+        let overdueChance = 0.06 + (emp.EmploymentType==="Contractor"?0.13:0) + (emp.Location==="Remote – Global"?0.12:0);
+        let pendingChance = 0.08 + (emp.EmploymentType==="Intern"?0.04:0);
+        // At-risk for certain departments
+        let deptRisk = ["Customer Support","Network Engineering","Retail"];
+        if(deptRisk.includes(emp.Department)) overdueChance += 0.04;
+        // Compliant: majority
+        let compliantChance = 1 - (overdueChance+pendingChance);
+        let statusRoll = rand();
+        let acknowledgedDate=null, trainingCompletedDate=null;
+        let lastReminderDate=null;
+        if(statusRoll < compliantChance){
+            // Compliant: acknowledge/training before due
+            let ackOffset = Math.floor(rand()*dueDaysAgo*0.8);
+            acknowledgedDate = new Date(dueDate.getTime()-ackOffset*24*3600*1000).toISOString().split('T')[0];
+            if(requiredTraining){
+                let trainOffset = Math.floor(rand()*dueDaysAgo*0.8);
+                trainingCompletedDate = new Date(dueDate.getTime()-trainOffset*24*3600*1000).toISOString().split('T')[0];
+            }
+        } else if(statusRoll < compliantChance+pendingChance){
+            // Pending: not acknowledged, due date not passed
+            let shift = Math.floor(rand()*10)-5;
+            let futureDueDate = new Date(now.getTime()+shift*24*3600*1000);
+            dueDateStr = futureDueDate.toISOString().split('T')[0];
+            lastReminderDate = addMonths(dueDateStr,-1);
+        } else {
+            // Overdue: due date passed, missing
+            lastReminderDate = addMonths(dueDateStr,-1);
+        }
+        return {
+            EmpID: emp.EmpID,
+            PolicyID: policy.id,
+            RequiredTraining: requiredTraining,
+            DueDate: dueDateStr,
+            AcknowledgedDate: acknowledgedDate,
+            TrainingCompletedDate: trainingCompletedDate,
+            LastReminderDate: lastReminderDate
+        };
+    }
+    for(let i=0;i<EMPLOYEES.length;i++){
+        for(let j=0;j<POLICY_META.length;j++){
+            EMP_POLICY_COMPLIANCE.push(assignCompliance(EMPLOYEES[i], POLICY_META[j], j));
+        }
+    }
+
+    // --- KPI & Chart Computation ---
+    function computeKPIs(filters){
+        // Filters: {dept, location, emptype, from, to, search}
+        // Get all relevant compliance items
+        let filteredCompliance = EMP_POLICY_COMPLIANCE.filter(rec=>{
+            let emp = EMPLOYEES.find(e=>e.EmpID===rec.EmpID);
+            if(filters.dept.length && !filters.dept.includes(emp.Department)) return false;
+            if(filters.location.length && !filters.location.includes(emp.Location)) return false;
+            if(filters.emptype && emp.EmploymentType!==filters.emptype) return false;
+            if(filters.from && rec.DueDate<filters.from) return false;
+            if(filters.to && rec.DueDate>filters.to) return false;
+            if(filters.search){
+                let s = filters.search.toLowerCase();
+                if(!(emp.Name.toLowerCase().includes(s)||rec.PolicyID.toLowerCase().includes(s))) return false;
+            }
+            return true;
+        });
+        // Status logic
+        function status(rec){
+            let nowDate = now.toISOString().split('T')[0];
+            if(rec.AcknowledgedDate && (!rec.RequiredTraining || rec.TrainingCompletedDate)){
+                if(rec.AcknowledgedDate<=rec.DueDate && (!rec.RequiredTraining || rec.TrainingCompletedDate<=rec.DueDate)){
+                    return "Compliant";
+                }else if(rec.AcknowledgedDate>rec.DueDate || (rec.RequiredTraining && rec.TrainingCompletedDate>rec.DueDate)){
+                    return "Overdue";
+                }else{
+                    return "Pending";
+                }
+            }
+            if(rec.DueDate>=nowDate){
+                return "Pending";
+            }
+            return "Overdue";
+        }
+        let stats = {
+            total: filteredCompliance.length,
+            compliant:0,pending:0,overdue:0,
+            ackComplete:0,trainingComplete:0,
+            departments:{},empTypes:{},locations:{}
+        };
+        for(let rec of filteredCompliance){
+            let emp = EMPLOYEES.find(e=>e.EmpID===rec.EmpID);
+            let s = status(rec);
+            if(s==="Compliant") stats.compliant++;
+            if(s==="Pending") stats.pending++;
+            if(s==="Overdue") stats.overdue++;
+            if(rec.AcknowledgedDate) stats.ackComplete++;
+            if(rec.RequiredTraining && rec.TrainingCompletedDate) stats.trainingComplete++;
+            // By department
+            if(!stats.departments[emp.Department]) stats.departments[emp.Department]={compliant:0,overdue:0,total:0};
+            stats.departments[emp.Department].total++;
+            if(s==="Compliant") stats.departments[emp.Department].compliant++;
+            if(s==="Overdue") stats.departments[emp.Department].overdue++;
+            // By empType
+            if(!stats.empTypes[emp.EmploymentType]) stats.empTypes[emp.EmploymentType]={compliant:0,overdue:0,total:0};
+            stats.empTypes[emp.EmploymentType].total++;
+            if(s==="Compliant") stats.empTypes[emp.EmploymentType].compliant++;
+            if(s==="Overdue") stats.empTypes[emp.EmploymentType].overdue++;
+            // By location
+            if(!stats.locations[emp.Location]) stats.locations[emp.Location]={compliant:0,overdue:0,total:0};
+            stats.locations[emp.Location].total++;
+            if(s==="Compliant") stats.locations[emp.Location].compliant++;
+            if(s==="Overdue") stats.locations[emp.Location].overdue++;
+        }
+        // Overall compliance %
+        stats.compliancePct = stats.total ? Math.round(100*stats.compliant/stats.total):0;
+        stats.ackPct = stats.total ? Math.round(100*stats.ackComplete/stats.total):0;
+        stats.trainingPct = stats.total ? Math.round(100*stats.trainingComplete/stats.total):0;
+        // At-risk depts: current compliance < target
+        let atRiskDepts = [];
+        for(let d in stats.departments){
+            let policyTarget = Math.max(...POLICY_META.filter(p=>p.owner===DEPARTMENTS.includes(d)?'HR':'IT').map(p=>p.targetCompliance));
+            let currPct = stats.departments[d].total ? 100*stats.departments[d].compliant/stats.departments[d].total : 0;
+            let minTarget = Math.min(...POLICY_META.map(p=>p.targetCompliance));
+            let target = minTarget;
+            // More accurate: for each department, find its in-scope policies
+            let deptPolicies = POLICY_META.filter(p=>p.owner===((d==="HR"||d==="Finance")?"HR":"IT"));
+            let maxDeptTarget = Math.max(...deptPolicies.map(p=>p.targetCompliance));
+            if(currPct < maxDeptTarget) atRiskDepts.push(d);
+        }
+        stats.atRiskDepts = atRiskDepts;
+        stats.atRiskCount = atRiskDepts.length;
+        return stats;
+    }
+
+    // --- Monthly Aggregates for Trends ---
+    function computeMonthlyAggregates(filters){
+        // For each month: compute ack% and training%
+        let monthlyAck = [];
+        let monthlyTraining = [];
+        for(let m of MONTHS){
+            let monthStart = m+"-01";
+            let monthEnd = new Date(new Date(monthStart).getFullYear(), new Date(monthStart).getMonth()+1, 0);
+            let monthEndStr = monthEnd.toISOString().split('T')[0];
+            let filteredCompliance = EMP_POLICY_COMPLIANCE.filter(rec=>{
+                let emp = EMPLOYEES.find(e=>e.EmpID===rec.EmpID);
+                if(filters.dept.length && !filters.dept.includes(emp.Department)) return false;
+                if(filters.location.length && !filters.location.includes(emp.Location)) return false;
+                if(filters.emptype && emp.EmploymentType!==filters.emptype) return false;
+                if(filters.from && rec.DueDate<filters.from) return false;
+                if(filters.to && rec.DueDate>filters.to) return false;
+                if(filters.search){
+                    let s = filters.search.toLowerCase();
+                    if(!(emp.Name.toLowerCase().includes(s)||rec.PolicyID.toLowerCase().includes(s))) return false;
+                }
+                // In this month
+                return rec.DueDate>=monthStart && rec.DueDate<=monthEndStr;
+            });
+            let total = filteredCompliance.length;
+            let ack = filteredCompliance.filter(rec=>rec.AcknowledgedDate).length;
+            let train = filteredCompliance.filter(rec=>rec.RequiredTraining && rec.TrainingCompletedDate).length;
+            let ackPct = total?Math.round(100*ack/total):0;
+            let trainPct = total?Math.round(100*train/total):0;
+            // Summer dip
+            let dip = (m.endsWith("-06")||m.endsWith("-07"))?Math.round(rand()*3):0;
+            monthlyAck.push(ackPct-dip);
+            monthlyTraining.push(trainPct-dip);
+        }
+        return {monthlyAck, monthlyTraining};
+    }
+
+    // --- Overdue Employees Table (Drilldown) ---
+    function computeOverdueRows(filters){
+        // Filter compliance records: status overdue
+        let filtered = EMP_POLICY_COMPLIANCE.filter(rec=>{
+            let emp = EMPLOYEES.find(e=>e.EmpID===rec.EmpID);
+            if(filters.dept.length && !filters.dept.includes(emp.Department)) return false;
+            if(filters.location.length && !filters.location.includes(emp.Location)) return false;
+            if(filters.emptype && emp.EmploymentType!==filters.emptype) return false;
+            if(filters.from && rec.DueDate<filters.from) return false;
+            if(filters.to && rec.DueDate>filters.to) return false;
+            if(filters.search){
+                let s = filters.search.toLowerCase();
+                if(!(emp.Name.toLowerCase().includes(s)||rec.PolicyID.toLowerCase().includes(s))) return false;
+            }
+            // Overdue only
+            let nowDate = now.toISOString().split('T')[0];
+            let status = null;
+            if(rec.AcknowledgedDate && (!rec.RequiredTraining || rec.TrainingCompletedDate)){
+                if(rec.AcknowledgedDate<=rec.DueDate && (!rec.RequiredTraining || rec.TrainingCompletedDate<=rec.DueDate)){
+                    status = "Compliant";
+                }else if(rec.AcknowledgedDate>rec.DueDate || (rec.RequiredTraining && rec.TrainingCompletedDate>rec.DueDate)){
+                    status = "Overdue";
+                }else{
+                    status = "Pending";
+                }
+            }else if(rec.DueDate>=nowDate){
+                status = "Pending";
+            }else{
+                status = "Overdue";
+            }
+            return status==="Overdue";
+        });
+        // Pick up to 180 rows, min 120
+        let rows = [];
+        let idxs = [];
+        for(let i=0;i<filtered.length;i++) idxs.push(i);
+        // Shuffle
+        for(let i=idxs.length-1;i>0;i--){
+            let j = Math.floor(rand()*(i+1));
+            [idxs[i],idxs[j]]=[idxs[j],idxs[i]];
+        }
+        let pickCount = Math.max(120, Math.min(180, filtered.length));
+        for(let i=0;i<pickCount;i++){
+            let rec = filtered[idxs[i]];
+            let emp = EMPLOYEES.find(e=>e.EmpID===rec.EmpID);
+            let policy = POLICY_META.find(p=>p.id===rec.PolicyID);
+            let daysOverdue = Math.max(0, Math.floor((now.getTime()-new Date(rec.DueDate).getTime())/86400000));
+            rows.push({
+                Name: emp.Name,
+                EmpID: emp.EmpID,
+                Department: emp.Department,
+                Location: emp.Location,
+                EmploymentType: emp.EmploymentType,
+                Policy: policy.name,
+                PolicyID: rec.PolicyID,
+                PolicyVersion: policy.currentVersion,
+                DueDate: rec.DueDate,
+                DaysOverdue: daysOverdue,
+                Manager: emp.Manager,
+                RequiredAction: rec.RequiredTraining ? "Training" : "Acknowledge",
+                LastReminderSent: rec.LastReminderDate ? rec.LastReminderDate : "—"
+            });
+        }
+        return rows;
+    }
+
+    // --- Policy Inventory Table with Status ---
+    function computePolicyRows(filters){
+        // For each policy, compute current compliance % in filtered set
+        let rows = [];
+        for(let p of POLICY_META){
+            // Get all compliance records for this policy in filtered set
+            let filtered = EMP_POLICY_COMPLIANCE.filter(rec=>{
+                if(rec.PolicyID!==p.id) return false;
+                let emp = EMPLOYEES.find(e=>e.EmpID===rec.EmpID);
+                if(filters.dept.length && !filters.dept.includes(emp.Department)) return false;
+                if(filters.location.length && !filters.location.includes(emp.Location)) return false;
+                if(filters.emptype && emp.EmploymentType!==filters.emptype) return false;
+                if(filters.from && rec.DueDate<filters.from) return false;
+                if(filters.to && rec.DueDate>filters.to) return false;
+                if(filters.search){
+                    let s = filters.search.toLowerCase();
+                    if(!(emp.Name.toLowerCase().includes(s)||rec.PolicyID.toLowerCase().includes(s))) return false;
+                }
+                return true;
+            });
+            let total = filtered.length;
+            let compliant = filtered.filter(rec=>{
+                let nowDate = now.toISOString().split('T')[0];
+                if(rec.AcknowledgedDate && (!rec.RequiredTraining || rec.TrainingCompletedDate)){
+                    if(rec.AcknowledgedDate<=rec.DueDate && (!rec.RequiredTraining || rec.TrainingCompletedDate<=rec.DueDate)){
+                        return true;
+                    }
+                }
+                return false;
+            }).length;
+            let currPct = total ? Math.round(100*compliant/total) : 0;
+            // Status
+            let status = "On Track";
+            if(currPct < p.targetCompliance){
+                status = "At Risk";
+            }
+            if(currPct < p.targetCompliance-3){
+                status = "Behind";
+            }
+            rows.push({
+                PolicyID: p.id,
+                PolicyName: p.name,
+                Owner: p.owner,
+                CurrentVersion: p.currentVersion,
+                LastUpdated: p.lastUpdated,
+                Cadence: p.cadence,
+                Target: p.targetCompliance,
+                Current: currPct,
+                LinkedTraining: p.linkedTraining?"Yes":"No",
+                SLA: p.slaDays,
+                Status: status
+            });
+        }
+        return rows;
+    }
+
+    // --- Dark Mode ---
+    function setDarkMode(enabled){
+        if(enabled){
+            document.documentElement.setAttribute('data-theme','dark');
+            document.getElementById('dark-toggle').setAttribute('aria-pressed','true');
+            document.getElementById('dark-toggle-icon').textContent = "☀️";
+        }else{
+            document.documentElement.removeAttribute('data-theme');
+            document.getElementById('dark-toggle').setAttribute('aria-pressed','false');
+            document.getElementById('dark-toggle-icon').textContent = "🌙";
+        }
+        localStorage.setItem('vmobile_dark_mode', enabled ? "1":"0");
+    }
+    function getDarkMode(){
+        return localStorage.getItem('vmobile_dark_mode')==="1";
+    }
+    document.getElementById('dark-toggle').addEventListener('click', function(){
+        setDarkMode(!getDarkMode());
+    });
+
+    // --- Last Refresh Timestamp ---
+    document.getElementById('last-refresh').textContent = "Last refresh: " + now.toLocaleString();
+
+    // --- Filters UI Initialization ---
+    function populateFilters(){
+        const deptSel = document.getElementById('filter-dept');
+        deptSel.innerHTML = "";
+        for(let d of DEPARTMENTS){
+            let opt = document.createElement('option');
+            opt.value = d;
+            opt.textContent = d;
+            deptSel.appendChild(opt);
+        }
+        const locSel = document.getElementById('filter-location');
+        locSel.innerHTML = "";
+        for(let l of LOCATIONS){
+            let opt = document.createElement('option');
+            opt.value = l;
+            opt.textContent = l;
+            locSel.appendChild(opt);
+        }
+        const empSel = document.getElementById('filter-emptype');
+        empSel.innerHTML = "<option value=''>All</option>";
+        for(let e of EMP_TYPES){
+            let opt = document.createElement('option');
+            opt.value = e;
+            opt.textContent = EMP_TYPE_FULL[e];
+            empSel.appendChild(opt);
+        }
+    }
+    populateFilters();
+
+    // --- Filter State & Chips ---
+    function getFilters(){
+        const dept = Array.from(document.getElementById('filter-dept').selectedOptions).map(opt=>opt.value);
+        const location = Array.from(document.getElementById('filter-location').selectedOptions).map(opt=>opt.value);
+        const emptype = document.getElementById('filter-emptype').value;
+        const from = document.getElementById('filter-date-from').value;
+        const to = document.getElementById('filter-date-to').value;
+        const search = document.getElementById('filter-search').value.trim();
+        return {dept,location,emptype,from,to,search};
+    }
+    function setFilters(filters){
+        // Set filter controls
+        Array.from(document.getElementById('filter-dept').options).forEach(opt=>{opt.selected=filters.dept.includes(opt.value);});
+        Array.from(document.getElementById('filter-location').options).forEach(opt=>{opt.selected=filters.location.includes(opt.value);});
+        document.getElementById('filter-emptype').value = filters.emptype||"";
+        document.getElementById('filter-date-from').value = filters.from||"";
+        document.getElementById('filter-date-to').value = filters.to||"";
+        document.getElementById('filter-search').value = filters.search||"";
+    }
+    let filterState = {dept:[],location:[],emptype:"",from:"",to:"",search:""};
+    document.getElementById('filter-form').addEventListener('input',function(){
+        filterState = getFilters();
+        renderDashboard();
+        updateFilterChips();
+    });
+
+    // --- Filter Chips UI ---
+    function updateFilterChips(){
+        const chips = [];
+        if(filterState.dept.length){
+            for(let d of filterState.dept){
+                chips.push({label:"Dept: "+d, key:"dept", value:d});
+            }
+        }
+        if(filterState.location.length){
+            for(let l of filterState.location){
+                chips.push({label:"Location: "+l, key:"location", value:l});
+            }
+        }
+        if(filterState.emptype){
+            chips.push({label:"Type: "+EMP_TYPE_FULL[filterState.emptype], key:"emptype", value:filterState.emptype});
+        }
+        if(filterState.from){
+            chips.push({label:"From: "+filterState.from, key:"from", value:filterState.from});
+        }
+        if(filterState.to){
+            chips.push({label:"To: "+filterState.to, key:"to", value:filterState.to});
+        }
+        if(filterState.search){
+            chips.push({label:"Search: "+filterState.search, key:"search", value:filterState.search});
+        }
+        const chipBar = document.getElementById('active-filter-chips');
+        chipBar.innerHTML = "";
+        chips.forEach((chip, idx)=>{
+            let el = document.createElement('span');
+            el.className = "filter-chip";
+            el.tabIndex = 0;
+            el.setAttribute('aria-label','Remove filter '+chip.label);
+            el.innerHTML = chip.label + '<span class="chip-remove" aria-hidden="true">&times;</span>';
+            el.addEventListener('click',function(){
+                // Remove chip by key
+                if(chip.key==="dept"){
+                    filterState.dept = filterState.dept.filter(d=>d!==chip.value);
+                }else if(chip.key==="location"){
+                    filterState.location = filterState.location.filter(l=>l!==chip.value);
+                }else if(chip.key==="emptype"){
+                    filterState.emptype = "";
+                }else if(chip.key==="from"){
+                    filterState.from = "";
+                }else if(chip.key==="to"){
+                    filterState.to = "";
+                }else if(chip.key==="search"){
+                    filterState.search = "";
+                }
+                setFilters(filterState);
+                renderDashboard();
+                updateFilterChips();
+            });
+            chipBar.appendChild(el);
+        });
+    }
+
+    // --- Render Dashboard ---
+    let sparkCharts = {};
+    function renderDashboard(){
+        // Compute KPIs
+        const stats = computeKPIs(filterState);
+        // Monthly trends
+        const monthly = computeMonthlyAggregates(filterState);
+        // KPI Cards
+        document.getElementById('kpi-overall-value').textContent = stats.compliancePct+"%";
+        document.getElementById('kpi-ack-value').textContent = stats.ackPct+"%";
+        document.getElementById('kpi-training-value').textContent = stats.trainingPct+"%";
+        document.getElementById('kpi-overdue-value').textContent = stats.overdue;
+        document.getElementById('kpi-atrisk-value').textContent = stats.atRiskCount;
+        // Delta vs prior month
+        let sparkOverall = monthly.monthlyAck.map((v,i)=>monthly.monthlyAck[i]);
+        let sparkTraining = monthly.monthlyTraining;
+        let sparkOverdue = monthly.monthlyAck.map((v,i)=>100-v);
+        let sparkAtRisk = MONTHS.map((m,i)=>Math.round(rand()*3)+(i%2));
+        let deltas = {
+            overall: monthly.monthlyAck[11]-monthly.monthlyAck[10],
+            ack: monthly.monthlyAck[11]-monthly.monthlyAck[10],
+            training: monthly.monthlyTraining[11]-monthly.monthlyTraining[10],
+            overdue: sparkOverdue[11]-sparkOverdue[10],
+            atrisk: sparkAtRisk[11]-sparkAtRisk[10]
+        };
+        function fmtDelta(val){
+            return (val>=0?"▲ ":"▼ ") + Math.abs(val) + "%";
+        }
+        document.getElementById('kpi-overall-delta').textContent = fmtDelta(deltas.overall);
+        document.getElementById('kpi-ack-delta').textContent = fmtDelta(deltas.ack);
+        document.getElementById('kpi-training-delta').textContent = fmtDelta(deltas.training);
+        document.getElementById('kpi-overdue-delta').textContent = fmtDelta(deltas.overdue);
+        document.getElementById('kpi-atrisk-delta').textContent = fmtDelta(deltas.atrisk);
+        // Sparklines
+        function renderSpark(id, data, color){
+            if(sparkCharts[id]) sparkCharts[id].destroy();
+            let ctx = document.getElementById(id).getContext('2d');
+            sparkCharts[id] = new Chart(ctx, {
+                type:'line',
+                data:{
+                    labels: MONTHS,
+                    datasets:[{
+                        data,
+                        borderColor: color,
+                        backgroundColor: 'rgba(0,0,0,0)', pointRadius:0, borderWidth:2
+                    }]
+                },
+                options:{scales:{x:{display:false},y:{display:false}},plugins:{legend:{display:false},tooltip:{enabled:false}},responsive:true}
+            });
+        }
+        renderSpark("spark-overall", sparkOverall, "#007bff");
+        renderSpark("spark-ack", monthly.monthlyAck, "#007bff");
+        renderSpark("spark-training", monthly.monthlyTraining, "#28a745");
+        renderSpark("spark-overdue", sparkOverdue, "#dc3545");
+        renderSpark("spark-atrisk", sparkAtRisk, "#dc3545");
+
+        // --- Charts ---
+        // 1. Stacked Bar – Compliance by Policy
+        let policyCounts = POLICY_META.map(p=>{
+            let filtered = EMP_POLICY_COMPLIANCE.filter(rec=>{
+                if(rec.PolicyID!==p.id) return false;
+                let emp = EMPLOYEES.find(e=>e.EmpID===rec.EmpID);
+                if(filterState.dept.length && !filterState.dept.includes(emp.Department)) return false;
+                if(filterState.location.length && !filterState.location.includes(emp.Location)) return false;
+                if(filterState.emptype && emp.EmploymentType!==filterState.emptype) return false;
+                if(filterState.from && rec.DueDate<filterState.from) return false;
+                if(filterState.to && rec.DueDate>filterState.to) return false;
+                if(filterState.search){
+                    let s = filterState.search.toLowerCase();
+                    if(!(emp.Name.toLowerCase().includes(s)||rec.PolicyID.toLowerCase().includes(s))) return false;
+                }
+                return true;
+            });
+            let compliant=0,pending=0,overdue=0;
+            for(let rec of filtered){
+                let nowDate = now.toISOString().split('T')[0];
+                if(rec.AcknowledgedDate && (!rec.RequiredTraining || rec.TrainingCompletedDate)){
+                    if(rec.AcknowledgedDate<=rec.DueDate && (!rec.RequiredTraining || rec.TrainingCompletedDate<=rec.DueDate)){
+                        compliant++;
+                    }else if(rec.AcknowledgedDate>rec.DueDate || (rec.RequiredTraining && rec.TrainingCompletedDate>rec.DueDate)){
+                        overdue++;
+                    }else{
+                        pending++;
+                    }
+                }else if(rec.DueDate>=nowDate){
+                    pending++;
+                }else{
+                    overdue++;
+                }
+            }
+            return {id:p.id, name:p.name, compliant, pending, overdue, total:filtered.length};
+        });
+        let stackedBarCtx = document.getElementById('chart-policy-compliance').getContext('2d');
+        if(window.policyComplianceChart) window.policyComplianceChart.destroy();
+        window.policyComplianceChart = new Chart(stackedBarCtx, {
+            type:'bar',
+            data:{
+                labels:policyCounts.map(p=>p.name),
+                datasets:[
+                    {
+                        label:'Compliant',
+                        data:policyCounts.map(p=>p.compliant),
+                        backgroundColor: '#28a745',
+                        stack:'stack1'
+                    },
+                    {
+                        label:'Pending',
+                        data:policyCounts.map(p=>p.pending),
+                        backgroundColor: '#ffc107',
+                        stack:'stack1'
+                    },
+                    {
+                        label:'Overdue',
+                        data:policyCounts.map(p=>p.overdue),
+                        backgroundColor: '#dc3545',
+                        stack:'stack1'
+                    }
+                ]
+            },
+            options:{
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx){
+                                let idx = ctx.dataIndex;
+                                let p = policyCounts[idx];
+                                let total = p.total||1;
+                                let compliantPct = Math.round(100*p.compliant/total);
+                                let pendingPct = Math.round(100*p.pending/total);
+                                let overduePct = Math.round(100*p.overdue/total);
+                                return [
+                                    'Compliant: '+p.compliant+' ('+compliantPct+'%)',
+                                    'Pending: '+p.pending+' ('+pendingPct+'%)',
+                                    'Overdue: '+p.overdue+' ('+overduePct+'%)'
+                                ];
+                            }
+                        }
+                    },
+                    legend: {display:true}
+                },
+                responsive:true,
+                scales: {x:{stacked:true},y:{stacked:true, beginAtZero:true}}
+            }
+        });
+
+        // Chart legend toggles
+        function renderLegend(chart, legendDivId){
+            const legendDiv = document.getElementById(legendDivId);
+            legendDiv.innerHTML = "";
+            chart.data.datasets.forEach((ds,i)=>{
+                let btn = document.createElement('button');
+                btn.className="legend-toggle";
+                btn.setAttribute('aria-pressed','true');
+                btn.innerHTML = '<span style="background:'+ds.backgroundColor+';width:14px;height:14px;display:inline-block;border-radius:3px;margin-right:5px;"></span>'+ds.label;
+                btn.addEventListener('click',function(){
+                    chart.setDatasetVisibility(i, !chart.isDatasetVisible(i));
+                    btn.setAttribute('aria-pressed', chart.isDatasetVisible(i)?"true":"false");
+                    chart.update();
+                });
+                legendDiv.appendChild(btn);
+            });
+        }
+        renderLegend(window.policyComplianceChart, "legend-policy-compliance");
+
+        // 2. Monthly Compliance Trend (Line: 12 points)
+        let monthlyTrendCtx = document.getElementById('chart-monthly-trend').getContext('2d');
+        if(window.monthlyTrendChart) window.monthlyTrendChart.destroy();
+        window.monthlyTrendChart = new Chart(monthlyTrendCtx, {
+            type:'line',
+            data:{
+                labels: MONTHS,
+                datasets:[
+                    {
+                        label:'Acknowledgment',
+                        data: monthly.monthlyAck,
+                        borderColor: '#007bff',
+                        backgroundColor: 'rgba(0,123,255,0.15)',
+                        fill: true,
+                        tension:0.25,
+                        pointRadius:2
+                    },
+                    {
+                        label:'Training',
+                        data: monthly.monthlyTraining,
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40,167,69,0.14)',
+                        fill:true,
+                        tension:0.25,
+                        pointRadius:2
+                    }
+                ]
+            },
+            options:{
+                plugins:{
+                    legend:{display:true},
+                    tooltip:{enabled:true}
+                },
+                responsive:true,
+                scales:{y:{beginAtZero:true,max:100},x:{}}
+            }
+        });
+        renderLegend(window.monthlyTrendChart, "legend-monthly-trend");
+
+        // 3. Horizontal Bar – Top 10 Overdue by Department
+        let deptOverdue = [];
+        for(let d of DEPARTMENTS){
+            let recs = EMP_POLICY_COMPLIANCE.filter(rec=>{
+                let emp = EMPLOYEES.find(e=>e.EmpID===rec.EmpID);
+                if(emp.Department!==d) return false;
+                if(filterState.location.length && !filterState.location.includes(emp.Location)) return false;
+                if(filterState.emptype && emp.EmploymentType!==filterState.emptype) return false;
+                if(filterState.from && rec.DueDate<filterState.from) return false;
+                if(filterState.to && rec.DueDate>filterState.to) return false;
+                if(filterState.search){
+                    let s = filterState.search.toLowerCase();
+                    if(!(emp.Name.toLowerCase().includes(s)||rec.PolicyID.toLowerCase().includes(s))) return false;
+                }
+                // Overdue only
+                let nowDate = now.toISOString().split('T')[0];
+                let status = null;
+                if(rec.AcknowledgedDate && (!rec.RequiredTraining || rec.TrainingCompletedDate)){
+                    if(rec.AcknowledgedDate<=rec.DueDate && (!rec.RequiredTraining || rec.TrainingCompletedDate<=rec.DueDate)){
+                        status = "Compliant";
+                    }else if(rec.AcknowledgedDate>rec.DueDate || (rec.RequiredTraining && rec.TrainingCompletedDate>rec.DueDate)){
+                        status = "Overdue";
+                    }else{
+                        status = "Pending";
+                    }
+                }else if(rec.DueDate>=nowDate){
+                    status = "Pending";
+                }else{
+                    status = "Overdue";
+                }
+                return status==="Overdue";
+            });
+            let total = EMPLOYEES.filter(e=>e.Department===d).length * POLICY_META.length;
+            deptOverdue.push({dept:d, count:recs.length, rate:total?Math.round(100*recs.length/total):0});
+        }
+        deptOverdue.sort((a,b)=>b.count-a.count);
+        let topDepts = deptOverdue.slice(0,10);
+        let overdueDeptCtx = document.getElementById('chart-overdue-dept').getContext('2d');
+        if(window.overdueDeptChart) window.overdueDeptChart.destroy();
+        window.overdueDeptChart = new Chart(overdueDeptCtx, {
+            type:'bar',
+            data:{
+                labels:topDepts.map(d=>d.dept),
+                datasets:[
+                    {
+                        label:'Overdue Count',
+                        data:topDepts.map(d=>d.count),
+                        backgroundColor:'#dc3545'
+                    }
+                ]
+            },
+            options:{
+                indexAxis:'y',
+                plugins:{
+                    legend:{display:true},
+                    tooltip:{callbacks:{
+                        label:function(ctx){
+                            let d = topDepts[ctx.dataIndex];
+                            return d.dept+": "+d.count+" overdue ("+d.rate+"%)";
+                        }
+                    }}
+                },
+                responsive:true,
+                scales:{x:{beginAtZero:true},y:{}}
+            }
+        });
+        renderLegend(window.overdueDeptChart,"legend-overdue-dept");
+
+        // 4. Donut – Compliance by Employment Type
+        let empTypeData = [];
+        let empTypeLabels = [];
+        let compliantTypeData = [];
+        for(let t of EMP_TYPES){
+            let recs = EMP_POLICY_COMPLIANCE.filter(rec=>{
+                let emp = EMPLOYEES.find(e=>e.EmpID===rec.EmpID);
+                if(emp.EmploymentType!==t) return false;
+                if(filterState.dept.length && !filterState.dept.includes(emp.Department)) return false;
+                if(filterState.location.length && !filterState.location.includes(emp.Location)) return false;
+                if(filterState.from && rec.DueDate<filterState.from) return false;
+                if(filterState.to && rec.DueDate>filterState.to) return false;
+                if(filterState.search){
+                    let s = filterState.search.toLowerCase();
+                    if(!(emp.Name.toLowerCase().includes(s)||rec.PolicyID.toLowerCase().includes(s))) return false;
+                }
+                return true;
+            });
+            let compliant = recs.filter(rec=>{
+                let nowDate = now.toISOString().split('T')[0];
+                if(rec.AcknowledgedDate && (!rec.RequiredTraining || rec.TrainingCompletedDate)){
+                    if(rec.AcknowledgedDate<=rec.DueDate && (!rec.RequiredTraining || rec.TrainingCompletedDate<=rec.DueDate)){
+                        return true;
+                    }
+                }
+                return false;
+            }).length;
+            empTypeLabels.push(EMP_TYPE_FULL[t]);
+            empTypeData.push(recs.length);
+            compliantTypeData.push(compliant);
+        }
+        let empTypeCtx = document.getElementById('chart-emptype').getContext('2d');
+        if(window.empTypeChart) window.empTypeChart.destroy();
+        window.empTypeChart = new Chart(empTypeCtx, {
+            type:'doughnut',
+            data:{
+                labels:empTypeLabels,
+                datasets:[
+                    {
+                        label:'Total',
+                        data:empTypeData,
+                        backgroundColor:['#007bff','#ffc107','#dc3545','#28a745'],
+                        borderWidth:2
+                    },
+                    {
+                        label:'Compliant',
+                        data:compliantTypeData,
+                        backgroundColor:['#5bc0ff','#ffe28c','#f191a2','#7be98c'],
+                        borderWidth:2
+                    }
+                ]
+            },
+            options:{
+                plugins:{
+                    legend:{display:true},
+                    tooltip:{callbacks:{
+                        label:function(ctx){
+                            let idx=ctx.dataIndex;
+                            let total=empTypeData[idx], compliant=compliantTypeData[idx];
+                            let pct = total?Math.round(100*compliant/total):0;
+                            return ctx.label+": "+compliant+"/"+total+" ("+pct+"% compliant)";
+                        }
+                    }}
+                },
+                responsive:true
+            }
+        });
+        renderLegend(window.empTypeChart,"legend-emptype");
+
+        // --- Overdue Table ---
+        let overdueRows = computeOverdueRows(filterState);
+        let overdueTableCont = document.getElementById('overdue-table-container');
+        let overduePagination = document.getElementById('overdue-pagination');
+        overdueTableCont.innerHTML = "";
+        overduePagination.innerHTML = "";
+        if(overdueRows.length===0){
+            overdueTableCont.innerHTML = '<div class="no-results" aria-live="polite">No results – no overdue items match current filters.</div>';
+        }else{
+            // Paginate
+            let pageSize = 25;
+            let pageCount = Math.ceil(overdueRows.length/pageSize);
+            let currPage = window.overduePageNum||1;
+            if(currPage<1) currPage=1;
+            if(currPage>pageCount) currPage=pageCount;
+            window.overduePageNum = currPage;
+            let pageRows = overdueRows.slice((currPage-1)*pageSize, currPage*pageSize);
+            let table = document.createElement('table');
+            table.setAttribute('aria-label','Overdue Employees Table');
+            let thead = document.createElement('thead');
+            thead.innerHTML = "<tr>"+
+                "<th>Employee Name</th>"+
+                "<th>Emp ID</th>"+
+                "<th>Department</th>"+
+                "<th>Location</th>"+
+                "<th>Employment Type</th>"+
+                "<th>Policy</th>"+
+                "<th>Policy Version</th>"+
+                "<th>Due Date</th>"+
+                "<th>Days Overdue</th>"+
+                "<th>Manager</th>"+
+                "<th>Required Action</th>"+
+                "<th>Last Reminder Sent</th>"+
+                "</tr>";
+            table.appendChild(thead);
+            let tbody = document.createElement('tbody');
+            for(let row of pageRows){
+                let tr = document.createElement('tr');
+                tr.tabIndex = 0;
+                tr.setAttribute('role','button');
+                tr.setAttribute('aria-label','View compliance history for '+row.Name);
+                tr.innerHTML =
+                    `<td>${row.Name}</td>
+                    <td>${row.EmpID}</td>
+                    <td>${row.Department}</td>
+                    <td>${row.Location}</td>
+                    <td>${EMP_TYPE_FULL[row.EmploymentType]}</td>
+                    <td>${row.Policy}</td>
+                    <td>${row.PolicyVersion}</td>
+                    <td>${row.DueDate}</td>
+                    <td>${row.DaysOverdue}</td>
+                    <td>${row.Manager}</td>
+                    <td><span class="badge-overdue">${row.RequiredAction}</span></td>
+                    <td>${row.LastReminderSent}</td>`;
+                tr.addEventListener('click',function(){
+                    showComplianceModal(row.EmpID,row.PolicyID);
+                });
+                tr.addEventListener('keydown',function(e){
+                    if(e.key==="Enter"||e.key===" "){
+                        showComplianceModal(row.EmpID,row.PolicyID);
+                    }
+                });
+                tbody.appendChild(tr);
+            }
+            table.appendChild(tbody);
+            overdueTableCont.appendChild(table);
+            // Pagination
+            for(let i=1;i<=pageCount;i++){
+                let btn = document.createElement('button');
+                btn.className = "page-btn"+(i===currPage?" active":"");
+                btn.textContent = i;
+                btn.tabIndex = 0;
+                btn.setAttribute('aria-label','Go to page '+i);
+                btn.addEventListener('click',function(){
+                    window.overduePageNum = i;
+                    renderDashboard();
+                });
+                overduePagination.appendChild(btn);
+            }
+        }
+
+        // --- Policy Table ---
+        let policyRows = computePolicyRows(filterState);
+        let policyTableCont = document.getElementById('policy-table-container');
+        policyTableCont.innerHTML = "";
+        if(policyRows.length===0){
+            policyTableCont.innerHTML = '<div class="no-results" aria-live="polite">No results – no policies match current filters.</div>';
+        }else{
+            let table = document.createElement('table');
+            table.setAttribute('aria-label','Policy Inventory Table');
+            let thead = document.createElement('thead');
+            thead.innerHTML = "<tr>"+
+                "<th>Policy ID</th>"+
+                "<th>Policy Name</th>"+
+                "<th>Owner</th>"+
+                "<th>Current Version</th>"+
+                "<th>Last Updated</th>"+
+                "<th>Cadence</th>"+
+                "<th>Target (%)</th>"+
+                "<th>Current (%)</th>"+
+                "<th>Linked Training</th>"+
+                "<th>SLA (days)</th>"+
+                "<th>Status</th>"+
+                "</tr>";
+            table.appendChild(thead);
+            let tbody = document.createElement('tbody');
+            for(let row of policyRows){
+                let statusClass = "badge-on-track";
+                if(row.Status==="At Risk") statusClass = "badge-at-risk";
+                if(row.Status==="Behind") statusClass = "badge-behind";
+                let currPctColor = row.Current>=row.Target?"#28a745":(row.Current>=row.Target-3?"#ffc107":"#dc3545");
+                let tr = document.createElement('tr');
+                tr.innerHTML =
+                    `<td>${row.PolicyID}</td>
+                    <td>${row.PolicyName}</td>
+                    <td>${row.Owner}</td>
+                    <td>${row.CurrentVersion}</td>
+                    <td>${row.LastUpdated}</td>
+                    <td>${row.Cadence}</td>
+                    <td>${row.Target}</td>
+                    <td style="color:${currPctColor};font-weight:700">${row.Current}</td>
+                    <td>${row.LinkedTraining}</td>
+                    <td>${row.SLA}</td>
+                    <td><span class="${statusClass}">${row.Status}</span></td>`;
+                tbody.appendChild(tr);
+            }
+            table.appendChild(tbody);
+            policyTableCont.appendChild(table);
+        }
+
+    }
+
+    // --- Modal for Employee Compliance History ---
+    function showComplianceModal(empID, policyID){
+        // Find last 3 versions (drill-down)
+        let policy = POLICY_META.find(p=>p.id===policyID);
+        let emp = EMPLOYEES.find(e=>e.EmpID===empID);
+        let versions = [];
+        for(let v=0;v<3;v++){
+            let versionNum = parseInt(policy.currentVersion.split('.')[1])-v;
+            let version = "v2025."+versionNum;
+            let rec = EMP_POLICY_COMPLIANCE.find(r=>r.EmpID===empID && r.PolicyID===policyID);
+            versions.push({
+                version: version,
+                acknowledged: rec?rec.AcknowledgedDate:"—",
+                training: rec?rec.TrainingCompletedDate:"—",
+                due: rec?rec.DueDate:"—"
+            });
+        }
+        // Reminder log: last 3 reminders
+        let reminderLog = [];
+        for(let i=0;i<3;i++){
+            let dt = new Date(now.getTime()-i*7*24*3600*1000).toISOString().split('T')[0];
+            reminderLog.push({date:dt, method:i===0?"Email":"SMS"});
+        }
+        // Modal HTML
+        let overlay = document.getElementById('modal-overlay');
+        overlay.innerHTML = "";
+        overlay.style.display = "flex";
+        let modal = document.createElement('div');
+        modal.className = "modal";
+        modal.tabIndex = 0;
+        // Close button
+        let closeBtn = document.createElement('button');
+        closeBtn.className = "modal-close";
+        closeBtn.innerHTML = "&times;";
+        closeBtn.setAttribute('aria-label','Close modal');
+        closeBtn.addEventListener('click',function(){
+            overlay.style.display = "none";
+        });
+        modal.appendChild(closeBtn);
+        // Header
+        let header = document.createElement('div');
+        header.className="modal-header";
+        header.textContent = emp.Name + " – " + policy.name;
+        modal.appendChild(header);
+        // Compliance history
+        let section1 = document.createElement('div');
+        section1.className = "modal-section";
+        section1.innerHTML = "<strong>Compliance History (last 3 versions)</strong>";
+        let table1 = document.createElement('table');
+        table1.className="modal-table";
+        table1.innerHTML = "<thead><tr><th>Version</th><th>Acknowledged</th><th>Training Completed</th><th>Due Date</th></tr></thead><tbody>"+
+            versions.map(v=>`<tr><td>${v.version}</td><td>${v.acknowledged}</td><td>${v.training}</td><td>${v.due}</td></tr>`).join("")+"</tbody>";
+        section1.appendChild(table1);
+        modal.appendChild(section1);
+        // Reminder log
+        let section2 = document.createElement('div');
+        section2.className = "modal-section";
+        section2.innerHTML = "<strong>Reminder Log</strong>";
+        let table2 = document.createElement('table');
+        table2.className="modal-table";
+        table2.innerHTML = "<thead><tr><th>Date</th><th>Method</th></tr></thead><tbody>"+
+            reminderLog.map(r=>`<tr><td>${r.date}</td><td>${r.method}</td></tr>`).join("")+"</tbody>";
+        section2.appendChild(table2);
+        modal.appendChild(section2);
+        overlay.appendChild(modal);
+
+        // Keyboard focus trap
+        modal.focus();
+        overlay.addEventListener('keydown',function(e){
+            if(e.key==="Escape"){
+                overlay.style.display="none";
+            }
+        });
+    }
+
+    // --- Initial Render ---
+    setDarkMode(getDarkMode());
+    filterState = getFilters();
+    renderDashboard();
+    updateFilterChips();
+
+    // Accessibility: focus trap for modal
+    document.getElementById('modal-overlay').addEventListener('click',function(e){
+        if(e.target===this){
+            this.style.display="none";
+        }
+    });
+    </script>
+</body>
+</html>

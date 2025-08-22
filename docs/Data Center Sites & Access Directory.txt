@@ -1,0 +1,255 @@
+VMOBILE DATA CENTER SITES – ACCESS DIRECTORY
+============================================
+
+Vmobile maintains a network of strategically located data centers to support our operations, ensure business continuity, and safeguard critical digital assets. The Vmobile Data Center Sites – Access Directory is the authoritative resource for employees, contractors, and authorized third parties requiring physical or remote access to Vmobile’s data center facilities. This directory is governed by strict security protocols and access control measures, in alignment with Vmobile’s commitment to information security, regulatory compliance, and operational excellence.
+
+Purpose
+
+The Access Directory serves the following key purposes:
+- To provide a comprehensive listing of Vmobile’s data center sites, including addresses, access points, and contact details.
+- To define procedures for requesting and obtaining access, both physical and remote.
+- To outline the roles and responsibilities of personnel authorized to manage, supervise, and monitor site access.
+- To specify emergency procedures and escalation contacts in the event of security incidents or operational disruptions.
+
+Access Control Policy
+
+Access to Vmobile data center sites is restricted to authorized personnel only. Authorization is granted based on job function, business need, and completion of mandatory security training. All access requests must be submitted via Vmobile’s IT Service Portal and approved by the Data Center Operations Manager or designated delegate. Badge access, biometric identification, and multi-factor authentication are required at all physical entry points.
+
+The following categories of personnel may be granted access:
+1. Vmobile employees assigned to Data Center Operations, IT Infrastructure, or Network Engineering.
+2. Approved contractors and vendors performing scheduled maintenance or installations.
+3. Security staff responsible for site monitoring and incident response.
+4. Senior management or auditors conducting compliance reviews.
+
+All access is logged, monitored, and subject to periodic audit. Unauthorized access attempts will result in disciplinary action, up to and including termination and legal prosecution.
+
+Directory Maintenance
+
+The Access Directory is maintained by the Data Center Operations team and reviewed quarterly. Updates to site information, contact details, or access procedures will be communicated via official Vmobile email bulletins and posted on the internal HR & IT Policy Portal.
+
+Confidentiality and Data Protection
+
+Information contained in the Access Directory is classified as “Confidential – Internal Use Only.” Employees are prohibited from sharing directory details with external parties unless expressly authorized by the Chief Information Security Officer (CISO). Any suspected breach of directory confidentiality must be reported immediately to the IT Security team.
+
+Compliance
+
+All employees must comply with the policies and procedures outlined in this directory. Non-compliance may result in suspension of access privileges, disciplinary action, and/or notification to regulatory authorities as required by law.
+
+For questions regarding the Access Directory, contact the Data Center Operations Manager or HR Business Partner assigned to your department.
+
+
+HOW TO USE THIS DIRECTORY
+=========================
+
+The Vmobile Data Center Sites – Access Directory is designed to provide employees and authorized personnel with clear, actionable information for accessing and managing Vmobile’s data center facilities. It is imperative that all users understand how to navigate and utilize the directory to ensure compliance with company policies and maintain operational security.
+
+Overview
+
+This directory is organized into distinct sections, each serving a specific purpose:
+- Site Directory: Detailed listings of each Vmobile data center, including location, access protocols, and site-specific contacts.
+- Cross-Connect Contacts: Information on inter-site connectivity and escalation points for network issues.
+- Emergency Numbers: Essential contacts for incident response, medical emergencies, and facility management.
+
+Instructions for Use
+
+1. Identify Your Access Needs
+   - Determine the specific data center site you require access to, based on your job function, scheduled task, or project assignment.
+   - Consult your manager or project lead if you are unsure which site is relevant to your responsibilities.
+
+2. Locate Relevant Site Information
+   - Refer to the Site Directory section for the address, access hours, entry protocols, and on-site contacts for each facility.
+   - Note any site-specific requirements, such as advance notice for visits, escort policies, or restricted areas.
+
+3. Submit Access Requests
+   - All physical and remote access requests must be submitted through the Vmobile IT Service Portal.
+   - Include the purpose of your visit, expected duration, and names of all personnel requiring access.
+   - Await confirmation and instructions from the Data Center Operations Manager.
+
+4. Contact Cross-Connect Support
+   - For network connectivity issues, infrastructure changes, or inter-site troubleshooting, refer to the Cross-Connect Contacts section.
+   - Use the provided escalation paths and contact details to resolve technical problems efficiently.
+
+5. Emergency Procedures
+   - In the event of a security incident, medical emergency, or facility malfunction, immediately refer to the Emergency Numbers section.
+   - Follow established reporting protocols and cooperate fully with emergency responders and Vmobile security personnel.
+
+Best Practices
+
+- Always verify the currency of directory information before planning a site visit or initiating contact.
+- Maintain confidentiality and do not share directory details with unauthorized individuals.
+- Report any discrepancies, outdated information, or security concerns to the Data Center Operations team promptly.
+
+Support
+
+For assistance using the directory, employees may contact the IT Help Desk, Data Center Operations Manager, or their HR Business Partner. Training on directory usage is provided during onboarding and available on demand through the Vmobile Learning Portal.
+
+
+SITE DIRECTORY
+==============
+
+The Site Directory provides a comprehensive listing of all Vmobile data center locations, including essential access information, site-specific protocols, and designated contacts. This section is maintained by the Data Center Operations team and updated quarterly to reflect changes in site status, contact personnel, or access procedures.
+
+Site Listings
+
+Each entry in the Site Directory includes:
+- Site Name and Code
+- Physical Address
+- Access Hours and Restrictions
+- Entry Protocols and Security Measures
+- On-Site Contacts
+- Facility Features and Capabilities
+
+Example Site Entries
+
+1. Vmobile Data Center – North Campus (Site Code: VDC-NC)
+   - Address: 1120 Technology Way, Suite 300, San Jose, CA 95131
+   - Access Hours: 24/7 for authorized personnel; escorted access for visitors between 08:00–18:00.
+   - Entry Protocols: Badge access required; biometric scan at main entrance; sign-in at security desk.
+   - On-Site Contacts:
+     - Site Manager: Lisa Chen, 408-555-1201, lchen@vmobile.com
+     - Security Supervisor: Marcus Hill, 408-555-1215, mhill@vmobile.com
+   - Features: Tier III power redundancy, dedicated network operations center, secure cage areas.
+
+2. Vmobile Data Center – East Gateway (Site Code: VDC-EG)
+   - Address: 1801 Digital Drive, Suite 200, Ashburn, VA 20147
+   - Access Hours: 06:00–22:00 daily; after-hours access by prior arrangement only.
+   - Entry Protocols: PIN code entry; badge swipe; video surveillance at all entry points.
+   - On-Site Contacts:
+     - Site Manager: Priya Singh, 703-555-1302, psingh@vmobile.com
+     - Facilities Technician: John Ramirez, 703-555-1307, jramirez@vmobile.com
+   - Features: High-density compute clusters, cross-connect suites, disaster recovery vault.
+
+3. Vmobile Data Center – South Point (Site Code: VDC-SP)
+   - Address: 4500 Innovation Blvd, Austin, TX 78758
+   - Access Hours: 24/7 for approved staff; visitor access 09:00–17:00 with escort.
+   - Entry Protocols: RFID badge; two-factor authentication; visitor log required.
+   - On-Site Contacts:
+     - Site Manager: Carla Gomez, 512-555-1403, cgomez@vmobile.com
+     - Security Officer: David Lee, 512-555-1410, dlee@vmobile.com
+   - Features: Renewable energy backup, advanced cooling systems, secure loading dock.
+
+Site-Specific Requirements
+
+- Advance notice is required for all non-routine visits. Submit requests at least 48 hours prior to arrival.
+- All visitors must be accompanied by an authorized employee and must present government-issued photo identification.
+- Personal electronic devices may be restricted in certain areas; consult site management for details.
+- Emergency exits and evacuation routes are posted at all facilities.
+
+Temporary Sites and Decommissioned Facilities
+
+Information on temporary data center sites or facilities scheduled for decommissioning will be included in this directory as needed. Employees are advised to confirm site status before planning any visit.
+
+Directory Updates
+
+To request an update or correction to site information, contact the Data Center Operations Manager. All changes must be approved and documented in accordance with Vmobile’s Change Management Policy.
+
+
+CROSS-CONNECT CONTACTS
+======================
+
+Cross-connects are essential for maintaining seamless network connectivity between Vmobile’s data center sites, external providers, and critical business applications. The Cross-Connect Contacts section provides employees with the necessary information to initiate, escalate, and resolve cross-connect issues in accordance with Vmobile’s IT and Network Operations protocols.
+
+Roles and Responsibilities
+
+The following personnel are responsible for cross-connect management:
+- Network Engineering Team: Design, implement, and monitor cross-connects.
+- Data Center Operations Team: Coordinate physical installation and maintenance.
+- Third-Party Providers: Assist with external connectivity and troubleshooting.
+- IT Service Desk: Provide first-level support and ticket escalation.
+
+Contact Directory
+
+For each data center site, the following cross-connect contacts are designated:
+
+1. VDC-NC (North Campus)
+   - Network Engineer: Kevin Park, 408-555-1220, kpark@vmobile.com
+   - Cross-Connect Coordinator: Ellen Wu, 408-555-1225, ewu@vmobile.com
+   - IT Service Desk: 3000, itservicedesk@vmobile.com
+
+2. VDC-EG (East Gateway)
+   - Network Engineer: Amira Hassan, 703-555-1311, ahassan@vmobile.com
+   - Cross-Connect Coordinator: Greg Turner, 703-555-1315, gturner@vmobile.com
+   - IT Service Desk: 3000, itservicedesk@vmobile.com
+
+3. VDC-SP (South Point)
+   - Network Engineer: Luis Martinez, 512-555-1420, lmartinez@vmobile.com
+   - Cross-Connect Coordinator: Jenna Ford, 512-555-1425, jford@vmobile.com
+   - IT Service Desk: 3000, itservicedesk@vmobile.com
+
+Escalation Procedures
+
+If a cross-connect issue cannot be resolved at the first level, employees must escalate as follows:
+1. Contact the designated Network Engineer for troubleshooting.
+2. If unresolved, escalate to the Cross-Connect Coordinator.
+3. For persistent issues, notify the Data Center Operations Manager and document the incident in the IT Service Portal.
+4. In case of service outages affecting business-critical systems, contact the IT Incident Response Lead at 408-555-1999.
+
+Requesting New Cross-Connects
+
+To request a new cross-connect:
+- Submit a Cross-Connect Request Form via the IT Service Portal.
+- Provide details on endpoints, required bandwidth, and business justification.
+- Await approval from Network Engineering and Data Center Operations.
+- Coordinate installation with on-site staff and third-party providers as needed.
+
+Maintenance and Scheduled Downtime
+
+All scheduled maintenance or downtime affecting cross-connects will be communicated via email and posted on the internal IT Status Board. Employees are responsible for reviewing notifications and planning work accordingly.
+
+
+EMERGENCY NUMBERS
+=================
+
+Vmobile is committed to the safety and security of all employees, contractors, and visitors at our data center sites. The Emergency Numbers section provides critical contact information for immediate response to incidents, emergencies, and facility-related disruptions. Employees must familiarize themselves with these numbers and procedures to ensure swift and effective action when required.
+
+Emergency Contacts by Site
+
+1. VDC-NC (North Campus)
+   - Security Desk (24/7): 408-555-1234
+   - Facility Management: 408-555-1240
+   - Local Emergency Services (Police, Fire, Medical): 911
+   - IT Incident Response Lead: 408-555-1999
+
+2. VDC-EG (East Gateway)
+   - Security Desk (06:00–22:00): 703-555-1320
+   - Facility Management: 703-555-1330
+   - Local Emergency Services: 911
+   - IT Incident Response Lead: 703-555-1999
+
+3. VDC-SP (South Point)
+   - Security Desk (24/7): 512-555-1430
+   - Facility Management: 512-555-1440
+   - Local Emergency Services: 911
+   - IT Incident Response Lead: 512-555-1999
+
+Corporate Emergency Contacts
+
+- Vmobile Corporate Security: 800-555-9000, security@vmobile.com
+- HR Emergency Hotline: 800-555-9100, hrhotline@vmobile.com
+- Chief Information Security Officer (CISO): 408-555-1800, ciso@vmobile.com
+
+Reporting Procedures
+
+In the event of an emergency:
+1. Ensure your own safety and the safety of others.
+2. Contact the appropriate emergency number for your site.
+3. Clearly state your name, location, nature of the emergency, and any immediate hazards.
+4. Follow instructions provided by security, facility management, or emergency responders.
+5. If the emergency involves IT systems or data security, notify the IT Incident Response Lead immediately.
+
+Additional Guidelines
+
+- Evacuation routes and emergency exits are posted at all data center sites. Familiarize yourself with these locations upon arrival.
+- First aid kits and automated external defibrillators (AEDs) are located at designated points in each facility.
+- In case of fire, activate the nearest fire alarm and evacuate the building according to posted procedures.
+- For medical emergencies, call 911 and notify the on-site security desk.
+
+Non-Emergency Reporting
+
+For non-urgent facility issues, security concerns, or HR matters, use the internal reporting channels listed above or submit a ticket via the IT Service Portal.
+
+Review and Updates
+
+Emergency numbers are reviewed quarterly and updated as necessary. Employees are responsible for ensuring they have current contact information and understanding site-specific emergency procedures.
+
+For questions or additional information regarding emergency protocols, contact Corporate Security(corpsecurity@vmobile.com) or your HR Business Partner(hrbusinesspartner@vmobile.com).

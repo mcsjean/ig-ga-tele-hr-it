@@ -1,0 +1,411 @@
+Ticket ID,Timestamp,Category,Subcategory,Issue Description,Status,Escalated Time,Resolved Time,Assigned Group
+TCKT-1001,2025-05-01T08:15:23,Hardware,Laptop,Laptop not powering on after overnight charging.,Resolved,2024-06-01T10:30:00,2025-06-05T12:45:00,IT Support
+TCKT-1002,2025-05-01T09:05:11,Software,Email,"Unable to send emails via Outlook, error code 0x800CCC0E.",Resolved,,2025-06-05T09:45:00,Application Support
+TCKT-1003,2025-05-01T09:22:45,Network,WiFi,Intermittent WiFi connectivity in conference room.,Open,,,Network Operations
+TCKT-1004,2025-05-01T10:01:32,Hardware,Printer,Printer showing paper jam error despite no jam.,Resolved,,2025-06-05T11:10:00,IT Support
+TCKT-1005,2025-05-01T10:15:09,Software,ERP,ERP system not loading dashboard for user.,Pending,2024-06-01T11:00:00,,Application Support
+TCKT-1006,2025-05-01T10:45:27,Network,VPN,VPN connection drops after 5 minutes of use.,Open,,,Network Operations
+TCKT-1007,2025-05-01T11:02:14,Hardware,Desktop,Desktop computer making loud fan noise.,Resolved,,2025-06-05T13:00:00,IT Support
+TCKT-1008,2025-05-01T11:20:33,Software,Browser,Chrome browser crashing on startup.,Resolved,,2025-06-05T12:00:00,Application Support
+TCKT-1009,2025-05-01T11:45:50,Network,LAN,"No network access on floor 3, all devices affected.",Escalated,2024-06-01T12:00:00,,Network Operations
+TCKT-1010,2025-05-01T12:05:12,Hardware,Monitor,Monitor flickering intermittently.,Resolved,,2025-06-05T13:30:00,IT Support
+TCKT-1011,2025-05-01T12:20:44,Software,Antivirus,Antivirus update failing with error code 104.,Open,,,Application Support
+TCKT-1012,2025-05-01T12:45:19,Network,Firewall,Firewall blocking access to external website.,Resolved,,2025-06-05T14:00:00,Network Operations
+TCKT-1013,2025-05-01T13:05:37,Hardware,Keyboard,Keyboard keys not responding.,Resolved,,2025-06-05T13:45:00,IT Support
+TCKT-1014,2025-05-01T13:22:58,Software,Operating System,Windows update stuck at 45%.,Pending,,,Application Support
+TCKT-1015,2025-05-01T13:40:16,Network,Switch,Network switch in server room not responding.,Escalated,2024-06-01T14:00:00,,Network Operations
+TCKT-1016,2025-05-01T14:05:29,Hardware,Mouse,Mouse cursor not moving smoothly.,Resolved,,2025-06-05T14:30:00,IT Support
+TCKT-1017,2025-05-01T14:22:41,Software,Database,Database query running slow for all users.,Escalated,2024-06-01T15:00:00,,Application Support
+TCKT-1018,2025-05-01T14:45:53,Network,WAN,Slow internet speeds reported in branch office.,Open,,,Network Operations
+TCKT-1019,2025-05-01T15:05:17,Hardware,Laptop,Laptop battery draining quickly.,Resolved,,2025-06-05T16:00:00,IT Support
+TCKT-1020,2025-05-01T15:20:34,Software,Email,Spam emails not being filtered.,Open,,,Application Support
+TCKT-1021,2025-05-01T15:45:02,Network,WiFi,WiFi password not accepted on mobile devices.,Resolved,,2025-06-05T16:10:00,Network Operations
+TCKT-1022,2025-05-01T16:05:19,Hardware,Printer,Printer not connecting to network.,Pending,,,IT Support
+TCKT-1023,2025-05-01T16:22:33,Software,ERP,ERP report generation failing for finance team.,Escalated,2024-06-01T17:00:00,,Application Support
+TCKT-1024,2025-05-01T16:45:48,Network,VPN,Unable to connect to VPN from home.,Resolved,,2025-06-05T17:30:00,Network Operations
+TCKT-1025,2025-05-01T17:05:15,Hardware,Desktop,Desktop not recognizing USB devices.,Resolved,,2025-06-05T18:00:00,IT Support
+TCKT-1026,2025-05-01T17:20:27,Software,Browser,Edge browser not loading internal portal.,Open,,,Application Support
+TCKT-1027,2025-05-01T17:45:39,Network,LAN,LAN port in meeting room not working.,Resolved,,2025-06-05T18:15:00,Network Operations
+TCKT-1028,2025-05-01T18:05:51,Hardware,Monitor,Monitor not displaying after sleep mode.,Resolved,,2025-06-05T18:45:00,IT Support
+TCKT-1029,2025-05-01T18:20:13,Software,Antivirus,Antivirus flagged legitimate application as malware.,Pending,,,Application Support
+TCKT-1030,2025-05-01T18:45:25,Network,Firewall,Firewall rules need updating for new vendor.,Open,,,Network Operations
+TCKT-1031,2025-05-01T19:05:37,Hardware,Keyboard,Wireless keyboard disconnects frequently.,Resolved,,2025-06-05T19:30:00,IT Support
+TCKT-1032,2025-05-01T19:22:49,Software,Operating System,"MacOS update failed, system rollback initiated.",Escalated,2024-06-01T20:00:00,,Application Support
+TCKT-1033,2025-05-01T19:45:01,Network,Switch,Switch port configuration needed for new device.,Resolved,,2025-06-05T20:15:00,Network Operations
+TCKT-1034,2025-05-01T20:05:13,Hardware,Mouse,Mouse double-clicking unexpectedly.,Resolved,,2025-06-05T20:30:00,IT Support
+TCKT-1035,2025-05-01T20:22:25,Software,Database,Database backup failed overnight.,Open,,,Application Support
+TCKT-1036,2025-05-01T20:45:37,Network,WAN,WAN link down for remote office.,Escalated,2024-06-01T21:00:00,,Network Operations
+TCKT-1037,2025-05-01T21:05:49,Hardware,Laptop,Laptop screen cracked after accidental drop.,Resolved,,2025-06-05T22:00:00,IT Support
+TCKT-1038,2025-05-01T21:20:01,Software,Email,Email attachments not downloading.,Pending,,,Application Support
+TCKT-1039,2025-05-01T21:45:13,Network,WiFi,WiFi signal weak in cafeteria.,Resolved,,2025-06-05T22:15:00,Network Operations
+TCKT-1040,2025-05-01T22:05:25,Hardware,Printer,Printer toner low warning persists after replacement.,Resolved,,2025-06-05T22:45:00,IT Support
+TCKT-1041,2025-05-01T22:20:37,Software,ERP,ERP login page not loading for HR users.,Escalated,2024-06-01T23:00:00,,Application Support
+TCKT-1042,2025-05-01T22:45:49,Network,VPN,VPN authentication failing for new employee.,Resolved,,2025-06-05T23:30:00,Network Operations
+TCKT-1043,2025-05-01T23:05:01,Hardware,Desktop,Desktop freezing during video calls.,Open,,,IT Support
+TCKT-1044,2025-05-01T23:20:13,Software,Browser,Firefox not displaying images on intranet.,Resolved,,2025-06-05T23:45:00,Application Support
+TCKT-1045,2025-05-01T23:45:25,Network,LAN,LAN cable damaged in server rack.,Resolved,,2025-06-02T00:15:00,Network Operations
+TCKT-1046,2025-05-02T00:05:37,Hardware,Monitor,Monitor brightness adjustment not working.,Pending,,,IT Support
+TCKT-1047,2025-05-02T00:22:49,Software,Antivirus,"Antivirus license expired, renewal needed.",Resolved,,2025-06-02T01:00:00,Application Support
+TCKT-1048,2025-05-02T00:45:01,Network,Firewall,Firewall blocking internal file transfers.,Escalated,2024-06-02T01:00:00,,Network Operations
+TCKT-1049,2025-05-02T01:05:13,Hardware,Keyboard,Keyboard backlight not functioning.,Resolved,,2025-06-02T01:30:00,IT Support
+TCKT-1050,2025-05-02T01:22:25,Software,Operating System,Linux server not booting after patch update.,Open,,,Application Support
+TCKT-1001,2025-05-01T08:15:23,Hardware,Laptop,Laptop not powering on after overnight charging.,Resolved,2024-06-01T09:00:00,2025-06-05T11:30:00,IT Support
+TCKT-1002,2025-05-01T09:45:12,Software,Email,Unable to send emails through Outlook.,Open,,,Application Support
+TCKT-1003,2025-05-01T10:05:47,Network,WiFi,Intermittent WiFi connectivity in conference room.,In Progress,2024-06-01T10:30:00,,Network Team
+TCKT-1004,2025-05-01T11:22:36,Hardware,Printer,Printer displaying paper jam error.,Resolved,,2025-06-05T12:10:00,Facilities
+TCKT-1005,2025-05-01T12:05:18,Software,ERP,ERP system not loading dashboard for user.,Open,,,Application Support
+TCKT-1006,2025-05-01T13:14:50,Network,VPN,VPN connection drops after 5 minutes.,In Progress,2024-06-01T13:45:00,,Network Team
+TCKT-1007,2025-05-01T14:02:33,Hardware,Monitor,Monitor flickering intermittently.,Resolved,,2025-06-05T15:00:00,IT Support
+TCKT-1008,2025-05-01T15:25:41,Software,Browser,Chrome crashes when opening multiple tabs.,Open,,,Application Support
+TCKT-1009,2025-05-01T16:10:19,Network,LAN,No network access on floor 3.,In Progress,2024-06-01T16:30:00,,Network Team
+TCKT-1010,2025-05-01T17:05:08,Hardware,Desktop,Desktop freezing during startup.,Resolved,,2025-06-05T18:00:00,IT Support
+TCKT-1011,2025-05-02T08:12:45,Software,Antivirus,Antivirus update failing on multiple machines.,Open,,,Security Team
+TCKT-1012,2025-05-02T09:30:27,Network,Firewall,Firewall blocking access to internal resources.,In Progress,2024-06-02T09:45:00,,Network Team
+TCKT-1013,2025-05-02T10:18:39,Hardware,Keyboard,Keyboard keys not responding.,Resolved,,2025-06-02T11:00:00,IT Support
+TCKT-1014,2025-05-02T11:45:16,Software,Operating System,Windows update stuck at 60%.,Open,,,Application Support
+TCKT-1015,2025-05-02T12:22:54,Network,Switch,Switch port not functioning for new device.,In Progress,2024-06-02T12:45:00,,Network Team
+TCKT-1016,2025-05-02T13:10:33,Hardware,Mouse,Mouse pointer lagging.,Resolved,,2025-06-02T13:45:00,IT Support
+TCKT-1017,2025-05-02T14:05:21,Software,Database,Database connection timeout for finance app.,Open,,,Application Support
+TCKT-1018,2025-05-02T15:22:08,Network,Router,Router rebooting unexpectedly.,In Progress,2024-06-02T15:45:00,,Network Team
+TCKT-1019,2025-05-02T16:30:44,Hardware,Scanner,Scanner not detected by computer.,Resolved,,2025-06-02T17:15:00,IT Support
+TCKT-1020,2025-05-02T17:50:19,Software,CRM,CRM reports not generating for sales team.,Open,,,Application Support
+TCKT-1021,2025-05-03T08:05:37,Network,WAN,Slow WAN performance during peak hours.,In Progress,2024-06-03T08:30:00,,Network Team
+TCKT-1022,2025-05-03T09:18:24,Hardware,Laptop,Laptop battery draining quickly.,Resolved,,2025-06-03T10:00:00,IT Support
+TCKT-1023,2025-05-03T10:30:12,Software,Email,Spam filter blocking legitimate emails.,Open,,,Security Team
+TCKT-1024,2025-05-03T11:45:59,Network,WiFi,WiFi authentication failing for guests.,In Progress,2024-06-03T12:00:00,,Network Team
+TCKT-1025,2025-05-03T12:20:41,Hardware,Printer,Printer not connecting to network.,Resolved,,2025-06-03T13:00:00,Facilities
+TCKT-1026,2025-05-03T13:05:33,Software,ERP,ERP user unable to reset password.,Open,,,Application Support
+TCKT-1027,2025-05-03T14:15:27,Network,VPN,VPN client not installing on Mac.,In Progress,2024-06-03T14:45:00,,Network Team
+TCKT-1028,2025-05-03T15:30:19,Hardware,Monitor,Monitor not displaying correct resolution.,Resolved,,2025-06-03T16:00:00,IT Support
+TCKT-1029,2025-05-03T16:45:08,Software,Browser,Edge browser not opening PDF files.,Open,,,Application Support
+TCKT-1030,2025-05-03T17:10:56,Network,LAN,LAN cable damaged in server room.,In Progress,2024-06-03T17:30:00,,Network Team
+TCKT-1031,2025-05-04T08:22:43,Hardware,Desktop,Desktop not recognizing external hard drive.,Resolved,,2025-06-04T09:00:00,IT Support
+TCKT-1032,2025-05-04T09:40:29,Software,Antivirus,Antivirus license expired notification.,Open,,,Security Team
+TCKT-1033,2025-05-04T10:55:17,Network,Firewall,Firewall rules not updating.,In Progress,2024-06-04T11:15:00,,Network Team
+TCKT-1034,2025-05-04T11:30:06,Hardware,Keyboard,Wireless keyboard disconnects frequently.,Resolved,,2025-06-04T12:00:00,IT Support
+TCKT-1035,2025-05-04T12:45:54,Software,Operating System,MacOS update causing application crashes.,Open,,,Application Support
+TCKT-1036,2025-05-04T13:20:41,Network,Switch,Switch overheating in server closet.,In Progress,2024-06-04T13:45:00,,Network Team
+TCKT-1037,2025-05-04T14:05:29,Hardware,Mouse,Mouse not detected after Windows update.,Resolved,,2025-06-04T14:30:00,IT Support
+TCKT-1038,2025-05-04T15:15:17,Software,Database,Database backup failed last night.,Open,,,Application Support
+TCKT-1039,2025-05-04T16:30:05,Network,Router,Router firmware update required.,In Progress,2024-06-04T16:45:00,,Network Team
+TCKT-1040,2025-05-04T17:05:53,Hardware,Scanner,Scanner producing blurry images.,Resolved,,2025-06-04T17:45:00,IT Support
+TCKT-1041,2025-05-05T08:10:41,Software,CRM,CRM login page not loading for users.,Open,,,Application Support
+TCKT-1042,2025-05-05T09:25:29,Network,WAN,WAN link down between HQ and branch.,In Progress,2024-06-05T09:45:00,,Network Team
+TCKT-1043,2025-05-05T10:40:17,Hardware,Laptop,Laptop screen cracked after accidental drop.,Resolved,,2025-06-05T11:30:00,IT Support
+TCKT-1044,2025-05-05T11:55:05,Software,Email,Email attachments not downloading.,Open,,,Application Support
+TCKT-1045,2025-05-05T12:30:53,Network,WiFi,WiFi signal weak in cafeteria.,In Progress,2024-06-05T12:45:00,,Network Team
+TCKT-1046,2025-05-05T13:15:41,Hardware,Printer,Printer toner low warning.,Resolved,,2025-06-05T13:45:00,Facilities
+TCKT-1047,2025-05-05T14:05:29,Software,ERP,ERP module not accessible for HR team.,Open,,,Application Support
+TCKT-1048,2025-05-05T15:20:17,Network,VPN,VPN authentication failing for remote users.,In Progress,2024-06-05T15:45:00,,Network Team
+TCKT-1049,2025-05-05T16:35:05,Hardware,Monitor,Monitor not turning on after power outage.,Resolved,,2025-06-05T17:00:00,IT Support
+TCKT-1050,2025-05-05T17:10:53,Software,Browser,Firefox not saving bookmarks.,Open,,,Application Support
+TCKT-1001,2025-05-01T08:15:23,Network,WiFi,Unable to connect to office WiFi on 3rd floor.,Resolved,,2025-06-05T10:05:12,IT Support
+TCKT-1002,2025-05-01T09:02:11,Hardware,Laptop,Laptop screen flickering intermittently.,In Progress,,,Hardware Team
+TCKT-1003,2025-05-01T09:45:30,Software,Email,Outlook not syncing emails since yesterday.,Resolved,,2025-06-05T11:20:45,Application Support
+TCKT-1004,2025-05-01T10:12:05,Access,VPN,VPN connection drops after 5 minutes.,Escalated,2024-06-01T11:00:00,,Network Team
+TCKT-1005,2025-05-01T10:30:47,Hardware,Printer,Printer in HR department showing paper jam error.,Resolved,,2025-06-05T12:05:33,Hardware Team
+TCKT-1006,2025-05-01T11:02:19,Software,CRM,Unable to login to CRM application.,In Progress,,,Application Support
+TCKT-1007,2025-05-01T11:15:40,Network,LAN,No network connectivity in conference room.,Resolved,,2025-06-05T12:45:10,Network Team
+TCKT-1008,2025-05-01T11:55:23,Access,Active Directory,Password reset required for user account.,Resolved,,2025-06-05T12:10:00,IT Support
+TCKT-1009,2025-05-01T12:20:15,Software,Email,Spam emails bypassing filters.,Escalated,2024-06-01T13:00:00,,Security Team
+TCKT-1010,2025-05-01T12:45:50,Hardware,Desktop,Desktop not powering on after update.,In Progress,,,Hardware Team
+TCKT-1011,2025-05-01T13:05:33,Network,WiFi,Slow WiFi speed in cafeteria.,Resolved,,2025-06-05T14:20:17,Network Team
+TCKT-1012,2025-05-01T13:30:12,Access,VPN,Unable to access internal resources via VPN.,Resolved,,2025-06-05T15:05:00,Network Team
+TCKT-1013,2025-05-01T13:55:41,Software,CRM,CRM reports not generating for sales team.,Escalated,2024-06-01T14:30:00,,Application Support
+TCKT-1014,2025-05-01T14:10:29,Hardware,Printer,Printer toner low warning despite new cartridge.,Resolved,,2025-06-05T15:00:00,Hardware Team
+TCKT-1015,2025-05-01T14:35:17,Network,LAN,Frequent disconnections on LAN port 12.,In Progress,,,Network Team
+TCKT-1016,2025-05-01T15:00:00,Access,Active Directory,Account locked after multiple failed logins.,Resolved,,2025-06-05T15:20:00,IT Support
+TCKT-1017,2025-05-01T15:25:45,Software,Email,Attachment not downloading in Outlook.,Resolved,,2025-06-05T16:10:00,Application Support
+TCKT-1018,2025-05-01T15:50:30,Hardware,Laptop,Battery draining quickly after update.,In Progress,,,Hardware Team
+TCKT-1019,2025-05-01T16:15:12,Network,WiFi,WiFi not visible on mobile devices.,Resolved,,2025-06-05T17:00:00,Network Team
+TCKT-1020,2025-05-01T16:40:00,Access,VPN,VPN client showing authentication error.,Escalated,2024-06-01T17:30:00,,Network Team
+TCKT-1021,2025-05-01T17:05:22,Software,CRM,CRM dashboard not loading for managers.,Resolved,,2025-06-05T18:00:00,Application Support
+TCKT-1022,2025-05-01T17:30:45,Hardware,Printer,Printer not connecting to network.,In Progress,,,Hardware Team
+TCKT-1023,2025-05-01T17:55:10,Network,LAN,LAN cable damaged in IT room.,Resolved,,2025-06-05T18:30:00,Network Team
+TCKT-1024,2025-05-01T18:20:00,Access,Active Directory,Unable to add new user to group.,Escalated,2024-06-01T19:00:00,,IT Support
+TCKT-1025,2025-05-01T18:45:33,Software,Email,Email signature not displaying correctly.,Resolved,,2025-06-05T19:10:00,Application Support
+TCKT-1026,2025-05-01T19:10:00,Hardware,Desktop,USB ports not working on desktop.,In Progress,,,Hardware Team
+TCKT-1027,2025-05-01T19:35:20,Network,WiFi,WiFi disconnects during video calls.,Resolved,,2025-06-05T20:15:00,Network Team
+TCKT-1028,2025-05-01T20:00:00,Access,VPN,VPN client update required for Mac users.,Resolved,,2025-06-05T21:00:00,Network Team
+TCKT-1029,2025-05-01T20:25:45,Software,CRM,CRM notifications not received by users.,Escalated,2024-06-01T21:00:00,,Application Support
+TCKT-1030,2025-05-01T20:50:10,Hardware,Printer,"Printer queue stuck, unable to clear jobs.",Resolved,,2025-06-05T21:30:00,Hardware Team
+TCKT-1031,2025-05-01T21:15:00,Network,LAN,Network switch overheating.,In Progress,,,Network Team
+TCKT-1032,2025-05-01T21:40:00,Access,Active Directory,Group policy not applying to new users.,Escalated,2024-06-01T22:00:00,,IT Support
+TCKT-1033,2025-05-01T22:05:00,Software,Email,Email delivery delayed for external domains.,Resolved,,2025-06-05T22:45:00,Application Support
+TCKT-1034,2025-05-01T22:30:00,Hardware,Laptop,Laptop keyboard keys not responding.,In Progress,,,Hardware Team
+TCKT-1035,2025-05-01T22:55:00,Network,WiFi,WiFi coverage weak in basement.,Resolved,,2025-06-05T23:30:00,Network Team
+TCKT-1036,2025-05-01T23:20:00,Access,VPN,VPN not working after password change.,Escalated,2024-06-01T23:45:00,,Network Team
+TCKT-1037,2025-05-01T23:45:00,Software,CRM,CRM export function not available.,Resolved,,2025-06-02T00:30:00,Application Support
+TCKT-1038,2025-05-02T00:10:00,Hardware,Printer,Printer printing faded text.,In Progress,,,Hardware Team
+TCKT-1039,2025-05-02T00:35:00,Network,LAN,LAN port not detected on desktop.,Resolved,,2025-06-02T01:10:00,Network Team
+TCKT-1040,2025-05-02T01:00:00,Access,Active Directory,User unable to access shared folder.,Resolved,,2025-06-02T01:30:00,IT Support
+TCKT-1041,2025-05-02T01:25:00,Software,Email,Emails not syncing on mobile device.,Escalated,2024-06-02T02:00:00,,Application Support
+TCKT-1042,2025-05-02T01:50:00,Hardware,Desktop,Desktop fan making loud noise.,Resolved,,2025-06-02T02:30:00,Hardware Team
+TCKT-1043,2025-05-02T02:15:00,Network,WiFi,WiFi password not accepted on tablet.,In Progress,,,Network Team
+TCKT-1044,2025-05-02T02:40:00,Access,VPN,VPN connection slow for remote users.,Resolved,,2025-06-02T03:15:00,Network Team
+TCKT-1045,2025-05-02T03:05:00,Software,CRM,CRM search function not returning results.,Escalated,2024-06-02T03:30:00,,Application Support
+TCKT-1046,2025-05-02T03:30:00,Hardware,Printer,Printer not recognized by Windows.,Resolved,,2025-06-02T04:00:00,Hardware Team
+TCKT-1047,2025-05-02T03:55:00,Network,LAN,LAN switch port configuration issue.,In Progress,,,Network Team
+TCKT-1048,2025-05-02T04:20:00,Access,Active Directory,Unable to remove user from group.,Escalated,2024-06-02T04:45:00,,IT Support
+TCKT-1049,2025-05-02T04:45:00,Software,Email,Email rules not working in Outlook.,Resolved,,2025-06-02T05:15:00,Application Support
+TCKT-1050,2025-05-02T05:10:00,Hardware,Laptop,Laptop overheating during video calls.,In Progress,,,Hardware Team
+TCKT-1001,2025-05-01T08:15:23,Hardware,Laptop,Laptop not powering on after overnight charging.,Resolved,,2025-06-05T10:45:12,IT Support
+TCKT-1002,2025-05-01T09:02:11,Software,Email,Unable to send emails via Outlook.,Resolved,,2025-06-05T09:45:30,Application Support
+TCKT-1003,2025-05-01T09:30:45,Network,WiFi,Intermittent WiFi connectivity in conference room.,Open,,,Network Operations
+TCKT-1004,2025-05-01T10:05:18,Hardware,Printer,Printer showing paper jam error.,Resolved,,2025-06-05T11:20:00,Facilities
+TCKT-1005,2025-05-01T10:45:37,Software,ERP,ERP system not loading dashboard for user.,Escalated,2024-06-01T11:30:00,,ERP Team
+TCKT-1006,2025-05-01T11:12:50,Network,VPN,VPN connection drops after 5 minutes.,Resolved,,2025-06-05T12:00:00,Network Operations
+TCKT-1007,2025-05-01T11:45:22,Hardware,Monitor,Monitor flickering intermittently.,Open,,,IT Support
+TCKT-1008,2025-05-01T12:05:10,Software,Browser,Chrome crashes when opening multiple tabs.,Resolved,,2025-06-05T13:00:00,Application Support
+TCKT-1009,2025-05-01T12:45:00,Network,Ethernet,No network detected on desktop via LAN cable.,Resolved,,2025-06-05T13:30:00,Network Operations
+TCKT-1010,2025-05-01T13:10:40,Hardware,Keyboard,Some keys on keyboard not responding.,Resolved,,2025-06-05T14:00:00,IT Support
+TCKT-1011,2025-05-01T13:45:55,Software,Antivirus,Antivirus not updating virus definitions.,Open,,,Security Team
+TCKT-1012,2025-05-01T14:20:30,Network,Firewall,Blocked access to external website required for work.,Escalated,2024-06-01T15:00:00,,Security Team
+TCKT-1013,2025-05-01T14:55:10,Hardware,Mouse,Mouse pointer not moving smoothly.,Resolved,,2025-06-05T15:30:00,IT Support
+TCKT-1014,2025-05-01T15:20:00,Software,Office Suite,Excel crashing when opening large files.,Resolved,,2025-06-05T16:10:00,Application Support
+TCKT-1015,2025-05-01T15:45:22,Network,Switch,Network switch in floor 2 not responding.,Escalated,2024-06-01T16:30:00,,Network Operations
+TCKT-1016,2025-05-01T16:10:40,Hardware,Docking Station,Docking station not detecting external monitors.,Resolved,,2025-06-05T17:00:00,IT Support
+TCKT-1017,2025-05-01T16:45:00,Software,Database,Unable to connect to SQL database.,Escalated,2024-06-01T17:30:00,,Database Team
+TCKT-1018,2025-05-01T17:10:15,Network,Internet,Slow internet speed in office area.,Open,,,Network Operations
+TCKT-1019,2025-05-01T17:45:30,Hardware,Laptop,Battery draining quickly after full charge.,Resolved,,2025-06-05T18:30:00,IT Support
+TCKT-1020,2025-05-01T18:20:00,Software,Email,Spam emails bypassing filters.,Escalated,2024-06-01T19:00:00,,Security Team
+TCKT-1021,2025-05-01T18:45:10,Network,WiFi,Unable to connect to guest WiFi network.,Resolved,,2025-06-05T19:20:00,Network Operations
+TCKT-1022,2025-05-01T19:10:30,Hardware,Printer,Printer not recognized by computer.,Open,,,Facilities
+TCKT-1023,2025-05-01T19:45:00,Software,ERP,ERP login fails with error code 403.,Resolved,,2025-06-05T20:30:00,ERP Team
+TCKT-1024,2025-05-01T20:20:15,Network,VPN,Unable to access shared drives via VPN.,Resolved,,2025-06-05T21:00:00,Network Operations
+TCKT-1025,2025-05-01T20:45:30,Hardware,Monitor,Monitor not displaying after sleep mode.,Resolved,,2025-06-05T21:30:00,IT Support
+TCKT-1026,2025-05-01T21:10:00,Software,Browser,Unable to access company intranet via Firefox.,Open,,,Application Support
+TCKT-1027,2025-05-01T21:45:20,Network,Ethernet,Frequent disconnections on wired network.,Escalated,2024-06-01T22:30:00,,Network Operations
+TCKT-1028,2025-05-01T22:10:40,Hardware,Keyboard,Wireless keyboard not pairing with PC.,Resolved,,2025-06-05T23:00:00,IT Support
+TCKT-1029,2025-05-01T22:45:00,Software,Antivirus,Antivirus scan stuck at 50%.,Resolved,,2025-06-05T23:30:00,Security Team
+TCKT-1030,2025-05-01T23:10:15,Network,Firewall,Unable to access internal HR portal.,Escalated,2024-06-01T23:45:00,,Security Team
+TCKT-1031,2025-05-02T08:05:10,Hardware,Mouse,Mouse double-clicking unexpectedly.,Resolved,,2025-06-02T08:45:00,IT Support
+TCKT-1032,2025-05-02T08:45:30,Software,Office Suite,Word document formatting issues.,Open,,,Application Support
+TCKT-1033,2025-05-02T09:10:00,Network,Switch,Switch port not providing power to device.,Resolved,,2025-06-02T09:45:00,Network Operations
+TCKT-1034,2025-05-02T09:45:20,Hardware,Docking Station,USB ports on docking station not working.,Escalated,2024-06-02T10:30:00,,IT Support
+TCKT-1035,2025-05-02T10:10:40,Software,Database,Database backup failed overnight.,Resolved,,2025-06-02T11:00:00,Database Team
+TCKT-1036,2025-05-02T10:45:00,Network,Internet,No internet access in training room.,Resolved,,2025-06-02T11:30:00,Network Operations
+TCKT-1037,2025-05-02T11:10:15,Hardware,Laptop,Laptop overheating during video calls.,Open,,,IT Support
+TCKT-1038,2025-05-02T11:45:30,Software,Email,Email attachments not downloading.,Resolved,,2025-06-02T12:20:00,Application Support
+TCKT-1039,2025-05-02T12:20:00,Network,WiFi,WiFi signal weak in cafeteria.,Open,,,Network Operations
+TCKT-1040,2025-05-02T12:45:10,Hardware,Printer,Printer printing faded text.,Resolved,,2025-06-02T13:30:00,Facilities
+TCKT-1041,2025-05-02T13:10:30,Software,ERP,ERP report generation taking too long.,Escalated,2024-06-02T13:45:00,,ERP Team
+TCKT-1042,2025-05-02T13:45:00,Network,VPN,VPN authentication failing for remote users.,Resolved,,2025-06-02T14:30:00,Network Operations
+TCKT-1043,2025-05-02T14:20:15,Hardware,Monitor,Monitor colors distorted after update.,Resolved,,2025-06-02T15:00:00,IT Support
+TCKT-1044,2025-05-02T14:45:30,Software,Browser,Edge browser not loading external links.,Open,,,Application Support
+TCKT-1045,2025-05-02T15:10:00,Network,Ethernet,Ethernet port loose on workstation.,Resolved,,2025-06-02T15:45:00,Network Operations
+TCKT-1046,2025-05-02T15:45:20,Hardware,Keyboard,Keyboard backlight not working.,Escalated,2024-06-02T16:30:00,,IT Support
+TCKT-1047,2025-05-02T16:10:40,Software,Antivirus,Antivirus blocking legitimate application.,Resolved,,2025-06-02T17:00:00,Security Team
+TCKT-1048,2025-05-02T16:45:00,Network,Firewall,Firewall rules need update for new service.,Open,,,Security Team
+TCKT-1049,2025-05-02T17:10:15,Hardware,Mouse,Mouse scroll wheel not functioning.,Resolved,,2025-06-02T17:45:00,IT Support
+TCKT-1050,2025-05-02T17:45:30,Software,Office Suite,PowerPoint not saving presentations.,Escalated,2024-06-02T18:30:00,,Application Support
+TCKT-1001,2025-05-01T08:15:23,Hardware,Laptop,Laptop not powering on after charging overnight.,Resolved,2024-06-01T10:05:00,2025-06-05T12:30:00,IT Support
+TCKT-1002,2025-05-01T09:42:11,Software,Email,Unable to send emails through Outlook.,Open,,,Application Support
+TCKT-1003,2025-05-01T10:05:45,Network,WiFi,WiFi connection drops intermittently on 3rd floor.,In Progress,2024-06-01T11:00:00,,Network Team
+TCKT-1004,2025-05-01T10:30:12,Hardware,Printer,"Printer showing paper jam error, unable to print.",Resolved,,2025-06-05T11:15:00,Facilities
+TCKT-1005,2025-05-01T11:02:37,Software,ERP,ERP system not loading dashboard for user.,Open,,,Application Support
+TCKT-1006,2025-05-01T11:25:19,Network,VPN,Unable to connect to VPN from remote location.,In Progress,2024-06-01T12:00:00,,Network Team
+TCKT-1007,2025-05-01T11:45:03,Hardware,Monitor,Monitor flickering and displaying distorted colors.,Resolved,,2025-06-05T13:00:00,IT Support
+TCKT-1008,2025-05-01T12:10:28,Software,Browser,Chrome browser crashing when opening multiple tabs.,Open,,,Application Support
+TCKT-1009,2025-05-01T12:35:40,Network,LAN,No network connectivity in meeting room 2.,Resolved,2024-06-01T13:00:00,2025-06-05T14:15:00,Network Team
+TCKT-1010,2025-05-01T13:00:55,Hardware,Keyboard,Keyboard keys not responding intermittently.,Open,,,IT Support
+TCKT-1011,2025-05-01T13:22:17,Software,Antivirus,Antivirus update failed on workstation.,Resolved,,2025-06-05T14:00:00,Security Team
+TCKT-1012,2025-05-01T13:45:33,Network,Firewall,Firewall blocking access to external website.,In Progress,2024-06-01T14:30:00,,Security Team
+TCKT-1013,2025-05-01T14:10:48,Hardware,Mouse,Mouse pointer freezing randomly.,Resolved,,2025-06-05T15:00:00,IT Support
+TCKT-1014,2025-05-01T14:35:22,Software,Operating System,Windows update stuck at 60%.,Open,,,Application Support
+TCKT-1015,2025-05-01T15:00:09,Network,Switch,Network switch in server room overheating.,Resolved,2024-06-01T15:30:00,2025-06-05T16:10:00,Network Team
+TCKT-1016,2025-05-01T15:25:44,Hardware,Desktop,"Desktop not booting, showing blue screen error.",In Progress,2024-06-01T16:00:00,,IT Support
+TCKT-1017,2025-05-01T15:50:31,Software,Database,Database connection timeout for finance application.,Resolved,,2025-06-05T17:00:00,Application Support
+TCKT-1018,2025-05-01T16:15:18,Network,Internet,Slow internet speed reported by multiple users.,Open,,,Network Team
+TCKT-1019,2025-05-01T16:40:05,Hardware,Scanner,Scanner not detected by computer.,Resolved,,2025-06-05T17:30:00,Facilities
+TCKT-1020,2025-05-01T17:05:52,Software,Remote Desktop,Remote desktop session disconnects frequently.,In Progress,2024-06-01T17:45:00,,Application Support
+TCKT-1021,2025-05-01T17:30:39,Network,Router,Router not assigning IP addresses to devices.,Resolved,2024-06-01T18:00:00,2025-06-05T18:40:00,Network Team
+TCKT-1022,2025-05-01T17:55:26,Hardware,Tablet,"Tablet screen cracked, touch not working.",Open,,,IT Support
+TCKT-1023,2025-05-01T18:20:13,Software,File Sharing,Unable to access shared folder on network.,Resolved,,2025-06-05T19:00:00,Application Support
+TCKT-1024,2025-05-01T18:45:00,Network,Ethernet,Ethernet port not working in conference room.,Open,,,Network Team
+TCKT-1025,2025-05-01T19:10:47,Hardware,Projector,Projector bulb needs replacement.,Resolved,,2025-06-05T20:00:00,Facilities
+TCKT-1026,2025-05-01T19:35:34,Software,Password Reset,User unable to reset password via self-service portal.,In Progress,2024-06-01T20:15:00,,Application Support
+TCKT-1027,2025-05-01T20:00:21,Network,DNS,DNS resolution failing for internal domains.,Resolved,2024-06-01T20:30:00,2025-06-05T21:10:00,Network Team
+TCKT-1028,2025-05-01T20:25:08,Hardware,Webcam,Webcam not detected during video call.,Open,,,IT Support
+TCKT-1029,2025-05-01T20:49:55,Software,License,"Software license expired, unable to launch application.",Resolved,,2025-06-05T21:30:00,Application Support
+TCKT-1030,2025-05-01T21:14:42,Network,Bandwidth,Bandwidth usage exceeds threshold in office.,Open,,,Network Team
+TCKT-1031,2025-05-01T21:39:29,Hardware,Speaker,Speaker producing static noise.,Resolved,,2025-06-05T22:10:00,Facilities
+TCKT-1032,2025-05-01T22:04:16,Software,Calendar,Unable to sync calendar events on mobile device.,In Progress,2024-06-01T22:45:00,,Application Support
+TCKT-1033,2025-05-01T22:29:03,Network,Proxy,Proxy server not responding for web requests.,Resolved,2024-06-01T23:00:00,2025-06-05T23:40:00,Network Team
+TCKT-1034,2025-05-01T22:53:50,Hardware,Docking Station,Docking station not charging laptop.,Open,,,IT Support
+TCKT-1035,2025-05-01T23:18:37,Software,Update,Application update failed with error code 0x80070005.,Resolved,,2025-06-05T23:55:00,Application Support
+TCKT-1036,2025-05-01T23:43:24,Network,Access Point,Access point not broadcasting SSID.,Open,,,Network Team
+TCKT-1037,2025-05-02T00:08:11,Hardware,Hard Drive,"Hard drive making clicking noise, data inaccessible.",Resolved,,2025-06-02T01:00:00,IT Support
+TCKT-1038,2025-05-02T00:32:58,Software,Backup,Scheduled backup did not complete successfully.,In Progress,2024-06-02T01:15:00,,Application Support
+TCKT-1039,2025-05-02T00:57:45,Network,Cabling,Loose network cable causing intermittent connection.,Resolved,,2025-06-02T01:40:00,Facilities
+TCKT-1040,2025-05-02T01:22:32,Hardware,Battery,Laptop battery not holding charge.,Open,,,IT Support
+TCKT-1041,2025-05-02T01:47:19,Software,Access,User unable to access HR portal.,Resolved,,2025-06-02T02:30:00,Application Support
+TCKT-1042,2025-05-02T02:12:06,Network,Switch,Switch port not forwarding traffic.,In Progress,2024-06-02T02:45:00,,Network Team
+TCKT-1043,2025-05-02T02:36:53,Hardware,Fan,Desktop fan running loudly.,Resolved,,2025-06-02T03:20:00,Facilities
+TCKT-1044,2025-05-02T03:01:40,Software,Login,Login page not loading for multiple users.,Open,,,Application Support
+TCKT-1045,2025-05-02T03:26:27,Network,WiFi,WiFi signal weak in cafeteria.,Resolved,,2025-06-02T04:10:00,Network Team
+TCKT-1046,2025-05-02T03:51:14,Hardware,Power Supply,Power supply unit failed in desktop.,Open,,,IT Support
+TCKT-1047,2025-05-02T04:16:01,Software,Patch,Security patch not installing on server.,Resolved,,2025-06-02T05:00:00,Security Team
+TCKT-1048,2025-05-02T04:40:48,Network,Firewall,Firewall rules need updating for new application.,In Progress,2024-06-02T05:15:00,,Security Team
+TCKT-1049,2025-05-02T05:05:35,Hardware,Motherboard,Motherboard failure detected in server.,Resolved,,2025-06-02T06:00:00,IT Support
+TCKT-1050,2025-05-02T05:30:22,Software,Configuration,Configuration settings lost after reboot.,Open,,,Application Support
+TCKT-10001,2025-05-01T08:15:23,Hardware,Laptop,Laptop not powering on after overnight charging.,Resolved,,2025-06-05T10:45:12,IT Support
+TCKT-10002,2025-05-01T09:03:47,Software,Email,Unable to send emails through Outlook.,Resolved,,2025-06-05T09:55:30,Application Support
+TCKT-10003,2025-05-01T09:22:10,Network,WiFi,Intermittent WiFi connectivity in conference room.,Open,,,Network Team
+TCKT-10004,2025-05-01T09:45:32,Hardware,Printer,Printer showing paper jam error despite no jam.,Resolved,,2025-06-05T11:05:18,Facilities
+TCKT-10005,2025-05-01T10:12:09,Access,Badge,Employee badge not granting access to main entrance.,Escalated,2024-06-01T11:00:00,,Security
+TCKT-10006,2025-05-01T10:30:44,Software,ERP,ERP system freezing during invoice processing.,Open,,,Application Support
+TCKT-10007,2025-05-01T10:55:21,Network,VPN,VPN connection drops every 10 minutes.,Resolved,,2025-06-05T12:20:05,Network Team
+TCKT-10008,2025-05-01T11:07:36,Hardware,Monitor,Monitor flickering and displaying distorted colors.,Open,,,IT Support
+TCKT-10009,2025-05-01T11:23:59,Software,Browser,Chrome crashes when opening multiple tabs.,Resolved,,2025-06-05T12:10:45,Application Support
+TCKT-10010,2025-05-01T11:45:12,Access,Password Reset,User unable to reset password using self-service portal.,Resolved,,2025-06-05T12:00:00,IT Support
+TCKT-10011,2025-05-01T12:05:33,Hardware,Desktop,Desktop randomly restarts during work.,Escalated,2024-06-01T13:00:00,,IT Support
+TCKT-10012,2025-05-01T12:22:18,Network,Ethernet,No network connectivity via Ethernet cable.,Resolved,,2025-06-05T13:05:40,Network Team
+TCKT-10013,2025-05-01T12:40:55,Software,Antivirus,Antivirus update failed on multiple machines.,Open,,,IT Support
+TCKT-10014,2025-05-01T13:02:11,Access,Account Lockout,Account locked after multiple failed login attempts.,Resolved,,2025-06-05T13:15:00,IT Support
+TCKT-10015,2025-05-01T13:20:45,Hardware,Keyboard,Keyboard keys not responding intermittently.,Resolved,,2025-06-05T14:00:00,IT Support
+TCKT-10016,2025-05-01T13:35:29,Software,Spreadsheet,Excel file corrupted and cannot be opened.,Escalated,2024-06-01T14:10:00,,Application Support
+TCKT-10017,2025-05-01T13:50:10,Network,Firewall,Firewall blocking access to required website.,Resolved,,2025-06-05T14:30:00,Network Team
+TCKT-10018,2025-05-01T14:05:23,Hardware,Mouse,Mouse cursor not moving smoothly.,Resolved,,2025-06-05T14:45:00,IT Support
+TCKT-10019,2025-05-01T14:20:37,Software,Word Processor,Word crashes when saving documents.,Open,,,Application Support
+TCKT-10020,2025-05-01T14:35:51,Access,VPN,User unable to connect to VPN from home.,Resolved,,2025-06-05T15:10:00,Network Team
+TCKT-10021,2025-05-01T14:50:15,Hardware,Docking Station,Docking station not detecting external monitor.,Open,,,IT Support
+TCKT-10022,2025-05-01T15:05:29,Software,Database,Database query running extremely slow.,Escalated,2024-06-01T15:45:00,,Application Support
+TCKT-10023,2025-05-01T15:20:43,Network,Switch,Network switch overheating and shutting down.,Resolved,,2025-06-05T16:00:00,Network Team
+TCKT-10024,2025-05-01T15:35:57,Hardware,Tablet,Tablet screen unresponsive to touch.,Resolved,,2025-06-05T16:20:00,IT Support
+TCKT-10025,2025-05-01T15:51:11,Software,Presentation,PowerPoint not displaying embedded videos.,Open,,,Application Support
+TCKT-10026,2025-05-01T16:06:25,Access,Shared Drive,Cannot access shared drive after password change.,Resolved,,2025-06-05T16:30:00,IT Support
+TCKT-10027,2025-05-01T16:21:39,Hardware,Scanner,Scanner not recognized by computer.,Escalated,2024-06-01T17:00:00,,Facilities
+TCKT-10028,2025-05-01T16:36:53,Network,Router,Router keeps rebooting every hour.,Resolved,,2025-06-05T17:15:00,Network Team
+TCKT-10029,2025-05-01T16:52:07,Software,Calendar,Unable to sync calendar with mobile device.,Resolved,,2025-06-05T17:30:00,Application Support
+TCKT-10030,2025-05-01T17:07:21,Access,Remote Desktop,Remote desktop access denied for user.,Open,,,IT Support
+TCKT-10031,2025-05-01T17:22:35,Hardware,Webcam,Webcam not detected during video call.,Resolved,,2025-06-05T17:50:00,IT Support
+TCKT-10032,2025-05-01T17:37:49,Software,PDF Reader,PDF reader fails to open certain files.,Open,,,Application Support
+TCKT-10033,2025-05-01T17:53:03,Network,Bandwidth,Bandwidth usage spikes during afternoon hours.,Escalated,2024-06-01T18:30:00,,Network Team
+TCKT-10034,2025-05-01T18:08:17,Hardware,Speaker,Speaker producing static noise.,Resolved,,2025-06-05T18:40:00,IT Support
+TCKT-10035,2025-05-01T18:23:31,Software,Video Conferencing,Unable to join scheduled Teams meeting.,Resolved,,2025-06-05T19:00:00,Application Support
+TCKT-10036,2025-05-01T18:38:45,Access,Two-Factor Authentication,2FA code not received on mobile device.,Open,,,IT Support
+TCKT-10037,2025-05-01T18:54:59,Hardware,Projector,Projector not displaying laptop screen.,Resolved,,2025-06-05T19:20:00,Facilities
+TCKT-10038,2025-05-01T19:10:13,Software,File Sharing,Cannot upload files to shared folder.,Escalated,2024-06-01T19:45:00,,Application Support
+TCKT-10039,2025-05-01T19:25:27,Network,Proxy,Proxy server not allowing access to external sites.,Resolved,,2025-06-05T20:00:00,Network Team
+TCKT-10040,2025-05-01T19:40:41,Hardware,UPS,UPS beeping continuously and not charging.,Open,,,Facilities
+TCKT-10041,2025-05-01T19:55:55,Software,Operating System,Windows update stuck at 30%.,Resolved,,2025-06-05T20:30:00,IT Support
+TCKT-10042,2025-05-01T20:11:09,Access,Application Access,User unable to access HR portal.,Escalated,2024-06-01T20:45:00,,IT Support
+TCKT-10043,2025-05-01T20:26:23,Hardware,External Drive,External drive not mounting on Mac.,Resolved,,2025-06-05T21:00:00,IT Support
+TCKT-10044,2025-05-01T20:41:37,Software,Messaging,Slack notifications not appearing on desktop.,Open,,,Application Support
+TCKT-10045,2025-05-01T20:56:51,Network,DNS,DNS resolution failing for internal domains.,Resolved,,2025-06-05T21:30:00,Network Team
+TCKT-10046,2025-05-01T21:12:05,Hardware,Mobile Phone,Company mobile phone not receiving calls.,Escalated,2024-06-01T21:45:00,,IT Support
+TCKT-10047,2025-05-01T21:27:19,Software,Backup,Scheduled backup did not complete successfully.,Resolved,,2025-06-05T22:00:00,IT Support
+TCKT-10048,2025-05-01T21:42:33,Access,Group Policy,Group policy changes not applying to user.,Open,,,IT Support
+TCKT-10049,2025-05-01T21:57:47,Hardware,Headset,Headset microphone not working during calls.,Resolved,,2025-06-05T22:30:00,IT Support
+TCKT-10050,2025-05-01T22:13:01,Software,Time Tracking,Time tracking app not recording hours correctly.,Escalated,2024-06-01T22:45:00,,Application Support
+TCKT-10001,2025-05-01T08:15:23,Hardware,Laptop,Laptop not powering on after overnight charging.,Resolved,,2025-06-05T10:42:11,IT Support
+TCKT-10002,2025-05-01T09:03:45,Software,Email Client,"Unable to send emails via Outlook, error code 0x800CCC0E.",Resolved,,2025-06-05T09:47:30,Application Support
+TCKT-10003,2025-05-01T09:17:12,Network,WiFi,Intermittent WiFi connectivity in conference room.,In Progress,,,Network Team
+TCKT-10004,2025-05-01T09:35:58,Hardware,Printer,"Printer showing paper jam error, unable to print.",Resolved,,2025-06-05T10:10:05,Facilities
+TCKT-10005,2025-05-01T10:02:14,Software,Operating System,"Windows update failed, system stuck on restart.",Escalated,2024-06-01T10:45:00,,IT Support
+TCKT-10006,2025-05-01T10:18:37,Access,VPN,Unable to connect to VPN from home network.,Resolved,,2025-06-05T11:05:22,Network Team
+TCKT-10007,2025-05-01T10:45:09,Hardware,Monitor,Monitor flickering intermittently during use.,In Progress,,,IT Support
+TCKT-10008,2025-05-01T11:02:31,Software,Browser,Chrome crashes when opening multiple tabs.,Resolved,,2025-06-05T11:30:10,Application Support
+TCKT-10009,2025-05-01T11:15:44,Access,Email,User unable to access company email after password reset.,Resolved,,2025-06-05T12:00:00,IT Support
+TCKT-10010,2025-05-01T11:28:19,Network,LAN,"No network connectivity on workstation, cable checked.",Escalated,2024-06-01T12:15:00,,Network Team
+TCKT-10011,2025-05-01T11:45:03,Hardware,Keyboard,"Keyboard keys not responding, tried reconnecting.",Resolved,,2025-06-05T12:05:40,IT Support
+TCKT-10012,2025-05-01T12:02:27,Software,Antivirus,"Antivirus scan stuck at 60%, unable to complete.",In Progress,,,Application Support
+TCKT-10013,2025-05-01T12:15:55,Access,Shared Drive,"Cannot access shared drive, permission denied.",Resolved,,2025-06-05T12:45:12,IT Support
+TCKT-10014,2025-05-01T12:32:41,Network,Firewall,Blocked from accessing external website for research.,Resolved,,2025-06-05T13:10:00,Network Team
+TCKT-10015,2025-05-01T12:45:20,Hardware,Mouse,"Mouse pointer not moving, tried different USB port.",Resolved,,2025-06-05T13:00:00,IT Support
+TCKT-10016,2025-05-01T13:05:33,Software,Office Suite,Excel crashes when opening large files.,Escalated,2024-06-01T13:30:00,,Application Support
+TCKT-10017,2025-05-01T13:18:47,Access,Application,"Unable to login to HR portal, authentication failed.",Resolved,,2025-06-05T13:55:00,IT Support
+TCKT-10018,2025-05-01T13:32:10,Network,Switch,"Switch port not responding, devices offline.",In Progress,,,Network Team
+TCKT-10019,2025-05-01T13:45:22,Hardware,Desktop,Desktop randomly restarts during work.,Resolved,,2025-06-05T14:20:00,IT Support
+TCKT-10020,2025-05-01T14:02:36,Software,Database,"Unable to connect to SQL database, timeout error.",Escalated,2024-06-01T14:30:00,,Application Support
+TCKT-10021,2025-05-01T14:18:59,Access,Badge,Employee badge not granting access to office.,Resolved,,2025-06-05T14:45:00,Facilities
+TCKT-10022,2025-05-01T14:32:11,Network,Router,"Router rebooting frequently, causing downtime.",In Progress,,,Network Team
+TCKT-10023,2025-05-01T14:45:24,Hardware,Scanner,"Scanner not detected by computer, tried reinstalling drivers.",Resolved,,2025-06-05T15:10:00,IT Support
+TCKT-10024,2025-05-01T15:02:37,Software,CRM,"CRM application slow, frequent timeouts.",Escalated,2024-06-01T15:30:00,,Application Support
+TCKT-10025,2025-05-01T15:18:50,Access,Remote Desktop,Remote desktop connection drops after 5 minutes.,Resolved,,2025-06-05T15:45:00,IT Support
+TCKT-10026,2025-05-01T15:32:03,Network,Proxy,"Proxy server not responding, unable to browse internet.",In Progress,,,Network Team
+TCKT-10027,2025-05-01T15:45:16,Hardware,Docking Station,Docking station not charging laptop.,Resolved,,2025-06-05T16:10:00,IT Support
+TCKT-10028,2025-05-01T16:02:29,Software,Accounting,"Accounting software license expired, cannot login.",Escalated,2024-06-01T16:30:00,,Application Support
+TCKT-10029,2025-05-01T16:18:42,Access,Cloud Storage,"Unable to upload files to OneDrive, error 403.",Resolved,,2025-06-05T16:45:00,IT Support
+TCKT-10030,2025-05-01T16:32:55,Network,VPN,"VPN connection slow, high latency reported.",In Progress,,,Network Team
+TCKT-10031,2025-05-01T16:45:08,Hardware,Tablet,"Tablet screen cracked, needs replacement.",Resolved,,2025-06-05T17:10:00,Facilities
+TCKT-10032,2025-05-01T17:02:21,Software,Project Management,"Cannot create new project in Jira, permission error.",Escalated,2024-06-01T17:30:00,,Application Support
+TCKT-10033,2025-05-01T17:18:34,Access,HR System,Employee unable to view payslip in HR system.,Resolved,,2025-06-05T17:45:00,IT Support
+TCKT-10034,2025-05-01T17:32:47,Network,LAN,"Frequent disconnections from LAN, checked cable.",In Progress,,,Network Team
+TCKT-10035,2025-05-01T17:45:00,Hardware,Laptop,"Laptop overheating, fan running loudly.",Resolved,,2025-06-05T18:10:00,IT Support
+TCKT-10036,2025-05-01T18:02:13,Software,Email Client,Outlook calendar not syncing with mobile device.,Escalated,2024-06-01T18:30:00,,Application Support
+TCKT-10037,2025-05-01T18:18:26,Access,Badge,Badge access revoked after department transfer.,Resolved,,2025-06-05T18:45:00,Facilities
+TCKT-10038,2025-05-01T18:32:39,Network,Switch,"Switch overheating, causing network outages.",In Progress,,,Network Team
+TCKT-10039,2025-05-01T18:45:52,Hardware,Printer,"Printer toner low, needs replacement.",Resolved,,2025-06-05T19:10:00,Facilities
+TCKT-10040,2025-05-01T19:02:05,Software,Operating System,"MacOS update failed, system rollback required.",Escalated,2024-06-01T19:30:00,,IT Support
+TCKT-10041,2025-05-01T19:18:18,Access,Shared Drive,"Cannot save files to shared drive, quota exceeded.",Resolved,,2025-06-05T19:45:00,IT Support
+TCKT-10042,2025-05-01T19:32:31,Network,Firewall,Firewall blocking internal application traffic.,In Progress,,,Network Team
+TCKT-10043,2025-05-01T19:45:44,Hardware,Monitor,Monitor not displaying after power outage.,Resolved,,2025-06-05T20:10:00,IT Support
+TCKT-10044,2025-05-01T20:02:57,Software,Antivirus,"Antivirus license expired, unable to update.",Escalated,2024-06-01T20:30:00,,Application Support
+TCKT-10045,2025-05-01T20:19:10,Access,Application,User locked out of payroll application.,Resolved,,2025-06-05T20:45:00,IT Support
+TCKT-10046,2025-05-01T20:33:23,Network,Router,Router configuration lost after firmware update.,In Progress,,,Network Team
+TCKT-10047,2025-05-01T20:46:36,Hardware,Keyboard,"Wireless keyboard battery low, needs replacement.",Resolved,,2025-06-05T21:10:00,IT Support
+TCKT-10048,2025-05-01T21:02:49,Software,Office Suite,Word document formatting issues after update.,Escalated,2024-06-01T21:30:00,,Application Support
+TCKT-10049,2025-05-01T21:19:02,Access,Remote Desktop,"Remote desktop not launching, error 0x204.",Resolved,,2025-06-05T21:45:00,IT Support
+TCKT-10050,2025-05-01T21:33:15,Network,Proxy,Proxy authentication failing for multiple users.,In Progress,,,Network Team
+TCKT-10001,2025-05-01T08:15:23,Hardware,Laptop,Laptop not powering on after overnight charging.,Resolved,,2025-06-05T10:45:12,IT Support
+TCKT-10002,2025-05-01T09:05:47,Software,Email,Unable to send emails via Outlook client.,Resolved,,2025-06-05T09:50:30,Application Support
+TCKT-10003,2025-05-01T09:22:11,Network,WiFi,Intermittent WiFi connectivity in conference room.,Open,,,Network Team
+TCKT-10004,2025-05-01T09:45:09,Hardware,Printer,Printer showing paper jam error despite no jam.,Resolved,,2025-06-05T11:02:18,Facilities
+TCKT-10005,2025-05-01T10:10:33,Software,ERP,ERP system not loading dashboard for user.,In Progress,2024-06-01T11:00:00,,Application Support
+TCKT-10006,2025-05-01T10:25:17,Network,VPN,Unable to connect to VPN from remote location.,Resolved,,2025-06-05T12:05:44,Network Team
+TCKT-10007,2025-05-01T10:40:29,Hardware,Monitor,Monitor flickering intermittently.,Open,,,IT Support
+TCKT-10008,2025-05-01T11:02:56,Software,Browser,Chrome browser crashing on startup.,Resolved,,2025-06-05T11:45:10,Application Support
+TCKT-10009,2025-05-01T11:15:34,Network,LAN,No network access at desk 4B.,In Progress,,,Network Team
+TCKT-10010,2025-05-01T11:30:21,Hardware,Keyboard,Keyboard keys not responding.,Resolved,,2025-06-05T12:10:05,IT Support
+TCKT-10011,2025-05-01T11:45:50,Software,Antivirus,Antivirus update failed on workstation.,Open,,,Security Team
+TCKT-10012,2025-05-01T12:05:13,Hardware,Mouse,Mouse cursor not moving smoothly.,Resolved,,2025-06-05T12:30:45,IT Support
+TCKT-10013,2025-05-01T12:20:38,Software,Email,Spam emails bypassing filters.,In Progress,2024-06-01T13:00:00,,Security Team
+TCKT-10014,2025-05-01T12:45:02,Network,Firewall,Firewall blocking legitimate traffic.,Resolved,,2025-06-05T13:30:19,Security Team
+TCKT-10015,2025-05-01T13:05:27,Hardware,Docking Station,Docking station not detecting external monitor.,Open,,,IT Support
+TCKT-10016,2025-05-01T13:20:44,Software,ERP,ERP report generation timing out.,Resolved,,2025-06-05T14:05:33,Application Support
+TCKT-10017,2025-05-01T13:35:59,Network,WiFi,Unable to connect to guest WiFi.,Resolved,,2025-06-05T14:10:22,Network Team
+TCKT-10018,2025-05-01T13:50:16,Hardware,Laptop,Laptop overheating during video calls.,In Progress,,,IT Support
+TCKT-10019,2025-05-01T14:05:41,Software,Browser,Unable to access company intranet via Firefox.,Resolved,,2025-06-05T14:45:00,Application Support
+TCKT-10020,2025-05-01T14:20:08,Network,VPN,VPN disconnects after 10 minutes of use.,Open,,,Network Team
+TCKT-10021,2025-05-01T14:35:26,Hardware,Printer,Printer not printing color pages.,Resolved,,2025-06-05T15:10:13,Facilities
+TCKT-10022,2025-05-01T14:50:39,Software,Antivirus,Antivirus quarantine failed to remove threat.,In Progress,,,Security Team
+TCKT-10023,2025-05-01T15:05:54,Network,LAN,Slow network speed in office area.,Resolved,,2025-06-05T15:40:21,Network Team
+TCKT-10024,2025-05-01T15:20:11,Hardware,Monitor,Monitor not displaying after sleep mode.,Open,,,IT Support
+TCKT-10025,2025-05-01T15:35:28,Software,ERP,ERP login page not loading for multiple users.,Resolved,,2025-06-05T16:10:50,Application Support
+TCKT-10026,2025-05-01T15:50:43,Network,Firewall,Firewall rules not updating as scheduled.,In Progress,,,Security Team
+TCKT-10027,2025-05-01T16:05:58,Hardware,Keyboard,Wireless keyboard losing connection.,Resolved,,2025-06-05T16:40:15,IT Support
+TCKT-10028,2025-05-01T16:21:13,Software,Email,Email attachments not downloading.,Open,,,Application Support
+TCKT-10029,2025-05-01T16:36:28,Network,WiFi,WiFi signal weak in cafeteria.,Resolved,,2025-06-05T17:10:02,Network Team
+TCKT-10030,2025-05-01T16:51:43,Hardware,Mouse,Mouse double-clicking unexpectedly.,Resolved,,2025-06-05T17:20:37,IT Support
+TCKT-10031,2025-05-01T17:07:58,Software,Browser,Edge browser not saving bookmarks.,Open,,,Application Support
+TCKT-10032,2025-05-01T17:23:13,Network,VPN,VPN authentication failing for new user.,Resolved,,2025-06-05T17:55:48,Network Team
+TCKT-10033,2025-05-01T17:38:28,Hardware,Docking Station,USB ports on docking station not working.,In Progress,,,IT Support
+TCKT-10034,2025-05-01T17:53:43,Software,ERP,ERP user permissions not updating.,Resolved,,2025-06-05T18:20:10,Application Support
+TCKT-10035,2025-05-01T18:09:58,Network,LAN,Network cable damaged at desk 7C.,Resolved,,2025-06-05T18:45:25,Network Team
+TCKT-10036,2025-05-01T18:25:13,Hardware,Monitor,Monitor brightness controls not working.,Open,,,IT Support
+TCKT-10037,2025-05-01T18:40:28,Software,Antivirus,Antivirus license expired.,Resolved,,2025-06-05T19:10:02,Security Team
+TCKT-10038,2025-05-01T18:55:43,Network,Firewall,Firewall blocking access to external API.,In Progress,2024-06-01T19:30:00,,Security Team
+TCKT-10039,2025-05-01T19:11:58,Hardware,Printer,Printer not connecting to network.,Resolved,,2025-06-05T19:45:37,Facilities
+TCKT-10040,2025-05-01T19:27:13,Software,Email,Email client freezing on startup.,Open,,,Application Support
+TCKT-10041,2025-05-01T19:42:28,Network,WiFi,WiFi not available on 2nd floor.,Resolved,,2025-06-05T20:10:02,Network Team
+TCKT-10042,2025-05-01T19:57:43,Hardware,Laptop,Laptop battery draining quickly.,Resolved,,2025-06-05T20:30:15,IT Support
+TCKT-10043,2025-05-01T20:13:58,Software,ERP,ERP data export not working.,In Progress,,,Application Support
+TCKT-10044,2025-05-01T20:29:13,Network,VPN,VPN connection slow during peak hours.,Resolved,,2025-06-05T21:05:48,Network Team
+TCKT-10045,2025-05-01T20:44:28,Hardware,Docking Station,Docking station not charging laptop.,Open,,,IT Support
+TCKT-10046,2025-05-01T20:59:43,Software,Browser,Browser extensions not installing.,Resolved,,2025-06-05T21:30:10,Application Support
+TCKT-10047,2025-05-01T21:15:58,Network,LAN,LAN port not working at desk 10A.,Resolved,,2025-06-05T21:45:25,Network Team
+TCKT-10048,2025-05-01T21:31:13,Hardware,Monitor,Monitor showing lines on screen.,In Progress,,,IT Support
+TCKT-10049,2025-05-01T21:46:28,Software,Antivirus,Antivirus scan not completing.,Resolved,,2025-06-05T22:10:02,Security Team
+TCKT-10050,2025-05-01T22:01:43,Network,Firewall,Firewall blocking internal file sharing.,Open,,,Security Team
+TCKT-1001,2025-05-10T08:15:23,Software,Application Crash,User reports that the accounting software crashes upon login.,Resolved,2024-06-10T09:00:00,2025-06-10T11:30:45,Application Support
+TCKT-1002,2025-05-10T09:42:10,Hardware,Printer,Printer in HR office is not responding to print commands.,Open,,,Hardware Support
+TCKT-1003,2025-05-10T10:05:37,Network,WiFi Connectivity,Multiple users unable to connect to office WiFi on 3rd floor.,In Progress,2024-06-10T10:30:00,,Network Operations
+TCKT-1004,2025-05-10T11:20:18,Access,Password Reset,User unable to reset password via self-service portal.,Resolved,,2025-06-10T11:45:00,Service Desk
+TCKT-1005,2025-05-10T12:03:55,Software,Update Failure,Latest security update failed to install on workstation.,In Progress,,,Desktop Support
+TCKT-1006,2025-05-10T13:17:42,Hardware,Laptop,Laptop battery drains rapidly even when fully charged.,Open,,,Hardware Support
+TCKT-1007,2025-05-10T13:45:29,Network,VPN,Remote user unable to connect to VPN from home.,Resolved,2024-06-10T14:00:00,2025-06-10T15:10:12,Network Operations
+TCKT-1008,2025-05-10T14:22:11,Access,Account Lockout,Employee account locked after multiple failed login attempts.,Resolved,,2025-06-10T14:45:00,Service Desk
+TCKT-1009,2025-05-10T15:08:36,Software,License Issue,User unable to activate software due to license error.,In Progress,,,Application Support
+TCKT-1010,2025-05-10T16:01:50,Hardware,Monitor,Monitor flickers intermittently during use.,Open,,,Hardware Support

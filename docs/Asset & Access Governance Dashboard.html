@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vmobile Asset & Identity Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: #093b7a;
+            --teal: #1bbfb2;
+            --accent-grey: #e6ebef;
+            --dark-grey: #495057;
+            --light-grey: #f8f9fa;
+            --success-green: #28a745;
+            --danger-red: #dc3545;
+            --warning-orange: #ffc107;
+            --amber: #f5c542;
+            --modal-bg: rgba(9, 59, 122, 0.96);
+            --card-radius: 14px;
+            --card-shadow: 0 2px 12px rgba(9,59,122,0.08);
+            --font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --header-height: 64px;
+            --spacing: 16px;
+            --kpi-card-width: 230px;
+            --kpi-card-height: 120px;
+            --footer-height: 44px;
+            --chip-radius: 20px;
+            --chip-padding: 6px 16px;
+            --eol-chip-bg: #e8f2fc;
+            --eol-chip-color: #093b7a;
+            --modal-width: 420px;
+            --modal-radius: 16px;
+            --modal-padding: 24px;
+            --modal-header-bg: #102d4e;
+            --modal-header-color: #fff;
+            --modal-header-padding: 16px 24px;
+            --table-header-bg: #e6ebef;
+            --table-row-even: #f8f9fa;
+            --table-row-odd: #ffffff;
+            --table-hover-bg: #e0f2fe;
+            --focus-outline: 2px solid #1bbfb2;
+            --dark-bg: #101e2a;
+            --dark-card: #162842;
+            --dark-modal-bg: #22334d;
+            --dark-table-header-bg: #212e44;
+            --dark-table-row-even: #19283c;
+            --dark-table-row-odd: #162842;
+            --dark-text: #e6ebef;
+            --dark-accent-grey: #22334d;
+        }
+        [data-theme="dark"] {
+            --primary-blue: #1bbfb2;
+            --accent-grey: var(--dark-accent-grey);
+            --light-grey: var(--dark-card);
+            --dark-grey: #e6ebef;
+            --modal-bg: rgba(16, 46, 78, 0.98);
+            --table-header-bg: var(--dark-table-header-bg);
+            --table-row-even: var(--dark-table-row-even);
+            --table-row-odd: var(--dark-table-row-odd);
+            --footer-bg: #101e2a;
+            --footer-color: #e6ebef;
+            --card-shadow: 0 2px 12px rgba(27,191,178,0.10);
+            --modal-header-bg: #22334d;
+            --modal-header-color: #e6ebef;
+        }
+
+        html, body {
+            height: 100%;
+            background: var(--accent-grey);
+            font-family: var(--font-family);
+            color: var(--dark-grey);
+            margin: 0;
+        }
+        [data-theme="dark"] body {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+        header {
+            background: var(--primary-blue);
+            color: #fff;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--spacing);
+            box-shadow: 0 1px 0 rgba(9,59,122,0.06);
+        }
+        .vmobile-logo {
+            font-weight: 700;
+            font-size: 1.55rem;
+            letter-spacing: 0.03em;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .dark-toggle-btn {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .dark-toggle-btn:focus {
+            outline: var(--focus-outline);
+            background: var(--teal);
+            color: #fff;
+        }
+        main {
+            padding: var(--spacing);
+            max-width: 1440px;
+            margin: 0 auto;
+            min-height: calc(100vh - var(--header-height) - var(--footer-height));
+        }
+        .filters-section {
+            background: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            padding: 20px 20px 12px 20px;
+            margin-bottom: var(--spacing);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        [data-theme="dark"] .filters-section {
+            background: var(--dark-card);
+        }
+
+        .filters-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+            gap: 18px 32px;
+            align-items: end;
+        }
+        .filters-form fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+        .filters-form legend {
+            font-size: 0.97rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--primary-blue);
+        }
+        [data-theme="dark"] .filters-form legend {
+            color: var(--teal);
+        }
+        .filters-form label {
+            font-size: 0.97rem;
+            display: block;
+            margin-bottom: 4px;
+            color: var(--dark-grey);
+        }
+        .filters-form input[type="date"], .filters-form input[type="search"], .filters-form select {
+            width: 100%;
+            padding: 7px 10px;
+            border-radius: 7px;
+            border: 1px solid var(--accent-grey);
+            background: var(--light-grey);
+            color: var(--dark-grey);
+            font-size: 1rem;
+        }
+        [data-theme="dark"] .filters-form input, [data-theme="dark"] .filters-form select {
+            background: var(--dark-card);
+            color: var(--dark-text);
+            border: 1px solid var(--dark-table-header-bg);
+        }
+        .filters-form .multi-select {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .filters-form .multi-select label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0;
+        }
+        .filters-form .multi-select input[type="checkbox"] {
+            accent-color: var(--primary-blue);
+        }
+        [data-theme="dark"] .filters-form .multi-select input[type="checkbox"] {
+            accent-color: var(--teal);
+        }
+        .filters-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 4px;
+        }
+        .filters-actions button {
+            padding: 7px 18px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            background: var(--primary-blue);
+            color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.18s;
+        }
+        .filters-actions button:focus {
+            outline: var(--focus-outline);
+            background: var(--teal);
+        }
+        .filters-actions .clear-btn {
+            background: var(--accent-grey);
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+        }
+        [data-theme="dark"] .filters-actions .clear-btn {
+            background: var(--dark-modal-bg);
+            color: var(--teal);
+            border: 1px solid var(--teal);
+        }
+        .filter-chips {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .chip {
+            background: var(--eol-chip-bg);
+            color: var(--eol-chip-color);
+            border-radius: var(--chip-radius);
+            padding: var(--chip-padding);
+            font-size: 0.93rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--primary-blue);
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        [data-theme="dark"] .chip {
+            background: var(--dark-table-row-even);
+            color: var(--teal);
+            border: 1px solid var(--teal);
+        }
+        .chip .chip-remove {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 1.1em;
+            margin-left: 2px;
+            cursor: pointer;
+        }
+        .chip:focus {
+            outline: var(--focus-outline);
+        }
+        .kpis-section {
+            margin-bottom: var(--spacing);
+        }
+        .kpi-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(var(--kpi-card-width),1fr));
+            gap: 16px;
+        }
+        .kpi-card {
+            background: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            padding: 18px 18px 10px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            min-height: var(--kpi-card-height);
+            position: relative;
+        }
+        [data-theme="dark"] .kpi-card {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+        .kpi-label {
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 2px;
+        }
+        [data-theme="dark"] .kpi-label {
+            color: var(--teal);
+        }
+        .kpi-value-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+        .kpi-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .kpi-percent {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--dark-grey);
+        }
+        .kpi-delta {
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 2px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 5px;
+        }
+        .kpi-delta.up {
+            background: var(--success-green);
+            color: #fff;
+        }
+        .kpi-delta.down {
+            background: var(--danger-red);
+            color: #fff;
+        }
+        .kpi-delta.warn {
+            background: var(--warning-orange);
+            color: #fff;
+        }
+        .kpi-delta.risk {
+            background: var(--danger-red);
+            color: #fff;
+        }
+        .kpi-delta.at-risk {
+            background: var(--warning-orange);
+            color: #fff;
+        }
+        .kpi-sparkline {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            width: 72px;
+            height: 32px;
+        }
+        .kpi-card.at-risk {
+            border: 2px solid var(--danger-red);
+        }
+        .visuals-section {
+            margin-bottom: var(--spacing);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing);
+        }
+        @media (max-width: 1200px) {
+            .visuals-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        .visual-card {
+            background: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            padding: 18px 18px 10px 18px;
+            margin-bottom: 0;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        [data-theme="dark"] .visual-card {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+        .visual-title {
+            font-size: 1.13rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 4px;
+        }
+        [data-theme="dark"] .visual-title {
+            color: var(--teal);
+        }
+        .visual-container {
+            flex: 1 1 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .visual-card .empty-state {
+            text-align: center;
+            color: var(--danger-red);
+            font-size: 1.12rem;
+            margin-top: 35px;
+        }
+        .eol-chips {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+        .eol-chip {
+            background: var(--eol-chip-bg);
+            color: var(--eol-chip-color);
+            border-radius: var(--chip-radius);
+            padding: var(--chip-padding);
+            font-size: 0.98rem;
+            font-weight: 600;
+            border: 1px solid var(--primary-blue);
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        [data-theme="dark"] .eol-chip {
+            background: var(--dark-table-row-even);
+            color: var(--teal);
+            border: 1px solid var(--teal);
+        }
+        .eol-chip:focus {
+            outline: var(--focus-outline);
+        }
+        .actions-section {
+            margin-bottom: var(--spacing);
+            background: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            padding: 18px;
+        }
+        [data-theme="dark"] .actions-section {
+            background: var(--dark-card);
+        }
+        .actions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .action-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--accent-grey);
+        }
+        [data-theme="dark"] .action-item {
+            border-bottom: 1px solid var(--dark-table-header-bg);
+        }
+        .action-title {
+            font-weight: 600;
+            font-size: 1rem;
+            flex: 1 1 auto;
+        }
+        .action-team {
+            font-size: 0.95rem;
+            color: var(--teal);
+        }
+        .action-due {
+            background: var(--warning-orange);
+            color: #fff;
+            font-size: 0.93rem;
+            font-weight: 500;
+            border-radius: 12px;
+            padding: 2px 10px;
+            margin-left: 7px;
+        }
+        .action-due.danger {
+            background: var(--danger-red);
+        }
+        .action-due.success {
+            background: var(--success-green);
+        }
+        .actions-list .empty-state {
+            font-size: 1.05rem;
+            color: var(--danger-red);
+            text-align: center;
+            margin-top: 30px;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--modal-bg);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        }
+        .modal {
+            background: #fff;
+            border-radius: var(--modal-radius);
+            width: var(--modal-width);
+            max-width: 95vw;
+            box-shadow: 0 6px 32px rgba(9,59,122,0.18);
+            padding: var(--modal-padding);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        [data-theme="dark"] .modal {
+            background: var(--dark-modal-bg);
+            color: var(--dark-text);
+        }
+        .modal-header {
+            background: var(--modal-header-bg);
+            color: var(--modal-header-color);
+            border-radius: 10px 10px 0 0;
+            padding: var(--modal-header-padding);
+            font-size: 1.11rem;
+            font-weight: 700;
+            margin: -24px -24px 0 -24px;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--danger-red);
+            font-size: 1.38rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.18s;
+        }
+        .modal-close-btn:focus {
+            outline: var(--focus-outline);
+        }
+        .modal[aria-hidden="true"], .modal-overlay[aria-hidden="true"] {
+            display: none;
+        }
+        .modal-table-container {
+            overflow-x: auto;
+            margin-top: 8px;
+        }
+        .modal-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: transparent;
+        }
+        .modal-table th, .modal-table td {
+            padding: 8px 10px;
+            text-align: left;
+            font-size: 0.96rem;
+        }
+        .modal-table th {
+            background: var(--table-header-bg);
+            font-weight: 600;
+        }
+        .modal-table tr:nth-child(even) {
+            background: var(--table-row-even);
+        }
+        .modal-table tr:nth-child(odd) {
+            background: var(--table-row-odd);
+        }
+        .modal-table tr:hover {
+            background: var(--table-hover-bg);
+        }
+        footer {
+            height: var(--footer-height);
+            background: var(--primary-blue);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.97rem;
+            padding: 0 var(--spacing);
+            margin-top: var(--spacing);
+        }
+        [data-theme="dark"] footer {
+            background: var(--footer-bg);
+            color: var(--footer-color);
+        }
+        /* Responsive tweaks */
+        @media (max-width: 900px) {
+            .kpi-card-grid {
+                grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+            }
+            .visuals-section {
+                grid-template-columns: 1fr;
+            }
+            .filters-form {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: var(--spacing) var(--spacing);
+                gap: 2px;
+            }
+            .filters-section, .actions-section, .visual-card {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header role="banner">
+        <div class="vmobile-logo" aria-label="Vmobile Dashboard Home">
+            <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" focusable="false" style="vertical-align:middle">
+                <circle cx="14" cy="14" r="14" fill="#1bbfb2"/>
+                <text x="14" y="18" text-anchor="middle" font-size="17" fill="#093b7a" font-family="Segoe UI, Arial" font-weight="bold">V</text>
+            </svg>
+            Vmobile Asset & Identity Dashboard
+        </div>
+        <nav aria-label="Dashboard actions" class="header-actions">
+            <button class="dark-toggle-btn" id="darkModeToggle" aria-label="Toggle dark mode" tabindex="0">
+                <span id="darkModeIcon">🌙</span>
+            </button>
+        </nav>
+    </header>
+    <main>
+        <section class="filters-section" aria-label="Dashboard Filters">
+            <form class="filters-form" id="filtersForm" autocomplete="off">
+                <fieldset>
+                    <legend>Department</legend>
+                    <div class="multi-select" id="departmentSelect">
+                        <label><input type="checkbox" value="HR" name="department"> HR</label>
+                        <label><input type="checkbox" value="Finance" name="department"> Finance</label>
+                        <label><input type="checkbox" value="Sales" name="department"> Sales</label>
+                        <label><input type="checkbox" value="IT" name="department"> IT</label>
+                        <label><input type="checkbox" value="Operations" name="department"> Operations</label>
+                        <label><input type="checkbox" value="Customer Support" name="department"> Customer Support</label>
+                        <label><input type="checkbox" value="Marketing" name="department"> Marketing</label>
+                        <label><input type="checkbox" value="Network Engineering" name="department"> Network Engineering</label>
+                        <label><input type="checkbox" value="Retail" name="department"> Retail</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Location</legend>
+                    <div class="multi-select" id="locationSelect">
+                        <label><input type="checkbox" value="Dallas HQ" name="location"> Dallas HQ</label>
+                        <label><input type="checkbox" value="Austin NOC" name="location"> Austin NOC</label>
+                        <label><input type="checkbox" value="Houston Care Center" name="location"> Houston Care Center</label>
+                        <label><input type="checkbox" value="Remote – US" name="location"> Remote – US</label>
+                        <label><input type="checkbox" value="Remote – Global" name="location"> Remote – Global</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Platform</legend>
+                    <div class="multi-select" id="platformSelect">
+                        <label><input type="checkbox" value="Windows" name="platform"> Windows</label>
+                        <label><input type="checkbox" value="macOS" name="platform"> macOS</label>
+                        <label><input type="checkbox" value="iOS" name="platform"> iOS</label>
+                        <label><input type="checkbox" value="Android" name="platform"> Android</label>
+                        <label><input type="checkbox" value="Linux" name="platform"> Linux</label>
+                        <label><input type="checkbox" value="Network" name="platform"> Network</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Asset Type</legend>
+                    <div class="multi-select" id="assetTypeSelect">
+                        <label><input type="checkbox" value="Laptop" name="assetType"> Laptop</label>
+                        <label><input type="checkbox" value="Desktop" name="assetType"> Desktop</label>
+                        <label><input type="checkbox" value="Mobile" name="assetType"> Mobile</label>
+                        <label><input type="checkbox" value="Tablet" name="assetType"> Tablet</label>
+                        <label><input type="checkbox" value="Server" name="assetType"> Server</label>
+                        <label><input type="checkbox" value="Network Gear" name="assetType"> Network Gear</label>
+                        <label><input type="checkbox" value="Peripheral" name="assetType"> Peripheral</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Access Level</legend>
+                    <select id="accessLevelSelect" name="accessLevel">
+                        <option value="All">All</option>
+                        <option value="Standard">Standard</option>
+                        <option value="Privileged">Privileged</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <legend>Lifecycle Stage</legend>
+                    <select id="lifecycleStageSelect" name="lifecycleStage">
+                        <option value="All">All</option>
+                        <option value="Procure">Procure</option>
+                        <option value="Deploy">Deploy</option>
+                        <option value="Active">Active</option>
+                        <option value="Repair">Repair</option>
+                        <option value="Retire/EOL">Retire/EOL</option>
+                        <option value="Decommissioned">Decommissioned</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <legend>Review Window</legend>
+                    <label for="reviewFrom">From</label>
+                    <input type="date" id="reviewFrom" name="reviewFrom">
+                    <label for="reviewTo">To</label>
+                    <input type="date" id="reviewTo" name="reviewTo">
+                </fieldset>
+                <fieldset>
+                    <legend>Search</legend>
+                    <label for="searchInput">Device ID / User name</label>
+                    <input type="search" id="searchInput" name="searchInput" placeholder="Search...">
+                </fieldset>
+            </form>
+            <div class="filters-actions">
+                <button type="button" id="applyFiltersBtn">Apply</button>
+                <button type="button" class="clear-btn" id="clearFiltersBtn">Clear</button>
+            </div>
+            <div class="filter-chips" id="filterChips" aria-live="polite"></div>
+        </section>
+        <section class="kpis-section" aria-label="Key Performance Indicators">
+            <div class="kpi-card-grid" id="kpiCardGrid"></div>
+        </section>
+        <section class="visuals-section" aria-label="Dashboard Visualizations">
+            <article class="visual-card" id="funnelCard">
+                <div class="visual-title">Lifecycle Funnel</div>
+                <div class="visual-container">
+                    <canvas id="funnelChart" width="420" height="80" aria-label="Lifecycle Funnel Chart"></canvas>
+                </div>
+            </article>
+            <article class="visual-card" id="patchAvCard">
+                <div class="visual-title">Patch & AV Health by Platform</div>
+                <div class="visual-container">
+                    <canvas id="patchAvChart" width="420" height="220" aria-label="Patch and AV Health Chart"></canvas>
+                </div>
+            </article>
+            <article class="visual-card" id="accessReviewCard">
+                <div class="visual-title">Access Review Status by System</div>
+                <div class="visual-container">
+                    <canvas id="accessReviewChart" width="420" height="220" aria-label="Access Review Status Chart"></canvas>
+                </div>
+            </article>
+            <article class="visual-card" id="monthlyTrendCard">
+                <div class="visual-title">Monthly Trend: Patch & Review Completion</div>
+                <div class="visual-container">
+                    <canvas id="monthlyTrendChart" width="420" height="220" aria-label="Monthly Trend Chart"></canvas>
+                </div>
+            </article>
+            <article class="visual-card" id="riskQuadrantCard">
+                <div class="visual-title">Risk Quadrant</div>
+                <div class="visual-container">
+                    <canvas id="riskQuadrantChart" width="420" height="220" aria-label="Risk Quadrant Chart"></canvas>
+                </div>
+            </article>
+            <article class="visual-card" id="fleetCompositionCard">
+                <div class="visual-title">Fleet Composition</div>
+                <div class="visual-container">
+                    <canvas id="fleetCompositionChart" width="180" height="180" aria-label="Fleet Composition Chart"></canvas>
+                </div>
+            </article>
+            <article class="visual-card" id="agingHeatmapCard">
+                <div class="visual-title">Aging Heatmap</div>
+                <div class="visual-container">
+                    <canvas id="agingHeatmapChart" width="420" height="220" aria-label="Aging Heatmap"></canvas>
+                </div>
+            </article>
+            <article class="visual-card" id="eolChipsCard">
+                <div class="visual-title">Devices Approaching EOL/EOS
+                    <span class="eol-chips" id="eolChips">
+                        <button type="button" class="eol-chip" data-days="30" tabindex="0" aria-label="Show devices within 30 days EOL">30d: <span id="eol30Count">0</span></button>
+                        <button type="button" class="eol-chip" data-days="60" tabindex="0" aria-label="Show devices within 60 days EOL">60d: <span id="eol60Count">0</span></button>
+                        <button type="button" class="eol-chip" data-days="90" tabindex="0" aria-label="Show devices within 90 days EOL">90d: <span id="eol90Count">0</span></button>
+                    </span>
+                </div>
+                <div class="visual-container"></div>
+            </article>
+        </section>
+        <section class="actions-section" aria-label="Top Actions">
+            <div class="visual-title">Top Actions</div>
+            <div class="actions-list" id="actionsList"></div>
+        </section>
+    </main>
+    <div class="modal-overlay" id="eolModalOverlay" aria-hidden="true" tabindex="-1">
+        <div class="modal" id="eolModal" role="dialog" aria-modal="true" aria-labelledby="eolModalTitle" aria-hidden="true">
+            <div class="modal-header" id="eolModalTitle">Devices Approaching EOL/EOS</div>
+            <button class="modal-close-btn" id="closeEolModalBtn" aria-label="Close modal">&times;</button>
+            <div class="modal-table-container">
+                <table class="modal-table" id="eolModalTable">
+                    <thead>
+                        <tr>
+                            <th>Device ID</th>
+                            <th>Asset Type</th>
+                            <th>Platform</th>
+                            <th>Dept</th>
+                            <th>Location</th>
+                            <th>EOL Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- JS populates -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        Data source: Vmobile CMDB (ServiceNow), MDM (Intune), IAM (Okta/AD), EDR. Nightly sync.
+    </footer>
+    <script>
+        // Fixed random seed for deterministic data
+        function mulberry32(seed) {
+            return function() {
+                var t = seed += 0x6D2B79F5;
+                t = Math.imul(t ^ t >>> 15, t | 1);
+                t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+                return ((t ^ t >>> 14) >>> 0) / 4294967296;
+            }
+        }
+        const rand = mulberry32(145637);
+        // Data setup
+        const DEPARTMENTS = ["HR","Finance","Sales","IT","Operations","Customer Support","Marketing","Network Engineering","Retail"];
+        const LOCATIONS = ["Dallas HQ","Austin NOC","Houston Care Center","Remote – US","Remote – Global"];
+        const PLATFORMS = ["Windows","macOS","iOS","Android","Linux","Network"];
+        const ASSET_TYPES = ["Laptop","Desktop","Mobile","Tablet","Server","Network Gear","Peripheral"];
+        const LIFECYCLE_STAGES = ["Procure","Deploy","Active","Repair","Retire/EOL","Decommissioned"];
+        const ACCESS_LEVELS = ["Standard","Privileged"];
+        const SYSTEMS = ["Okta","AD","VPN","Salesforce","AWS","GCP","ERP","Git/CI"];
+        const AGE_BANDS = ["0–1y","1–2y","2–3y","3–4y","4y+"];
+        const ASSET_TYPE_FOR_ENCRYPTION = ["Laptop"];
+        const STATUS_COLORS = {
+            "at-risk": "var(--danger-red)",
+            "warn": "var(--warning-orange)",
+            "ok": "var(--success-green)"
+        };
+        // Targets
+        const PATCH_TARGET = 95;
+        const MDM_TARGET = 98;
+        const ENCRYPT_TARGET = 99;
+        const ACCESS_REVIEW_TARGET = 97;
+        // Date helpers
+        function daysAgo(days) {
+            const d = new Date();
+            d.setDate(d.getDate() - days);
+            return d;
+        }
+        function addDays(date, days) {
+            const d = new Date(date);
+            d.setDate(d.getDate() + days);
+            return d;
+        }
+        function formatDate(d) {
+            return d.toISOString().slice(0,10);
+        }
+        // Generate Users
+        const userCount = Math.floor(rand() * 500) + 1300; // 1300–1800
+        const users = [];
+        for(let i=0;i<userCount;i++){
+            const dept = DEPARTMENTS[Math.floor(rand()*DEPARTMENTS.length)];
+            const loc = LOCATIONS[Math.floor(rand()*LOCATIONS.length)];
+            const name = "User"+(1000+i);
+            const userId = "U"+(10000+i);
+            const employmentType = rand()<0.19 ? "Contractor" : "Employee";
+            const manager = "U"+(10000+Math.floor(rand()*userCount));
+            users.push({
+                userId, name, dept, loc, employmentType, manager
+            });
+        }
+        // Generate Assets
+        const assetCount = Math.floor(rand()*800)+2400; // 2400–3200
+        const assets = [];
+        for(let i=0;i<assetCount;i++){
+            const assetType = ASSET_TYPES[Math.floor(rand()*ASSET_TYPES.length)];
+            const platform = PLATFORMS[Math.floor(rand()*PLATFORMS.length)];
+            const dept = DEPARTMENTS[Math.floor(rand()*DEPARTMENTS.length)];
+            const loc = LOCATIONS[Math.floor(rand()*LOCATIONS.length)];
+            const assignedIdx = rand();
+            let assignedTo = (assignedIdx<0.87) ? users[Math.floor(rand()*users.length)].userId : "Unassigned";
+            const lifecycleStage = (rand()<0.63) ? "Active" : LIFECYCLE_STAGES[Math.floor(rand()*LIFECYCLE_STAGES.length)];
+            // Dates
+            const purchaseDate = daysAgo(Math.floor(rand()*1460)); // up to 4 years ago
+            const warrantyEnd = addDays(purchaseDate, 365+Math.floor(rand()*730)); // 1–3 years after purchase
+            const eolDate = addDays(purchaseDate, 365*2+Math.floor(rand()*730)); // 2–4 years after purchase
+            // Compliance
+            let encrypted = (ASSET_TYPE_FOR_ENCRYPTION.includes(assetType)) ? (rand()<0.98 ? true : false) : (rand()<0.92 ? true : false);
+            // Lower for contractors, Remote–Global
+            if((loc==="Remote – Global"||loc==="Remote – US") && rand()<0.22) encrypted=false;
+            let mdmEnrolled = (rand()<0.97 ? true : false);
+            if((loc==="Remote – Global"||loc==="Remote – US") && rand()<0.24) mdmEnrolled=false;
+            let avHealthy = (rand()<0.95 ? true : false);
+            if((loc==="Remote – Global"||loc==="Remote – US") && rand()<0.22) avHealthy=false;
+            // Patch: 91–95% on first load
+            let patchAge = Math.floor(rand()*120); // 0–120 days
+            if((loc==="Remote – Global"||loc==="Remote – US") && rand()<0.28) patchAge = 31+Math.floor(rand()*89);
+            if((dept==="IT"||dept==="Network Engineering") && rand()<0.90) patchAge = Math.floor(rand()*30);
+            let lastPatchDate = daysAgo(patchAge);
+            let adminRights = rand()<0.13;
+            let internetFacing = (platform==="Network"||assetType==="Network Gear") ? (rand()<0.42) : (rand()<0.07);
+            assets.push({
+                deviceId: "A"+(100000+i),
+                assetType, platform, dept, loc, assignedTo,
+                lifecycleStage,
+                purchaseDate, warrantyEnd, eolDate,
+                encrypted, mdmEnrolled, avHealthy,
+                lastPatchDate, adminRights, internetFacing
+            });
+        }
+        // Generate Access Accounts
+        const accessAccounts = [];
+        for(let i=0;i<users.length;i++){
+            const user = users[i];
+            for(let j=0;j<SYSTEMS.length;j++){
+                // Not every user has every system
+                if(rand()<0.67 || (user.dept==="IT"||user.dept==="Network Engineering")||(SYSTEMS[j]==="Okta"||SYSTEMS[j]==="AD")){
+                    let accessLevel = rand()<0.14 ? "Privileged" : "Standard";
+                    let lastUsedDays = Math.floor(rand()*120);
+                    let lastUsedDate = daysAgo(lastUsedDays);
+                    let reviewStatus;
+                    let reviewDueDays = Math.floor(rand()*120);
+                    let reviewDueDate = daysAgo(-reviewDueDays);
+                    if(reviewDueDays<30 && rand()<0.84) reviewStatus="Complete";
+                    else if(reviewDueDays<60) reviewStatus="DueSoon";
+                    else reviewStatus="Overdue";
+                    // Contractors have more overdue
+                    if(user.employmentType==="Contractor"&&(rand()<0.19)) reviewStatus="Overdue";
+                    accessAccounts.push({
+                        accountId: "AC"+(i*10+j),
+                        userId: user.userId,
+                        system: SYSTEMS[j],
+                        accessLevel,
+                        lastUsedDate,
+                        reviewDueDate,
+                        reviewStatus
+                    });
+                }
+            }
+        }
+        // ---- FILTERING logic ----
+        function getActiveFilters(){
+            const filters = {
+                department: [],
+                location: [],
+                platform: [],
+                assetType: [],
+                accessLevel: document.getElementById("accessLevelSelect").value,
+                lifecycleStage: document.getElementById("lifecycleStageSelect").value,
+                reviewFrom: document.getElementById("reviewFrom").value,
+                reviewTo: document.getElementById("reviewTo").value,
+                search: document.getElementById("searchInput").value.trim()
+            };
+            document.querySelectorAll('#departmentSelect input:checked').forEach(el=>filters.department.push(el.value));
+            document.querySelectorAll('#locationSelect input:checked').forEach(el=>filters.location.push(el.value));
+            document.querySelectorAll('#platformSelect input:checked').forEach(el=>filters.platform.push(el.value));
+            document.querySelectorAll('#assetTypeSelect input:checked').forEach(el=>filters.assetType.push(el.value));
+            return filters;
+        }
+        function applyFilters(rawAssets, rawUsers, rawAccounts, filters){
+            // Filter users
+            let usersFiltered = rawUsers;
+            if(filters.department.length) usersFiltered = usersFiltered.filter(u=>filters.department.includes(u.dept));
+            if(filters.location.length) usersFiltered = usersFiltered.filter(u=>filters.location.includes(u.loc));
+            if(filters.search) {
+                usersFiltered = usersFiltered.filter(u=>
+                    u.userId.toLowerCase().includes(filters.search.toLowerCase()) || 
+                    u.name.toLowerCase().includes(filters.search.toLowerCase())
+                );
+            }
+            // Filter assets
+            let assetsFiltered = rawAssets;
+            if(filters.department.length) assetsFiltered = assetsFiltered.filter(a=>filters.department.includes(a.dept));
+            if(filters.location.length) assetsFiltered = assetsFiltered.filter(a=>filters.location.includes(a.loc));
+            if(filters.platform.length) assetsFiltered = assetsFiltered.filter(a=>filters.platform.includes(a.platform));
+            if(filters.assetType.length) assetsFiltered = assetsFiltered.filter(a=>filters.assetType.includes(a.assetType));
+            if(filters.lifecycleStage!=="All") assetsFiltered = assetsFiltered.filter(a=>a.lifecycleStage===filters.lifecycleStage);
+            if(filters.search) {
+                assetsFiltered = assetsFiltered.filter(a=>
+                    a.deviceId.toLowerCase().includes(filters.search.toLowerCase())
+                );
+            }
+            // Filter accounts
+            let accountsFiltered = rawAccounts;
+            if(filters.accessLevel!=="All") accountsFiltered = accountsFiltered.filter(a=>a.accessLevel===filters.accessLevel);
+            if(filters.reviewFrom) accountsFiltered = accountsFiltered.filter(a=>{
+                return formatDate(a.reviewDueDate)>=filters.reviewFrom;
+            });
+            if(filters.reviewTo) accountsFiltered = accountsFiltered.filter(a=>{
+                return formatDate(a.reviewDueDate)<=filters.reviewTo;
+            });
+            // If search, filter accounts by userId
+            if(filters.search) {
+                const uids = usersFiltered.map(u=>u.userId);
+                accountsFiltered = accountsFiltered.filter(a=>uids.includes(a.userId));
+            }
+            return {users:usersFiltered, assets:assetsFiltered, accounts:accountsFiltered};
+        }
+        // ---- KPI Logic ----
+        function calcKPIs(filtered){
+            const {assets, users, accounts} = filtered;
+            // Total Assets
+            const totalAssets = assets.length;
+            // Active Fleet
+            const activeAssets = assets.filter(a=>a.lifecycleStage==="Active");
+            const activeFleetCount = activeAssets.length;
+            const activeFleetPercent = totalAssets ? Math.round((activeFleetCount/totalAssets)*100) : 0;
+            // Patch Compliance ≤30d
+            const patchCompliant = activeAssets.filter(a=>(new Date()-a.lastPatchDate)/86400000<=30).length;
+            const patchCompliance = activeFleetCount ? Math.round((patchCompliant/activeFleetCount)*100) : 0;
+            // MDM Enrolled
+            const mdmEnrolled = activeAssets.filter(a=>a.mdmEnrolled).length;
+            const mdmEnrolledPercent = activeFleetCount ? Math.round((mdmEnrolled/activeFleetCount)*100) : 0;
+            // Disk Encryption (Laptops)
+            const encAssets = activeAssets.filter(a=>ASSET_TYPE_FOR_ENCRYPTION.includes(a.assetType));
+            const encEnabled = encAssets.filter(a=>a.encrypted).length;
+            const encPercent = encAssets.length ? Math.round((encEnabled/encAssets.length)*100) : 0;
+            // Access Review Completion
+            const completeReviews = accounts.filter(a=>a.reviewStatus==="Complete").length;
+            const accessReviewPercent = accounts.length ? Math.round((completeReviews/accounts.length)*100) : 0;
+            // Privileged Accounts
+            const privAccounts = accounts.filter(a=>a.accessLevel==="Privileged");
+            const privAccountsCount = privAccounts.length;
+            // Orphaned/Inactive Accounts (>30d)
+            const activeUserIds = new Set(users.map(u=>u.userId));
+            const orphanedAccounts = accounts.filter(a=>!activeUserIds.has(a.userId) || ((new Date()-a.lastUsedDate)/86400000>30));
+            const orphanedCount = orphanedAccounts.length;
+            // Devices Approaching EOL (≤90d)
+            const now = new Date();
+            const approachingEOL = assets.filter(a=>{
+                const days = (a.eolDate-now)/86400000;
+                return days>0 && days<=90;
+            });
+            const eolCount = approachingEOL.length;
+            // Delta calculation: use synthetic last month values
+            function delta(current, last){
+                let d = current-last;
+                let pct = (last===0)?0:Math.round((d/last)*100);
+                return {delta:d, percent:pct};
+            }
+            // For sparkline trends: synthesize 13 months, last value is current
+            function getTrend(arr){
+                let series = [];
+                for(let i=0;i<12;i++)
+                    series.push(arr[i]);
+                series.push(arr[12]);
+                return series;
+            }
+            // Synthetic last month values for deltas
+            // Patch Compliance: simulate a slight summer dip
+            let patchTrend = [];
+            for(let i=0;i<12;i++){
+                let pct = patchCompliance;
+                if(i===6||i===7) pct-=3; // July/Aug dip
+                else pct+=Math.floor(rand()*2)-1;
+                patchTrend.push(Math.max(89,Math.min(98,pct)));
+            }
+            patchTrend.push(patchCompliance);
+            // Access Review: simulate similar dip
+            let reviewTrend = [];
+            for(let i=0;i<12;i++){
+                let pct = accessReviewPercent;
+                if(i===6||i===7) pct-=3;
+                else pct+=Math.floor(rand()*2)-1;
+                reviewTrend.push(Math.max(89,Math.min(99,pct)));
+            }
+            reviewTrend.push(accessReviewPercent);
+            // MDM/Encryption: stable
+            let mdmTrend = [];
+            for(let i=0;i<12;i++){
+                let pct = mdmEnrolledPercent+Math.floor(rand()*2)-1;
+                mdmTrend.push(Math.max(94,Math.min(99,pct)));
+            }
+            mdmTrend.push(mdmEnrolledPercent);
+            let encTrend = [];
+            for(let i=0;i<12;i++){
+                let pct = encPercent+Math.floor(rand()*2)-1;
+                encTrend.push(Math.max(95,Math.min(100,pct)));
+            }
+            encTrend.push(encPercent);
+            // Compose
+            return {
+                totalAssets,
+                activeFleetCount, activeFleetPercent,
+                patchCompliance, patchDelta:delta(patchCompliance,patchTrend[patchTrend.length-2]), patchTrend:getTrend(patchTrend),
+                mdmEnrolledPercent, mdmDelta: delta(mdmEnrolledPercent,mdmTrend[mdmTrend.length-2]), mdmTrend:getTrend(mdmTrend),
+                encPercent, encDelta: delta(encPercent,encTrend[encTrend.length-2]), encTrend:getTrend(encTrend),
+                accessReviewPercent, accessReviewDelta: delta(accessReviewPercent,reviewTrend[reviewTrend.length-2]), accessReviewTrend:getTrend(reviewTrend),
+                privAccountsCount,
+                orphanedCount,
+                eolCount,
+                eolBands: {
+                    "30": assets.filter(a=>((a.eolDate-now)/86400000)>0 && ((a.eolDate-now)/86400000)<=30).length,
+                    "60": assets.filter(a=>((a.eolDate-now)/86400000)>30 && ((a.eolDate-now)/86400000)<=60).length,
+                    "90": assets.filter(a=>((a.eolDate-now)/86400000)>60 && ((a.eolDate-now)/86400000)<=90).length
+                },
+                eolDevices: {
+                    "30": assets.filter(a=>((a.eolDate-now)/86400000)>0 && ((a.eolDate-now)/86400000)<=30),
+                    "60": assets.filter(a=>((a.eolDate-now)/86400000)>30 && ((a.eolDate-now)/86400000)<=60),
+                    "90": assets.filter(a=>((a.eolDate-now)/86400000)>60 && ((a.eolDate-now)/86400000)<=90)
+                }
+            };
+        }
+        // ---- Chart Data Logic ----
+        function getChartsData(filtered, KPIs){
+            const {assets, users, accounts} = filtered;
+            // 1. Lifecycle Funnel
+            let funnelCounts = LIFECYCLE_STAGES.map(stage=>assets.filter(a=>a.lifecycleStage===stage).length);
+            // 2. Patch & AV Health by Platform (grouped bars): Patch ≤30d %, AV Healthy %, Encryption %
+            let platformStats = PLATFORMS.map(platform=>{
+                let platAssets = assets.filter(a=>a.platform===platform && a.lifecycleStage==="Active");
+                let patchPct = platAssets.length ? Math.round(platAssets.filter(a=>((new Date()-a.lastPatchDate)/86400000)<=30).length/platAssets.length*100) : 0;
+                let avPct = platAssets.length ? Math.round(platAssets.filter(a=>a.avHealthy).length/platAssets.length*100) : 0;
+                let encPct = platAssets.length ? Math.round(platAssets.filter(a=>ASSET_TYPE_FOR_ENCRYPTION.includes(a.assetType)&&a.encrypted).length/platAssets.length*100) : 0;
+                return {
+                    platform,
+                    patchPct,
+                    avPct,
+                    encPct
+                };
+            });
+            // 3. Access Review Status by System (stacked bars): Complete / DueSoon / Overdue
+            let systemStats = SYSTEMS.map(system=>{
+                let sysAccounts = accounts.filter(a=>a.system===system);
+                let complete = sysAccounts.filter(a=>a.reviewStatus==="Complete").length;
+                let dueSoon = sysAccounts.filter(a=>a.reviewStatus==="DueSoon").length;
+                let overdue = sysAccounts.filter(a=>a.reviewStatus==="Overdue").length;
+                return {
+                    system,
+                    complete,
+                    dueSoon,
+                    overdue
+                }
+            });
+            // 4. Monthly Trend (dual line): Patch Compliance % & Access Review Completion %
+            let months = [];
+            let now = new Date();
+            for(let i=11;i>=0;i--){
+                let d = new Date(now.getFullYear(),now.getMonth()-i,1);
+                months.push(d.toLocaleString('en',{month:'short'})+" "+(d.getFullYear()));
+            }
+            // Use KPIs patchTrend and accessReviewTrend
+            // 5. Risk Quadrant (scatter/bubble): X=Days since last patch, Y=Critical vulns count, bubble size=exposure
+            let riskAssets = assets.filter(a=>a.lifecycleStage==="Active");
+            let riskData = [];
+            for(let i=0;i<riskAssets.length;i++){
+                let a = riskAssets[i];
+                let daysSincePatch = Math.round((new Date()-a.lastPatchDate)/86400000);
+                let criticalVulns = (daysSincePatch>30) ? Math.floor(rand()*2)+2 : Math.floor(rand()*2);
+                // Exposure: admin + internet-facing
+                let exposure = (a.adminRights?2:1)+(a.internetFacing?2:1);
+                if(a.platform==="Network"||a.assetType==="Network Gear") exposure+=2;
+                riskData.push({
+                    x: daysSincePatch,
+                    y: criticalVulns,
+                    r: Math.min(18,5+exposure*2),
+                    label: a.deviceId,
+                    atRisk: (daysSincePatch>30||criticalVulns>2||exposure>3)
+                });
+            }
+            // 6. Fleet Composition (donut): by asset type
+            let fleetComp = {};
+            ASSET_TYPES.forEach(type=>{
+                fleetComp[type] = assets.filter(a=>a.assetType===type).length;
+            });
+            // 7. Aging Heatmap: rows=Department, columns=Age bands (0–1y, 1–2y, ...)
+            let heatmap = {};
+            DEPARTMENTS.forEach(dept=>{
+                let deptAssets = assets.filter(a=>a.dept===dept);
+                let counts = AGE_BANDS.map((band,idx)=>{
+                    let min = idx*365, max = (idx===AGE_BANDS.length-1)?9999:(idx+1)*365;
+                    let cnt = deptAssets.filter(a=>{
+                        let age = (new Date()-a.purchaseDate)/86400000;
+                        return age>=min && age<max;
+                    }).length;
+                    return cnt;
+                });
+                heatmap[dept] = counts;
+            });
+            return {
+                funnelCounts,
+                platformStats,
+                systemStats,
+                months,
+                patchTrend: KPIs.patchTrend,
+                accessReviewTrend: KPIs.accessReviewTrend,
+                riskData,
+                fleetComp,
+                heatmap
+            }
+        }
+        // ---- Top Actions ----
+        function getTopActions(filtered){
+            // Seeded realistic actions
+            const actionsPool = [
+                {title:"Revoke unused VPN",team:"IT"},
+                {title:"Encrypt disk",team:"IT"},
+                {title:"Rotate admin creds",team:"IAM"},
+                {title:"Patch overdue laptops",team:"IT"},
+                {title:"MDM enroll missing devices",team:"IT"},
+                {title:"Disable orphaned AD accounts",team:"IAM"},
+                {title:"Repair failing AV/EDR",team:"EDR"},
+                {title:"Review contractor access",team:"HR"},
+                {title:"Retire EOL servers",team:"Operations"},
+                {title:"Update asset inventory",team:"Finance"},
+                {title:"Decommission legacy network gear",team:"Network Engineering"},
+                {title:"Reset stale Salesforce accounts",team:"Sales"},
+                {title:"Audit external-facing systems",team:"IT"},
+                {title:"Complete access review",team:"IAM"},
+                {title:"Re-encrypt mobile devices",team:"IT"},
+                {title:"Force password change",team:"IAM"},
+                {title:"Review device allocation",team:"HR"}
+            ];
+            // Pick 10, assign due dates
+            let actions = [];
+            for(let i=0;i<10;i++){
+                let idx = Math.floor(rand()*actionsPool.length);
+                let daysDue = Math.floor(rand()*22)+2;
+                let dueClass = (daysDue<=3)?"danger":(daysDue<=7?"warn":"success");
+                actions.push({
+                    title:actionsPool[idx].title,
+                    team:actionsPool[idx].team,
+                    dueIn:daysDue,
+                    dueClass
+                });
+            }
+            return actions;
+        }
+        // ---- UI RENDER ----
+        // KPI Cards
+        function renderKPIs(KPIs){
+            const kpiCardGrid = document.getElementById("kpiCardGrid");
+            kpiCardGrid.innerHTML = "";
+            const kpis = [
+                {
+                    label:"Total Assets",
+                    value:KPIs.totalAssets,
+                    delta:null,
+                    percent:null,
+                    spark:KPIs.patchTrend,
+                    atRisk:false
+                },
+                {
+                    label:"Active Fleet",
+                    value:KPIs.activeFleetCount,
+                    percent:KPIs.activeFleetPercent+"%",
+                    delta:null,
+                    spark:KPIs.patchTrend,
+                    atRisk:false
+                },
+                {
+                    label:"Patch Compliance ≤30d",
+                    value:KPIs.patchCompliance+"%",
+                    delta:KPIs.patchDelta,
+                    spark:KPIs.patchTrend,
+                    atRisk:KPIs.patchCompliance<PATCH_TARGET
+                },
+                {
+                    label:"MDM Enrolled",
+                    value:KPIs.mdmEnrolledPercent+"%",
+                    delta:KPIs.mdmDelta,
+                    spark:KPIs.mdmTrend,
+                    atRisk:KPIs.mdmEnrolledPercent<MDM_TARGET
+                },
+                {
+                    label:"Disk Encryption Enabled",
+                    value:KPIs.encPercent+"%",
+                    delta:KPIs.encDelta,
+                    spark:KPIs.encTrend,
+                    atRisk:KPIs.encPercent<ENCRYPT_TARGET
+                },
+                {
+                    label:"Access Review Completion",
+                    value:KPIs.accessReviewPercent+"%",
+                    delta:KPIs.accessReviewDelta,
+                    spark:KPIs.accessReviewTrend,
+                    atRisk:KPIs.accessReviewPercent<ACCESS_REVIEW_TARGET
+                },
+                {
+                    label:"Privileged Accounts",
+                    value:KPIs.privAccountsCount,
+                    delta:null,
+                    percent:null,
+                    spark:null,
+                    atRisk:false
+                },
+                {
+                    label:"Orphaned/Inactive Accounts (>30d)",
+                    value:KPIs.orphanedCount,
+                    delta:null,
+                    percent:null,
+                    spark:null,
+                    atRisk:KPIs.orphanedCount>40
+                },
+                {
+                    label:"Devices Approaching EOL (≤90d)",
+                    value:KPIs.eolCount,
+                    delta:null,
+                    percent:null,
+                    spark:null,
+                    atRisk:KPIs.eolCount>20
+                }
+            ];
+            kpis.forEach((kpi,idx)=>{
+                let card = document.createElement('div');
+                card.className = "kpi-card"+(kpi.atRisk?" at-risk":"");
+                card.setAttribute("aria-label",kpi.label+" card");
+                let html = `<div class="kpi-label">${kpi.label}</div>
+                <div class="kpi-value-row">
+                    <span class="kpi-value">${kpi.value}</span>`;
+                if(kpi.percent) html+=`<span class="kpi-percent">${kpi.percent}</span>`;
+                if(kpi.delta){
+                    let d = kpi.delta.delta;
+                    let cls = (d>0?"up":(d<0?"down":"warn"));
+                    if(kpi.atRisk) cls="at-risk";
+                    let icon = (d>0?"&#9650;":(d<0?"&#9660;":"&#8212;"));
+                    html+=`<span class="kpi-delta ${cls}">${icon} ${Math.abs(d)}${typeof kpi.value==="string"&&kpi.value.includes('%')?'%':''}</span>`;
+                }
+                html+=`</div>`;
+                if(kpi.spark){
+                    html+=`<canvas class="kpi-sparkline" id="spark${idx}"></canvas>`;
+                }
+                card.innerHTML = html;
+                kpiCardGrid.appendChild(card);
+            });
+            // Sparklines
+            kpis.forEach((kpi,idx)=>{
+                if(kpi.spark){
+                    let ctx = document.getElementById("spark"+idx).getContext('2d');
+                    new Chart(ctx,{
+                        type:'line',
+                        data:{
+                            labels:Array(kpi.spark.length).fill(''),
+                            datasets:[{
+                                data:kpi.spark,
+                                borderColor:KPIs.patchCompliance<PATCH_TARGET&&idx===2?"#dc3545":"#1bbfb2",
+                                borderWidth:2,
+                                pointRadius:0,
+                                fill:false,
+                                tension:0.3
+                            }]
+                        },
+                        options:{
+                            responsive:false,
+                            plugins:{legend:{display:false},tooltip:{enabled:false}},
+                            scales:{
+                                x:{display:false},
+                                y:{display:false}
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        // Filter chips
+        function renderFilterChips(filters){
+            const fc = document.getElementById("filterChips");
+            fc.innerHTML = "";
+            let chips = [];
+            if(filters.department.length) filters.department.forEach(val=>chips.push({group:"Department",value:val}));
+            if(filters.location.length) filters.location.forEach(val=>chips.push({group:"Location",value:val}));
+            if(filters.platform.length) filters.platform.forEach(val=>chips.push({group:"Platform",value:val}));
+            if(filters.assetType.length) filters.assetType.forEach(val=>chips.push({group:"Asset Type",value:val}));
+            if(filters.accessLevel!=="All") chips.push({group:"Access Level",value:filters.accessLevel});
+            if(filters.lifecycleStage!=="All") chips.push({group:"Lifecycle Stage",value:filters.lifecycleStage});
+            if(filters.reviewFrom) chips.push({group:"Review From",value:filters.reviewFrom});
+            if(filters.reviewTo) chips.push({group:"Review To",value:filters.reviewTo});
+            if(filters.search) chips.push({group:"Search",value:filters.search});
+            chips.forEach((chip,idx)=>{
+                let el = document.createElement('span');
+                el.className = "chip";
+                el.setAttribute("tabindex",0);
+                el.setAttribute("role","button");
+                el.setAttribute("aria-label","Remove filter "+chip.group+": "+chip.value);
+                el.innerHTML = `${chip.group}: ${chip.value} <button class="chip-remove" aria-label="Remove">&times;</button>`;
+                el.onclick = ()=>{
+                    // Remove filter
+                    if(["Department","Location","Platform","Asset Type"].includes(chip.group)){
+                        document.querySelectorAll('input[name="'+chip.group.replace(" ","").toLowerCase()+'"][value="'+chip.value+'"]').forEach(el=>el.checked=false);
+                    } else if(chip.group==="Access Level"){
+                        document.getElementById("accessLevelSelect").value="All";
+                    } else if(chip.group==="Lifecycle Stage"){
+                        document.getElementById("lifecycleStageSelect").value="All";
+                    } else if(chip.group==="Review From"){
+                        document.getElementById("reviewFrom").value="";
+                    } else if(chip.group==="Review To"){
+                        document.getElementById("reviewTo").value="";
+                    } else if(chip.group==="Search"){
+                        document.getElementById("searchInput").value="";
+                    }
+                    applyFiltersAndRender();
+                };
+                fc.appendChild(el);
+            });
+        }
+        // Visuals
+        // Funnel
+        function renderFunnelChart(funnelCounts){
+            let ctx = document.getElementById("funnelChart").getContext('2d');
+            new Chart(ctx,{
+                type:'bar',
+                data:{
+                    labels:LIFECYCLE_STAGES,
+                    datasets:[{
+                        label:'Assets',
+                        data:funnelCounts,
+                        backgroundColor:[
+                            "#1bbfb2","#28a745","#007bff","#ffc107","#f5c542","#495057"
+                        ],
+                        borderRadius:8
+                    }]
+                },
+                options:{
+                    indexAxis:'x',
+                    plugins:{legend:{display:false}},
+                    scales:{
+                        x:{grid:{display:false}},
+                        y:{grid:{display:false},ticks:{stepSize:1}}
+                    }
+                }
+            });
+        }
+        // Patch & AV Health
+        function renderPatchAvChart(platformStats){
+            let ctx = document.getElementById("patchAvChart").getContext('2d');
+            new Chart(ctx,{
+                type:'bar',
+                data:{
+                    labels:PLATFORMS,
+                    datasets:[
+                        {
+                            label:'Patch ≤30d %',
+                            data:platformStats.map(s=>s.patchPct),
+                            backgroundColor:"#007bff"
+                        },
+                        {
+                            label:'AV/EDR Healthy %',
+                            data:platformStats.map(s=>s.avPct),
+                            backgroundColor:"#28a745"
+                        },
+                        {
+                            label:'Encryption %',
+                            data:platformStats.map(s=>s.encPct),
+                            backgroundColor:"#1bbfb2"
+                        }
+                    ]
+                },
+                options:{
+                    plugins:{legend:{position:'top'}},
+                    scales:{
+                        x:{stacked:false,grid:{display:false}},
+                        y:{beginAtZero:true,max:100,grid:{display:true}}
+                    }
+                }
+            });
+        }
+        // Access Review Status
+        function renderAccessReviewChart(systemStats){
+            let ctx = document.getElementById("accessReviewChart").getContext('2d');
+            new Chart(ctx,{
+                type:'bar',
+                data:{
+                    labels:SYSTEMS,
+                    datasets:[
+                        {
+                            label:'Complete',
+                            data:systemStats.map(s=>s.complete),
+                            backgroundColor:"#28a745"
+                        },
+                        {
+                            label:'Due Soon',
+                            data:systemStats.map(s=>s.dueSoon),
+                            backgroundColor:"#ffc107"
+                        },
+                        {
+                            label:'Overdue',
+                            data:systemStats.map(s=>s.overdue),
+                            backgroundColor:"#dc3545"
+                        }
+                    ]
+                },
+                options:{
+                    plugins:{legend:{position:'top'}},
+                    scales:{
+                        x:{stacked:true,grid:{display:false}},
+                        y:{stacked:true,beginAtZero:true,grid:{display:true}}
+                    }
+                }
+            });
+        }
+        // Monthly Trend
+        function renderMonthlyTrendChart(months, patchTrend, accessReviewTrend){
+            let ctx = document.getElementById("monthlyTrendChart").getContext('2d');
+            new Chart(ctx,{
+                type:'line',
+                data:{
+                    labels:months,
+                    datasets:[
+                        {
+                            label:"Patch Compliance %",
+                            data:patchTrend,
+                            borderColor:"#007bff",
+                            backgroundColor:"rgba(0,123,255,0.13)",
+                            fill:false,
+                            pointRadius:3,
+                            tension:0.23
+                        },
+                        {
+                            label:"Access Review Completion %",
+                            data:accessReviewTrend,
+                            borderColor:"#28a745",
+                            backgroundColor:"rgba(40,167,69,0.13)",
+                            fill:false,
+                            pointRadius:3,
+                            tension:0.23
+                        }
+                    ]
+                },
+                options:{
+                    plugins:{legend:{position:'top'}},
+                    scales:{
+                        x:{grid:{display:false}},
+                        y:{min:80,max:100,grid:{display:true}}
+                    }
+                }
+            });
+        }
+        // Risk Quadrant
+        function renderRiskQuadrantChart(riskData){
+            let ctx = document.getElementById("riskQuadrantChart").getContext('2d');
+            new Chart(ctx,{
+                type:'bubble',
+                data:{
+                    datasets:[
+                        {
+                            label:"Devices",
+                            data:riskData.map(d=>({
+                                x:d.x,
+                                y:d.y,
+                                r:d.r
+                            })),
+                            backgroundColor:riskData.map(d=>d.atRisk?"#dc3545":"#1bbfb2"),
+                            borderColor:riskData.map(d=>d.atRisk?"#dc3545":"#007bff"),
+                            borderWidth:1
+                        }
+                    ]
+                },
+                options:{
+                    plugins:{legend:{display:false}},
+                    scales:{
+                        x:{title:{display:true,text:"Days since last patch"},min:0,max:120},
+                        y:{title:{display:true,text:"Critical vulns"},min:0,max:7}
+                    },
+                    tooltips:{enabled:true}
+                }
+            });
+        }
+        // Fleet Composition
+        function renderFleetCompositionChart(fleetComp){
+            let ctx = document.getElementById("fleetCompositionChart").getContext('2d');
+            new Chart(ctx,{
+                type:'doughnut',
+                data:{
+                    labels:Object.keys(fleetComp),
+                    datasets:[{
+                        data:Object.values(fleetComp),
+                        backgroundColor:[
+                            "#007bff","#1bbfb2","#28a745","#ffc107","#495057","#f5c542","#6c757d"
+                        ]
+                    }]
+                },
+                options:{
+                    plugins:{legend:{position:"bottom"}}
+                }
+            });
+        }
+        // Aging Heatmap
+        function renderAgingHeatmapChart(heatmap){
+            let ctx = document.getElementById("agingHeatmapChart").getContext('2d');
+            // Generate color for density
+            let maxCount = 0;
+            Object.values(heatmap).forEach(row=>row.forEach(c=>{if(c>maxCount)maxCount=c;}));
+            let colors = [];
+            Object.values(heatmap).forEach(row=>{
+                let rowColors = row.map(c=>{
+                    if(c===0) return "#e6ebef";
+                    let pct = c/maxCount;
+                    let color = `rgba(27,191,178,${0.2+0.8*pct})`;
+                    return color;
+                });
+                colors.push(rowColors);
+            });
+            // Render as horizontal bar chart, one bar per department, segments per age band
+            let labels = DEPARTMENTS;
+            let datasets = AGE_BANDS.map((band,idx)=>{
+                return {
+                    label:band,
+                    data:DEPARTMENTS.map(dept=>heatmap[dept][idx]),
+                    backgroundColor:DEPARTMENTS.map((dept,d)=>colors[d][idx])
+                }
+            });
+            new Chart(ctx,{
+                type:'bar',
+                data:{
+                    labels,
+                    datasets
+                },
+                options:{
+                    indexAxis:'y',
+                    plugins:{legend:{position:'right'}},
+                    scales:{
+                        x:{beginAtZero:true,stacked:true,grid:{display:true}},
+                        y:{stacked:true,grid:{display:false}}
+                    }
+                }
+            });
+        }
+        // EOL/EOS Chips
+        function renderEolChips(KPIs){
+            document.getElementById("eol30Count").textContent = KPIs.eolBands["30"];
+            document.getElementById("eol60Count").textContent = KPIs.eolBands["60"];
+            document.getElementById("eol90Count").textContent = KPIs.eolBands["90"];
+        }
+        // Actions
+        function renderActions(actions){
+            const actionsList = document.getElementById("actionsList");
+            actionsList.innerHTML = "";
+            if(actions.length===0){
+                actionsList.innerHTML = `<div class="empty-state">No actions for current filters.</div>`;
+                return;
+            }
+            actions.forEach(a=>{
+                let el = document.createElement("div");
+                el.className = "action-item";
+                el.innerHTML = `<span class="action-title">${a.title}</span>
+                                <span class="action-team">${a.team}</span>
+                                <span class="action-due ${a.dueClass}">Due in ${a.dueIn}d</span>`;
+                actionsList.appendChild(el);
+            });
+        }
+        // Visuals Empty State
+        function renderEmptyState(cardId){
+            let card = document.getElementById(cardId);
+            let vc = card.querySelector('.visual-container');
+            vc.innerHTML = `<div class="empty-state">No results for current filters.</div>`;
+        }
+        // EOL/EOS modal
+        function openEolModal(devices){
+            // Do NOT auto-open; must be called only on chip click.
+            const overlay = document.getElementById("eolModalOverlay");
+            const modal = document.getElementById("eolModal");
+            overlay.setAttribute("aria-hidden","false");
+            modal.setAttribute("aria-hidden","false");
+            overlay.style.display="flex";
+            // Render table
+            const tbody = document.getElementById("eolModalTable").querySelector("tbody");
+            tbody.innerHTML = "";
+            if(devices.length===0){
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--danger-red);">No devices in this EOL/EOS window.</td></tr>`;
+                return;
+            }
+            devices.slice(0,8).forEach(d=>{
+                let tr = document.createElement("tr");
+                tr.innerHTML = `<td>${d.deviceId}</td>
+                                <td>${d.assetType}</td>
+                                <td>${d.platform}</td>
+                                <td>${d.dept}</td>
+                                <td>${d.loc}</td>
+                                <td>${formatDate(d.eolDate)}</td>`;
+                tbody.appendChild(tr);
+            });
+            // Focus for accessibility
+            modal.focus();
+        }
+        function closeEolModal(){
+            const overlay = document.getElementById("eolModalOverlay");
+            const modal = document.getElementById("eolModal");
+            overlay.setAttribute("aria-hidden","true");
+            modal.setAttribute("aria-hidden","true");
+            overlay.style.display="none";
+        }
+        // ---- FILTER HANDLERS ----
+        function applyFiltersAndRender(){
+            const filters = getActiveFilters();
+            renderFilterChips(filters);
+            const filtered = applyFilters(assets,users,accessAccounts,filters);
+            // KPIs
+            const KPIs = calcKPIs(filtered);
+            renderKPIs(KPIs);
+            // Visuals
+            const chartsData = getChartsData(filtered, KPIs);
+            // Lifecycle Funnel
+            if(chartsData.funnelCounts.reduce((a,b)=>a+b,0)===0) renderEmptyState('funnelCard');
+            else{
+                document.getElementById('funnelCard').querySelector('.visual-container').innerHTML = `<canvas id="funnelChart" width="420" height="80" aria-label="Lifecycle Funnel Chart"></canvas>`;
+                renderFunnelChart(chartsData.funnelCounts);
+            }
+            // Patch & AV Health
+            if(chartsData.platformStats.reduce((a,b)=>a+b.patchPct,0)===0) renderEmptyState('patchAvCard');
+            else{
+                document.getElementById('patchAvCard').querySelector('.visual-container').innerHTML = `<canvas id="patchAvChart" width="420" height="220" aria-label="Patch and AV Health Chart"></canvas>`;
+                renderPatchAvChart(chartsData.platformStats);
+            }
+            // Access Review Status
+            if(chartsData.systemStats.reduce((a,b)=>a+b.complete+b.dueSoon+b.overdue,0)===0) renderEmptyState('accessReviewCard');
+            else{
+                document.getElementById('accessReviewCard').querySelector('.visual-container').innerHTML = `<canvas id="accessReviewChart" width="420" height="220" aria-label="Access Review Status Chart"></canvas>`;
+                renderAccessReviewChart(chartsData.systemStats);
+            }
+            // Monthly Trend
+            if(chartsData.patchTrend.length===0 && chartsData.accessReviewTrend.length===0) renderEmptyState('monthlyTrendCard');
+            else{
+                document.getElementById('monthlyTrendCard').querySelector('.visual-container').innerHTML = `<canvas id="monthlyTrendChart" width="420" height="220" aria-label="Monthly Trend Chart"></canvas>`;
+                renderMonthlyTrendChart(chartsData.months,chartsData.patchTrend,chartsData.accessReviewTrend);
+            }
+            // Risk Quadrant
+            if(chartsData.riskData.length===0) renderEmptyState('riskQuadrantCard');
+            else{
+                document.getElementById('riskQuadrantCard').querySelector('.visual-container').innerHTML = `<canvas id="riskQuadrantChart" width="420" height="220" aria-label="Risk Quadrant Chart"></canvas>`;
+                renderRiskQuadrantChart(chartsData.riskData);
+            }
+            // Fleet Composition
+            if(Object.values(chartsData.fleetComp).reduce((a,b)=>a+b,0)===0) renderEmptyState('fleetCompositionCard');
+            else{
+                document.getElementById('fleetCompositionCard').querySelector('.visual-container').innerHTML = `<canvas id="fleetCompositionChart" width="180" height="180" aria-label="Fleet Composition Chart"></canvas>`;
+                renderFleetCompositionChart(chartsData.fleetComp);
+            }
+            // Aging Heatmap
+            if(Object.values(chartsData.heatmap).every(row=>row.every(c=>c===0))) renderEmptyState('agingHeatmapCard');
+            else{
+                document.getElementById('agingHeatmapCard').querySelector('.visual-container').innerHTML = `<canvas id="agingHeatmapChart" width="420" height="220" aria-label="Aging Heatmap"></canvas>`;
+                renderAgingHeatmapChart(chartsData.heatmap);
+            }
+            // EOL/EOS chips
+            renderEolChips(KPIs);
+            // Actions
+            const actions = getTopActions(filtered);
+            renderActions(actions);
+            // EOL Modal: always hidden by default
+            closeEolModal();
+        }
+        // ---- FILTERS UI ----
+        document.getElementById("applyFiltersBtn").onclick = applyFiltersAndRender;
+        document.getElementById("clearFiltersBtn").onclick = ()=>{
+            document.querySelectorAll('#departmentSelect input').forEach(el=>el.checked=false);
+            document.querySelectorAll('#locationSelect input').forEach(el=>el.checked=false);
+            document.querySelectorAll('#platformSelect input').forEach(el=>el.checked=false);
+            document.querySelectorAll('#assetTypeSelect input').forEach(el=>el.checked=false);
+            document.getElementById("accessLevelSelect").value="All";
+            document.getElementById("lifecycleStageSelect").value="All";
+            document.getElementById("reviewFrom").value="";
+            document.getElementById("reviewTo").value="";
+            document.getElementById("searchInput").value="";
+            applyFiltersAndRender();
+        };
+        // On change, apply filters immediately
+        document.getElementById("filtersForm").onchange = applyFiltersAndRender;
+        document.getElementById("filtersForm").onsubmit = (e)=>{e.preventDefault();applyFiltersAndRender();};
+        // EOL/EOS modal open/close
+        document.querySelectorAll('.eol-chip').forEach(btn=>{
+            btn.onclick = function(){
+                let days = btn.getAttribute("data-days");
+                const filters = getActiveFilters();
+                const filtered = applyFilters(assets,users,accessAccounts,filters);
+                const KPIs = calcKPIs(filtered);
+                openEolModal(KPIs.eolDevices[days]);
+            };
+        });
+        document.getElementById("closeEolModalBtn").onclick = closeEolModal;
+        document.getElementById("eolModalOverlay").onclick = function(e){
+            if(e.target===this) closeEolModal();
+        };
+        document.addEventListener("keydown",function(e){
+            // Esc to close modal
+            if(e.key==="Escape") closeEolModal();
+        });
+        // ---- DARK MODE ----
+        function setDarkMode(val){
+            if(val){
+                document.documentElement.setAttribute("data-theme","dark");
+                document.getElementById("darkModeIcon").textContent = "☀️";
+            } else{
+                document.documentElement.setAttribute("data-theme","");
+                document.getElementById("darkModeIcon").textContent = "🌙";
+            }
+            localStorage.setItem("vmobileDarkMode",val?"1":"0");
+        }
+        function getDarkMode(){
+            let dm = localStorage.getItem("vmobileDarkMode");
+            if(dm==="1") return true;
+            if(dm==="0") return false;
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        document.getElementById("darkModeToggle").onclick = function(){
+            setDarkMode(document.documentElement.getAttribute("data-theme")!=="dark");
+        };
+        // ---- INITIALIZE ----
+        setDarkMode(getDarkMode());
+        applyFiltersAndRender();
+    </script>
+</body>
+</html>

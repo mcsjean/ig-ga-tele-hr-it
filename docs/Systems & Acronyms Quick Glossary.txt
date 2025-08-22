@@ -1,0 +1,467 @@
+VMOBILE SYSTEMS & ACRONYMS – QUICK GLOSSARY
+===========================================
+
+This glossary provides a comprehensive reference to the systems, platforms, and acronyms commonly used at Vmobile. It is designed to promote consistency and clarity in communications, training, and daily operations. All employees are expected to familiarize themselves with the terms listed below, as they are integral to Vmobile’s business processes and technological environment.
+
+HOW TO USE THIS GLOSSARY
+========================
+
+1. During Meetings and Correspondence  
+Employees are encouraged to consult the glossary when preparing internal communications, presentations, or reports to ensure correct usage of terms.
+
+2. Onboarding and Training  
+New hires should review the glossary as part of their induction program to become familiar with Vmobile’s systems and acronyms.
+
+3. System Navigation  
+When interacting with Vmobile platforms, refer to the glossary for definitions of system names, abbreviations, and technical terms.
+
+4. Policy Interpretation  
+Use the glossary to clarify terminology found in Vmobile’s HR, IT, and compliance policies.
+
+Best Practices
+
+- Always use the standardized terms and acronyms provided in the glossary when communicating internally.
+- If a term or acronym is not listed, contact HR or IT for clarification before using it in formal communications.
+- Refer to the glossary regularly, especially when new systems or processes are introduced.
+
+Glossary Updates
+
+- The glossary is reviewed and updated quarterly by HR and IT in collaboration with relevant departments.
+- Employees may submit suggestions for additions or revisions via the Employee Self-Service Portal (ESS).
+- Notification of updates will be provided via company-wide email
+
+Responsibilities
+
+- All employees are responsible for familiarizing themselves with the glossary and using it as a reference tool.
+- Managers should ensure their teams are aware of updates and encourage regular consultation of the glossary.
+
+Support
+
+- For questions regarding specific terms or systems, contact the HRIS Helpdesk or IT Service Desk.
+- For training on new systems, refer to the LMS for relevant courses and materials.
+
+
+
+Acronyms and Systems
+
+1. HRIS – Human Resources Information System  
+Vmobile’s centralized platform for managing employee records, payroll, benefits, performance reviews, and compliance documentation.
+
+2. ESS – Employee Self-Service Portal  
+A secure online portal where employees access personal information, submit leave requests, update contact details, and view payslips.
+
+3. ATS – Applicant Tracking System  
+Vmobile’s recruitment management tool used by HR to post jobs, track candidates, and manage the hiring workflow.
+
+4. LMS – Learning Management System  
+Platform for delivering, tracking, and reporting on employee training and development activities.
+
+5. DMS – Document Management System  
+Secure repository for storing, sharing, and collaborating on company documents, policies, and procedures.
+
+6. ERP – Enterprise Resource Planning  
+Vmobile’s integrated suite for finance, supply chain, procurement, and project management.
+
+7. SSO – Single Sign-On  
+Authentication system allowing employees to access multiple Vmobile applications with one set of credentials.
+
+8. MFA – Multi-Factor Authentication  
+Security protocol requiring users to provide two or more verification factors to access sensitive systems.
+
+9. VPN – Virtual Private Network  
+Encrypted network connection enabling secure remote access to Vmobile resources.
+
+10. MDM – Mobile Device Management  
+System for managing, securing, and monitoring company-issued mobile devices.
+
+11. IAM – Identity and Access Management  
+Processes and technologies used to assign, manage, and revoke user access rights across Vmobile systems.
+
+12. ITSM – IT Service Management  
+Platform for handling IT support requests, incident tracking, and change management.
+
+13. SOC – Security Operations Center  
+Dedicated team and infrastructure responsible for monitoring, detecting, and responding to security threats.
+
+14. BYOD – Bring Your Own Device  
+Policy and procedures governing the use of personal devices for work purposes.
+
+15. VoIP – Voice over Internet Protocol  
+Telephony system enabling voice communications over data networks.
+
+16. AD – Active Directory  
+Directory service used for network authentication, user management, and resource access control.
+
+17. SLA – Service Level Agreement  
+Documented agreement specifying the expected level of service between Vmobile and internal or external service providers.
+
+18. GDPR – General Data Protection Regulation  
+European Union regulation governing data privacy and protection, applicable to Vmobile’s handling of personal information.
+
+19. KPI – Key Performance Indicator  
+Quantifiable metric used to evaluate employee, team, or organizational performance.
+
+20. OKR – Objectives and Key Results  
+Goal-setting framework used to align individual and team objectives with Vmobile’s strategic priorities.
+
+21. SSO – Single Sign-On  
+System integrating authentication across Vmobile platforms for seamless user access.
+
+22. MFA – Multi-Factor Authentication  
+Security protocol requiring multiple forms of verification for system access.
+
+23. PII – Personally Identifiable Information  
+Any data that can be used to identify a specific individual, subject to Vmobile’s data protection policies.
+
+24. SaaS – Software as a Service  
+Cloud-based software delivery model used for many Vmobile applications.
+
+25. API – Application Programming Interface  
+Set of protocols for integrating and exchanging data between Vmobile systems.
+
+This glossary is updated periodically to reflect new systems, processes, and terminology introduced at Vmobile. Employees should refer to the latest version available on the DMS or contact HR/IT for clarification.
+
+
+
+HR & PEOPLE SYSTEMS
+===================
+
+Core Systems
+
+1. HRIS (Human Resources Information System)  
+Vmobile’s HRIS is the authoritative source for all employee records. It manages personal information, employment history, compensation, benefits, and compliance documentation.
+
+Features:
+- Secure employee data storage and retrieval.
+- Automated payroll processing and reporting.
+- Benefits administration, including enrollment and changes.
+- Performance management and appraisal tracking.
+- Compliance with labor laws and data protection regulations.
+
+2. ESS (Employee Self-Service Portal)  
+The ESS empowers employees to manage personal information and HR transactions independently.
+
+Capabilities:
+- View and update contact details.
+- Access payslips and tax documents.
+- Submit leave and absence requests.
+- Register for training sessions.
+- Review performance feedback.
+
+3. ATS (Applicant Tracking System)  
+The ATS streamlines recruitment and hiring processes.
+
+Functions:
+- Job posting and candidate sourcing.
+- Resume screening and interview scheduling.
+- Offer management and onboarding coordination.
+
+4. LMS (Learning Management System)  
+Vmobile’s LMS supports ongoing employee development.
+
+Key Features:
+- Online training modules and certification tracking.
+- Mandatory compliance courses.
+- Department-specific learning paths.
+
+
+
+IT & SECURITY SYSTEMS
+=====================
+
+
+Core IT Systems
+
+1. Active Directory (AD)  
+Centralized directory service for user authentication, network access, and resource management.
+
+2. Single Sign-On (SSO)  
+Employees access multiple Vmobile applications using unified credentials, reducing password fatigue and improving security.
+
+3. Multi-Factor Authentication (MFA)  
+Mandatory for accessing sensitive systems, requiring a combination of password and secondary verification (e.g., SMS code, authentication app).
+
+4. Identity and Access Management (IAM)  
+Processes for assigning, modifying, and revoking user access rights based on role and business need.
+
+5. IT Service Management (ITSM)  
+Platform for submitting IT support requests, tracking incidents, and managing changes to IT infrastructure.
+
+6. Mobile Device Management (MDM)  
+Controls and monitors company-issued mobile devices, enforcing security policies and remote wipe capabilities.
+
+7. Security Operations Center (SOC)  
+24/7 monitoring of Vmobile’s digital environment to detect, respond to, and mitigate security threats.
+
+Security Policies and Procedures
+
+1. Account Provisioning and Deactivation  
+- New accounts are provisioned via AD and IAM upon HR notification of hire.
+- Access rights are assigned based on job function.
+- Accounts are deactivated immediately upon termination or role change.
+
+2. Password Management  
+- Passwords must meet complexity requirements and be changed every 90 days.
+- Password sharing is strictly prohibited.
+- SSO and MFA are required for all critical systems.
+
+3. Data Protection  
+- All company data is classified and protected according to sensitivity.
+- PII and confidential information must be stored in approved systems only.
+- Data transfers outside Vmobile are subject to encryption and authorization.
+
+4. Device Security  
+- All devices must comply with MDM policies.
+- Lost or stolen devices must be reported immediately to IT.
+- Personal devices used for work (BYOD) must be registered and compliant with security standards.
+
+5. Incident Response  
+- All suspected security incidents must be reported via ITSM.
+- SOC will investigate, contain, and remediate threats.
+- Employees are required to cooperate with investigations and follow remediation instructions.
+
+Compliance and Training
+
+- Regular security awareness training is mandatory and delivered via the LMS.
+- Vmobile systems comply with GDPR and other relevant regulations.
+- Annual audits and penetration tests are conducted to evaluate security posture.
+
+NETWORK & COMMUNICATIONS
+========================
+
+Network Infrastructure
+
+1. Corporate LAN/WAN  
+Vmobile maintains high-speed Local Area Networks (LAN) at all offices and a secure Wide Area Network (WAN) connecting sites and remote workers.
+
+2. Virtual Private Network (VPN)  
+Employees working remotely must use the VPN to access internal resources securely. VPN usage is monitored for compliance and security.
+
+3. Wireless Networks  
+Secure Wi-Fi is provided at all Vmobile offices. Guest networks are available for visitors and are segregated from corporate resources.
+
+4. Network Access Control  
+Network access is authenticated via AD and IAM systems. Unauthorized devices are blocked automatically.
+
+Communication Systems
+
+1. VoIP Telephony  
+Vmobile utilizes Voice over Internet Protocol (VoIP) for all internal and external calls. Voicemail, call forwarding, and conferencing features are standard.
+
+2. Email  
+Corporate email accounts are provisioned for all employees. Email usage is subject to Vmobile’s Acceptable Use Policy and monitored for security.
+
+3. Instant Messaging and Collaboration  
+Approved platforms (e.g., Microsoft Teams, Slack) are used for real-time messaging, file sharing, and virtual meetings.
+
+4. Video Conferencing  
+Vmobile supports video conferencing via licensed platforms (e.g., Zoom, Teams). Meetings must be scheduled using corporate calendars.
+
+OPERATIONS & FINANCE
+====================
+
+1. Operations Management
+
+1.1. Daily Business Procedures  
+Vmobile’s operational procedures are established to support seamless workflow and optimal resource utilization. Employees must:
+
+- Follow all approved departmental Standard Operating Procedures (SOPs).
+- Report any operational issues immediately to their direct supervisor or the Operations Manager.
+- Utilize Vmobile’s internal project management tools (e.g., Vmobile Task Portal, Jira) for tracking assignments and deadlines.
+- Attend mandatory weekly team meetings and quarterly cross-departmental reviews.
+
+1.2. Resource Allocation  
+Resource allocation is centrally managed to prevent waste and maximize productivity.
+
+- All requests for equipment, software, or materials must be submitted via the Vmobile Resource Request Form in the employee portal.
+- Approval from the relevant department head and Operations Manager is required before procurement.
+- Employees are responsible for the proper use and maintenance of assigned resources.
+
+1.3. Vendor Management  
+Vmobile partners with approved vendors for goods and services.
+
+- Vendor selection is managed by the Procurement Team in accordance with Vmobile’s Vendor Selection Policy.
+- Employees may not engage vendors directly unless authorized by Procurement.
+- All vendor contracts must be reviewed and signed by the Finance Director.
+
+2. Finance Management
+
+2.1. Budgeting  
+Vmobile’s annual budgeting process is overseen by the Finance Department.
+
+- Department heads must submit budget proposals by November 15 each year.
+- All budgets are reviewed by the Finance Committee and finalized by December 31.
+- Budget adherence is monitored monthly; any significant variances must be explained in writing.
+
+2.2. Expense Reporting  
+Employees must follow Vmobile’s expense reporting procedures for reimbursement and accounting.
+
+- All business expenses require itemized receipts and must be submitted through the Vmobile Expense Portal within 10 business days of incurring the expense.
+- Expenses over $500 require pre-approval from the department head.
+- Non-compliant expense reports will be rejected and may result in disciplinary action.
+
+2.3. Payroll  
+Payroll is administered biweekly via direct deposit.
+
+- Employees must ensure their banking information is current in the HRIS (Human Resources Information System).
+- Overtime must be pre-approved and logged in the Vmobile Time Tracking System.
+- Payroll discrepancies should be reported to Payroll Services within 5 business days.
+
+2.4. Financial Controls  
+Vmobile enforces strict financial controls to prevent fraud and ensure transparency.
+
+- All financial transactions above $10,000 require dual authorization from Finance and Executive Management.
+- Regular internal and external audits are conducted; employees must cooperate fully with auditors.
+- Conflict of interest disclosures are mandatory for all employees involved in financial decision-making.
+
+3. Compliance & Reporting
+
+3.1. Regulatory Compliance  
+Vmobile complies with all applicable local, state, and federal laws, including tax, labor, and data privacy regulations.
+
+- Employees must complete annual compliance training.
+- Any suspected non-compliance must be reported to the Compliance Officer immediately.
+
+3.2. Financial Reporting  
+Accurate and timely financial reporting is essential.
+
+- All departments must submit monthly financial activity reports to Finance by the 5th of each month.
+- Finance prepares quarterly and annual financial statements for executive review and external reporting.
+
+4. Confidentiality & Data Security
+
+4.1. Confidential Financial Information  
+All financial data, including budgets, payroll records, and vendor contracts, are confidential.
+
+- Employees must not share financial information outside Vmobile or with unauthorized internal parties.
+- Breaches of confidentiality will result in disciplinary action, up to and including termination.
+
+ABBREVIATIONS BY ALPHABET (A–Z)
+===============================
+
+A  
+- AP: Accounts Payable  
+- AR: Accounts Receivable  
+- API: Application Programming Interface
+
+B  
+- BA: Business Analyst  
+- BI: Business Intelligence  
+- BYOD: Bring Your Own Device
+
+C  
+- CEO: Chief Executive Officer  
+- CFO: Chief Financial Officer  
+- CRM: Customer Relationship Management  
+- CTO: Chief Technology Officer  
+- CUI: Controlled Unclassified Information
+
+D  
+- DB: Database  
+- DLP: Data Loss Prevention  
+- DNS: Domain Name System
+
+E  
+- ERP: Enterprise Resource Planning  
+- ETA: Estimated Time of Arrival  
+- EOD: End of Day  
+- EOM: End of Month  
+- EOY: End of Year
+
+F  
+- FA: Financial Analyst  
+- FAQ: Frequently Asked Questions  
+- FTE: Full-Time Equivalent
+
+G  
+- GDPR: General Data Protection Regulation  
+- GUI: Graphical User Interface
+
+H  
+- HR: Human Resources  
+- HRIS: Human Resources Information System  
+- HQ: Headquarters
+
+I  
+- IA: Information Architecture  
+- IAM: Identity and Access Management  
+- IT: Information Technology  
+- IP: Internet Protocol  
+- ISP: Internet Service Provider
+
+J  
+- Jira: Vmobile’s project management tool (no abbreviation, but commonly referenced)
+
+K  
+- KPI: Key Performance Indicator
+
+L  
+- LAN: Local Area Network  
+- LDAP: Lightweight Directory Access Protocol
+
+M  
+- MFA: Multi-Factor Authentication  
+- MIS: Management Information System  
+- MOU: Memorandum of Understanding
+
+N  
+- NDA: Non-Disclosure Agreement  
+- NOC: Network Operations Center
+
+O  
+- OEM: Original Equipment Manufacturer  
+- OOO: Out of Office
+
+P  
+- PII: Personally Identifiable Information  
+- PM: Project Manager  
+- PO: Purchase Order  
+- PTO: Paid Time Off
+
+Q  
+- QA: Quality Assurance  
+- QC: Quality Control  
+- QR: Quick Response (code)
+
+R  
+- R&D: Research and Development  
+- ROI: Return on Investment  
+- RFP: Request for Proposal  
+- RFQ: Request for Quotation
+
+S  
+- SaaS: Software as a Service  
+- SLA: Service Level Agreement  
+- SOP: Standard Operating Procedure  
+- SSO: Single Sign-On
+
+T  
+- T&E: Travel and Expense  
+- TBA: To Be Announced  
+- TBD: To Be Determined  
+- TCO: Total Cost of Ownership  
+- TFA: Two-Factor Authentication  
+- TOS: Terms of Service
+
+U  
+- UI: User Interface  
+- URL: Uniform Resource Locator  
+- UAT: User Acceptance Testing
+
+V  
+- VPN: Virtual Private Network  
+- Vmobile: The company name (used in all official documentation)
+
+W  
+- WAN: Wide Area Network  
+- WFH: Work From Home  
+- WIP: Work In Progress
+
+X  
+- XML: Extensible Markup Language
+
+Y  
+- YTD: Year to Date
+
+
+Note: This list is updated periodically to reflect changes in Vmobile’s systems and terminology. Last update 08-16-2025

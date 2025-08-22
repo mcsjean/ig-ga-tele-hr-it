@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vmobile HR & IT Service Status — Outage 2025-08-17 & Upcoming Maintenance</title>
+  <style>
+    :root{
+      --bg:#f6f8fb; --card:#fff; --text:#0f172a; --border:#d4d8e0;
+      --pill-investigating-bg:#FFF4E5; --pill-investigating-text:#7A4E0A;
+      --pill-identified-bg:#FFE8CC;   --pill-identified-text:#6A3E00;
+      --pill-mitigating-bg:#E6F0FF;   --pill-mitigating-text:#0A3A8B;
+      --pill-monitoring-bg:#E8F5F2;   --pill-monitoring-text:#0A4D3A;
+      --pill-resolved-bg:#E8F5E9;     --pill-resolved-text:#0E6027;
+      --pill-closed-bg:#ECEFF3;       --pill-closed-text:#3A4451;
+      --pill-maint-bg:#E6F0FF;        --pill-maint-text:#0A3A8B;
+      --pill-approved-bg:#E8F0FF;     --pill-approved-text:#1B3A8A;
+      --pill-inprog-bg:#E6F0FF;       --pill-inprog-text:#0A3A8B;
+      --pill-verify-bg:#E6F0FF;       --pill-verify-text:#0A3A8B;
+      --pill-resched-bg:#FFF0F0;      --pill-resched-text:#8A1B1B;
+      --pill-deferred-bg:#F0F2F5;     --pill-deferred-text:#3A4451;
+      --pill-cancel-bg:#F0F2F5;       --pill-cancel-text:#3A4451;
+      --primary-blue: #007bff;
+      --light-blue: #e0f2fe;
+      --dark-grey: #495057;
+      --light-grey: #f8f9fa;
+      --success-green: #28a745;
+      --danger-red: #dc3545;
+      --warning-orange: #ffc107;
+      --focus: #2563eb;
+      --font-main: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+      --transition: 0.15s cubic-bezier(.4,0,.2,1);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1220; --card:#0f1a2b; --text:#e5e7eb; --border:#2a3440;
+      --pill-investigating-bg:#6C4D00; --pill-investigating-text:#FFF7D6;
+      --pill-identified-bg:#5A3A00;    --pill-identified-text:#FFE3B0;
+      --pill-mitigating-bg:#0A3A8B;    --pill-mitigating-text:#E6F0FF;
+      --pill-monitoring-bg:#0A4D3A;    --pill-monitoring-text:#DDF4EC;
+      --pill-resolved-bg:#0E6027;      --pill-resolved-text:#E6F6EA;
+      --pill-closed-bg:#2A3440;        --pill-closed-text:#E6EBF1;
+      --pill-maint-bg:#0A3A8B;         --pill-maint-text:#E6F0FF;
+      --pill-approved-bg:#0A3A8B;      --pill-approved-text:#E6F0FF;
+      --pill-inprog-bg:#0A3A8B;        --pill-inprog-text:#E6F0FF;
+      --pill-verify-bg:#0A3A8B;        --pill-verify-text:#E6F0FF;
+      --pill-resched-bg:#8A1B1B;       --pill-resched-text:#FFF0F0;
+      --pill-deferred-bg:#3A4451;      --pill-deferred-text:#F1F3F6;
+      --pill-cancel-bg:#3A4451;        --pill-cancel-text:#F1F3F6;
+    }
+    html,body{
+      height:100%;
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--font-main);
+      margin:0;
+      padding:0;
+      transition:background var(--transition),color var(--transition);
+    }
+    body {
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+    header {
+      background:var(--card);
+      border-bottom:1px solid var(--border);
+      padding:1.5rem 2rem 1rem 2rem;
+      display:flex;
+      flex-direction:column;
+      gap:.5rem;
+      position:relative;
+      z-index:10;
+    }
+    .top-row {
+      display:flex;
+      align-items:center;
+      gap:1.5rem;
+      flex-wrap:wrap;
+      justify-content:space-between;
+    }
+    .env-badge {
+      background:var(--primary-blue);
+      color:#fff;
+      font-weight:500;
+      border-radius:999px;
+      padding:.3em .9em;
+      font-size:.93em;
+      letter-spacing:.05em;
+      border:1px solid var(--primary-blue);
+      margin-left:.7em;
+      display:inline-block;
+    }
+    .refresh {
+      font-size:1em;
+      color:var(--dark-grey);
+      margin-left:.7em;
+      font-weight:400;
+      display:inline-block;
+    }
+    .dark-toggle {
+      margin-left:1em;
+      border:none;
+      background:var(--light-blue);
+      color:var(--primary-blue);
+      border-radius:999px;
+      padding:.4em 1em;
+      font-size:1.05em;
+      font-weight:500;
+      cursor:pointer;
+      transition:background var(--transition),color var(--transition);
+      outline:none;
+      position:relative;
+    }
+    .dark-toggle:focus-visible {
+      box-shadow:0 0 0 2px var(--focus);
+    }
+    .subtext {
+      color:var(--dark-grey);
+      font-size:1.07em;
+      margin-top:.3em;
+      line-height:1.5;
+    }
+    nav[role="tablist"] {
+      display:flex;
+      gap:.5em;
+      margin:1.2em 0 0 0;
+      border-bottom:1.5px solid var(--border);
+    }
+    .tab {
+      appearance:none;
+      border:none;
+      background:none;
+      color:var(--primary-blue);
+      font-weight:600;
+      font-size:1.13em;
+      padding:.65em 1.2em .5em 1.2em;
+      cursor:pointer;
+      transition:background var(--transition),color var(--transition);
+      border-bottom:2.5px solid transparent;
+      outline:none;
+    }
+    .tab[aria-selected="true"] {
+      color:var(--text);
+      background:var(--card);
+      border-bottom:2.5px solid var(--primary-blue);
+    }
+    .tab:focus-visible {
+      box-shadow:0 0 0 2px var(--focus);
+      background:var(--light-blue);
+    }
+    main {
+      flex:1 0 auto;
+      width:100%;
+      max-width:1200px;
+      margin:0 auto;
+      padding:2rem 1rem 2.5rem 1rem;
+      background:var(--bg);
+      transition:background var(--transition);
+    }
+    section[role="tabpanel"] {
+      width:100%;
+      margin-top:1.5em;
+      display:none;
+      animation:fadeIn .20s;
+    }
+    section[role="tabpanel"][data-active="true"] {
+      display:block;
+    }
+    @keyframes fadeIn {
+      from{opacity:0;}
+      to{opacity:1;}
+    }
+    .incident-banner {
+      background:var(--warning-orange);
+      color:var(--danger-red);
+      border-radius:8px;
+      padding:.8em 1.2em .9em 1.2em;
+      font-size:1.13em;
+      font-weight:500;
+      display:flex;
+      align-items:center;
+      gap:1.1em;
+      margin-bottom:1.15em;
+      border:1px solid var(--border);
+      flex-wrap:wrap;
+    }
+    .incident-banner .badge {
+      margin-left:.4em;
+      margin-right:.7em;
+      vertical-align:middle;
+    }
+    .exec-summary {
+      background:var(--card);
+      border-radius:8px;
+      padding:.6em 1.1em .75em 1.1em;
+      font-size:1.07em;
+      margin-bottom:1.05em;
+      border:1px solid var(--border);
+      color:var(--text);
+    }
+    .filters-row, .filters-row-maint {
+      display:flex;
+      flex-wrap:wrap;
+      gap:1em;
+      align-items:center;
+      margin-bottom:.8em;
+    }
+    .filter-group {
+      display:flex;
+      flex-direction:column;
+      gap:.3em;
+      min-width:150px;
+      max-width:250px;
+    }
+    .filter-label {
+      font-size:.98em;
+      color:var(--dark-grey);
+      font-weight:500;
+    }
+    .filter-chips {
+      display:flex;
+      gap:.5em;
+      margin-top:.4em;
+      flex-wrap:wrap;
+      min-height:1.2em;
+    }
+    .chip {
+      background:var(--light-blue);
+      color:var(--primary-blue);
+      border-radius:999px;
+      padding:.15em .7em;
+      font-size:.97em;
+      margin-right:.2em;
+      margin-bottom:.2em;
+      display:inline-flex;
+      align-items:center;
+      gap:.4em;
+      font-weight:500;
+      border:1px solid var(--primary-blue);
+      cursor:pointer;
+      transition:background var(--transition);
+    }
+    .chip-remove {
+      font-size:1em;
+      color:var(--danger-red);
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:0 .2em;
+    }
+    .chip-remove:focus-visible {
+      outline:2px solid var(--danger-red);
+      border-radius:999px;
+    }
+    .filter-btn {
+      background:var(--primary-blue);
+      color:#fff;
+      border:none;
+      border-radius:6px;
+      padding:.45em 1.3em;
+      margin-top:1.5em;
+      font-size:1em;
+      font-weight:600;
+      cursor:pointer;
+      transition:background var(--transition);
+      outline:none;
+    }
+    .filter-btn:focus-visible {
+      background:var(--success-green);
+    }
+    .filter-clear {
+      background:var(--light-grey);
+      color:var(--dark-grey);
+      border:none;
+      border-radius:6px;
+      padding:.45em 1.3em;
+      margin-top:1.5em;
+      font-size:1em;
+      font-weight:600;
+      cursor:pointer;
+      transition:background var(--transition);
+      outline:none;
+      margin-left:.5em;
+    }
+    .filter-clear:focus-visible {
+      background:var(--danger-red);
+      color:#fff;
+    }
+    .badge{
+      display:inline-block;
+      padding:.25rem .5rem;
+      border-radius:9999px;
+      font-weight:600;
+      border:1px solid var(--border);
+      font-size:.97em;
+      transition:background var(--transition),color var(--transition);
+    }
+    .badge[data-status="Investigating"]{background:var(--pill-investigating-bg);color:var(--pill-investigating-text)}
+    .badge[data-status="Identified"]{background:var(--pill-identified-bg);color:var(--pill-identified-text)}
+    .badge[data-status="Mitigating"]{background:var(--pill-mitigating-bg);color:var(--pill-mitigating-text)}
+    .badge[data-status="Monitoring"]{background:var(--pill-monitoring-bg);color:var(--pill-monitoring-text)}
+    .badge[data-status="Resolved"]{background:var(--pill-resolved-bg);color:var(--pill-resolved-text)}
+    .badge[data-status="Closed"]{background:var(--pill-closed-bg);color:var(--pill-closed-text)}
+    .badge[data-status="Scheduled Maintenance"]{background:var(--pill-maint-bg);color:var(--pill-maint-text)}
+    .badge[data-status="Approved"]{background:var(--pill-approved-bg);color:var(--pill-approved-text)}
+    .badge[data-status="In Progress"]{background:var(--pill-inprog-bg);color:var(--pill-inprog-text)}
+    .badge[data-status="Verifying"]{background:var(--pill-verify-bg);color:var(--pill-verify-text)}
+    .badge[data-status="Rescheduled"]{background:var(--pill-resched-bg);color:var(--pill-resched-text)}
+    .badge[data-status="Deferred"]{background:var(--pill-deferred-bg);color:var(--pill-deferred-text)}
+    .badge[data-status="Cancelled"]{background:var(--pill-cancel-bg);color:var(--pill-cancel-text)}
+    .status-board-container {
+      margin-bottom:1.5em;
+      background:var(--card);
+      border-radius:8px;
+      border:1px solid var(--border);
+      padding:1em 1.2em .7em 1.2em;
+      overflow-x:auto;
+    }
+    .status-board-table {
+      width:100%;
+      border-collapse:collapse;
+      font-size:1.03em;
+    }
+    .status-board-table th,
+    .status-board-table td {
+      padding:.7em .8em;
+      text-align:left;
+      border-bottom:1px solid var(--border);
+      background:var(--card);
+      vertical-align:top;
+    }
+    .status-board-table th {
+      background:var(--light-blue);
+      color:var(--primary-blue);
+      font-weight:600;
+      font-size:1.03em;
+    }
+    .status-board-table tbody tr:nth-child(even) td {
+      background:var(--light-grey);
+    }
+    .status-board-table tbody tr:hover td {
+      background:var(--light-blue);
+    }
+    .impact-list {
+      margin:1.3em 0 .8em 0;
+      padding-left:0;
+      font-size:1.05em;
+    }
+    .impact-list li {
+      list-style:none;
+      margin-bottom:.35em;
+      padding:.35em .2em;
+      border-left:3px solid var(--primary-blue);
+      background:var(--light-blue);
+      border-radius:5px;
+      font-weight:500;
+      color:var(--text);
+    }
+    .root-cause, .timeline {
+      margin-bottom:1.2em;
+    }
+    .root-cause ul, .timeline ul {
+      margin:0;
+      padding-left:1.5em;
+      font-size:1.03em;
+    }
+    .root-cause li {
+      margin-bottom:.5em;
+      color:var(--danger-red);
+    }
+    .timeline li {
+      margin-bottom:.3em;
+      color:var(--text);
+    }
+    .active-incidents-container {
+      margin-bottom:1.7em;
+      background:var(--card);
+      border-radius:8px;
+      border:1px solid var(--border);
+      padding:1em 1.2em .8em 1.2em;
+      overflow-x:auto;
+    }
+    .active-incidents-table {
+      width:100%;
+      border-collapse:collapse;
+      font-size:1.03em;
+    }
+    .active-incidents-table th,
+    .active-incidents-table td {
+      padding:.7em .8em;
+      text-align:left;
+      border-bottom:1px solid var(--border);
+      background:var(--card);
+      vertical-align:top;
+      cursor:pointer;
+    }
+    .active-incidents-table th {
+      background:var(--light-blue);
+      color:var(--primary-blue);
+      font-weight:600;
+      font-size:1.03em;
+      cursor:default;
+    }
+    .active-incidents-table tbody tr:nth-child(even) td {
+      background:var(--light-grey);
+    }
+    .active-incidents-table tbody tr:focus-visible td,
+    .active-incidents-table tbody tr[tabindex="0"]:focus td {
+      outline:2px solid var(--primary-blue);
+    }
+    .active-incidents-table tbody tr:hover td {
+      background:var(--light-blue);
+    }
+    .recent-tickets {
+      margin-bottom:1.5em;
+      background:var(--card);
+      border-radius:8px;
+      border:1px solid var(--border);
+      padding:1em 1.2em .7em 1.2em;
+      font-size:1.03em;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.7em;
+    }
+    .recent-ticket {
+      background:var(--light-blue);
+      color:var(--primary-blue);
+      border-radius:999px;
+      padding:.4em 1em;
+      font-weight:500;
+      font-size:1em;
+      margin-right:.5em;
+      margin-bottom:.3em;
+      display:inline-block;
+    }
+    .modal-backdrop {
+      position:fixed;
+      top:0;left:0;right:0;bottom:0;
+      background:rgba(21,28,36,.5);
+      z-index:111;
+      display:none;
+      align-items:center;
+      justify-content:center;
+    }
+    .modal-backdrop[aria-hidden="false"] {
+      display:flex;
+    }
+    .modal {
+      background:var(--card);
+      color:var(--text);
+      border-radius:12px;
+      box-shadow:0 3px 32px rgba(0,0,0,0.18);
+      max-width:470px;
+      width:95vw;
+      padding:1.5em 2em 1.3em 2em;
+      position:relative;
+      z-index:112;
+      border:1px solid var(--border);
+      animation:fadeIn .15s;
+      outline:none;
+    }
+    .modal-close {
+      position:absolute;
+      top:1em;right:1em;
+      background:none;
+      color:var(--danger-red);
+      border:none;
+      font-size:1.5em;
+      cursor:pointer;
+      line-height:1;
+      padding:0;
+      border-radius:999px;
+    }
+    .modal-close:focus-visible {
+      outline:2px solid var(--danger-red);
+    }
+    .modal-summary {
+      margin-bottom:1.1em;
+      font-size:1.05em;
+    }
+    .modal-timeline ul {
+      margin:0;
+      padding-left:1.5em;
+      font-size:1em;
+    }
+    .modal-timeline li {
+      margin-bottom:.5em;
+      color:var(--text);
+    }
+    /* Maintenance tab styles */
+    .overview {
+      background:var(--card);
+      border-radius:8px;
+      padding:.7em 1.1em .8em 1.1em;
+      margin-bottom:1.1em;
+      border:1px solid var(--border);
+      color:var(--text);
+      font-size:1.07em;
+    }
+    .filters-row-maint {
+      margin-bottom:1em;
+    }
+    .maintenance-list {
+      margin-bottom:1.5em;
+      background:var(--card);
+      border-radius:8px;
+      border:1px solid var(--border);
+      padding:1em 1.2em .7em 1.2em;
+      overflow-x:auto;
+    }
+    .day-heading {
+      font-size:1.1em;
+      color:var(--primary-blue);
+      font-weight:600;
+      margin-bottom:.7em;
+      margin-top:1.1em;
+    }
+    .maintenance-item {
+      display:flex;
+      flex-direction:column;
+      gap:.3em;
+      border-bottom:1px solid var(--border);
+      padding:.6em 0 .6em 0;
+      font-size:1.04em;
+    }
+    .maintenance-main-row {
+      display:flex;
+      align-items:center;
+      gap:1.2em;
+      flex-wrap:wrap;
+    }
+    .maintenance-id {
+      font-weight:600;
+      color:var(--primary-blue);
+    }
+    .maintenance-system {
+      font-weight:500;
+      color:var(--dark-grey);
+    }
+    .maintenance-window {
+      font-size:.98em;
+      color:var(--text);
+      font-weight:400;
+    }
+    .maintenance-type {
+      font-size:.96em;
+      color:var(--text);
+    }
+    .maintenance-risk {
+      display:inline-flex;
+      align-items:center;
+      gap:.3em;
+      font-size:.96em;
+      font-weight:500;
+    }
+    .risk-dot {
+      width:.7em;
+      height:.7em;
+      border-radius:50%;
+      display:inline-block;
+      margin-right:.2em;
+      vertical-align:middle;
+    }
+    .risk-low { background:var(--success-green);}
+    .risk-medium { background:var(--warning-orange);}
+    .risk-high { background:var(--danger-red);}
+    .maintenance-status {
+      margin-left:.4em;
+      margin-right:.4em;
+      vertical-align:middle;
+    }
+    .maintenance-impact {
+      font-size:.97em;
+      color:var(--text);
+      font-weight:400;
+      margin-left:.2em;
+      max-width:280px;
+    }
+    .maintenance-owner {
+      font-size:.97em;
+      color:var(--dark-grey);
+      margin-left:.3em;
+    }
+    .maintenance-backout {
+      font-size:.96em;
+      color:var(--text);
+      font-weight:500;
+      margin-left:.3em;
+    }
+    .accordion {
+      margin-top:.4em;
+      background:var(--light-grey);
+      border-radius:7px;
+      border:1px solid var(--border);
+      transition:max-height .15s;
+      max-height:0;
+      overflow:hidden;
+      visibility:hidden;
+    }
+    .accordion.open {
+      max-height:700px;
+      visibility:visible;
+      padding:1em 1.2em .7em 1.2em;
+      margin-top:.3em;
+      animation:fadeIn .15s;
+    }
+    .accordion-content ul,
+    .accordion-content ol {
+      margin:0 0 .7em 0;
+      padding-left:1.5em;
+      font-size:.97em;
+    }
+    .accordion-content li {
+      margin-bottom:.3em;
+    }
+    .accordion-content {
+      color:var(--text);
+      font-size:.98em;
+    }
+    .accordion-toggle {
+      background:none;
+      border:none;
+      color:var(--primary-blue);
+      font-weight:600;
+      font-size:.97em;
+      cursor:pointer;
+      margin-left:.2em;
+      transition:color var(--transition);
+      outline:none;
+      padding:0;
+      display:inline-block;
+    }
+    .accordion-toggle:focus-visible {
+      color:var(--success-green);
+      outline:2px solid var(--primary-blue);
+      border-radius:3px;
+    }
+    .vendor-list {
+      margin-bottom:1.5em;
+      background:var(--card);
+      border-radius:8px;
+      border:1px solid var(--border);
+      padding:1em 1.2em .7em 1.2em;
+      overflow-x:auto;
+    }
+    .vendor-item {
+      display:flex;
+      flex-direction:column;
+      gap:.3em;
+      border-bottom:1px solid var(--border);
+      padding:.6em 0 .6em 0;
+      font-size:1.03em;
+    }
+    .vendor-main-row {
+      display:flex;
+      align-items:center;
+      gap:1.2em;
+      flex-wrap:wrap;
+    }
+    .vendor-id {
+      font-weight:600;
+      color:var(--primary-blue);
+    }
+    .vendor-system {
+      font-weight:500;
+      color:var(--dark-grey);
+    }
+    .vendor-window {
+      font-size:.98em;
+      color:var(--text);
+      font-weight:400;
+    }
+    .vendor-risk {
+      display:inline-flex;
+      align-items:center;
+      gap:.3em;
+      font-size:.96em;
+      font-weight:500;
+    }
+    .vendor-status {
+      margin-left:.4em;
+      margin-right:.4em;
+      vertical-align:middle;
+    }
+    .vendor-summary {
+      font-size:.97em;
+      color:var(--text);
+      font-weight:400;
+      margin-left:.2em;
+      max-width:280px;
+    }
+    .empty-state {
+      text-align:center;
+      color:var(--dark-grey);
+      font-size:1.18em;
+      font-weight:500;
+      margin:3em 0 2em 0;
+      padding:2em 0;
+      background:var(--card);
+      border-radius:8px;
+      border:1px solid var(--border);
+    }
+    .load-more-btn {
+      background:var(--primary-blue);
+      color:#fff;
+      border:none;
+      border-radius:6px;
+      padding:.6em 2em;
+      margin:2em auto .7em auto;
+      font-size:1em;
+      font-weight:600;
+      cursor:pointer;
+      display:block;
+      transition:background var(--transition);
+      outline:none;
+    }
+    .load-more-btn:focus-visible {
+      background:var(--success-green);
+    }
+    @media (max-width:900px) {
+      main {
+        max-width:100vw;
+        padding:1.3rem .5rem 1.7rem .5rem;
+      }
+      header {
+        padding:1rem .8rem .6rem .8rem;
+      }
+    }
+    @media (max-width:600px) {
+      .top-row {
+        flex-direction:column;
+        align-items:flex-start;
+        gap:.5em;
+      }
+      nav[role="tablist"] {
+        font-size:1em;
+        gap:.1em;
+      }
+      .status-board-table th,
+      .status-board-table td,
+      .active-incidents-table th,
+      .active-incidents-table td {
+        padding:.45em .3em;
+        font-size:.98em;
+      }
+      .recent-tickets {
+        padding:.7em .5em;
+        font-size:.97em;
+      }
+      .maintenance-list,
+      .vendor-list {
+        padding:.7em .5em;
+        font-size:.98em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-row">
+      <h1>Vmobile HR &amp; IT Service Status</h1>
+      <span class="env-badge" aria-label="Production environment badge">Production</span>
+      <span class="refresh" id="last-refresh" aria-label="Last refresh time"></span>
+      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode" tabindex="0">🌓 Dark Mode</button>
+    </div>
+    <div class="subtext">
+      HR &amp; IT employee-facing services: Workday (HRIS), Cornerstone (LMS), Okta (SSO/MFA), Email/Teams, VPN, Intune/MDM, ServiceNow, SharePoint.
+    </div>
+    <nav role="tablist" aria-label="Status Tabs">
+      <button role="tab" id="tab-outage" aria-controls="tabpanel-outage" aria-selected="true" tabindex="0" class="tab">Outage — 2025-08-17</button>
+      <button role="tab" id="tab-maint" aria-controls="tabpanel-maint" aria-selected="false" tabindex="-1" class="tab">Upcoming Maintenance</button>
+    </nav>
+  </header>
+  <main>
+    <section id="tabpanel-outage" role="tabpanel" aria-labelledby="tab-outage" data-active="true">
+      <div class="incident-banner" aria-live="polite">
+        Major Incident: MI-2025-0817-A | Status:
+        <span class="badge" data-status="Mitigating">Mitigating</span>
+        | Start: 2025-08-17 08:07 CT | ETA: 60–90 min | Severity: High
+      </div>
+      <div class="exec-summary">
+        SSO authentication failures are impacting critical HR/IT services for remote and contractor users. Investigation is ongoing with Okta and VPN providers. Next update by: 10:30 CT.
+      </div>
+      <form class="filters-row" id="outageFilters" aria-label="Outage Filters">
+        <div class="filter-group">
+          <label class="filter-label" for="filter-system">System</label>
+          <select multiple id="filter-system" aria-label="System filter" tabindex="0">
+            <option>Workday</option>
+            <option>Cornerstone</option>
+            <option>Okta</option>
+            <option>Email/Teams</option>
+            <option>VPN</option>
+            <option>Intune/MDM</option>
+            <option>ServiceNow</option>
+            <option>SharePoint</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="filter-site">Site</label>
+          <select multiple id="filter-site" aria-label="Site filter" tabindex="0">
+            <option>Remote – US</option>
+            <option>Remote – Global</option>
+            <option>Dallas HQ</option>
+            <option>London Office</option>
+            <option>Singapore Office</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="filter-segment">User Segment</label>
+          <select multiple id="filter-segment" aria-label="User Segment filter" tabindex="0">
+            <option>Employees</option>
+            <option>Contractors</option>
+            <option>Executives</option>
+          </select>
+        </div>
+        <button type="button" class="filter-btn" id="outageApply">Apply</button>
+        <button type="button" class="filter-clear" id="outageClear">Clear</button>
+      </form>
+      <div class="filter-chips" id="outageChips" aria-label="Active Outage Filters"></div>
+      <div class="status-board-container" aria-label="System Status Board" tabindex="0">
+        <table class="status-board-table" aria-label="System Status Board">
+          <thead>
+            <tr>
+              <th>System</th>
+              <th>Status</th>
+              <th>Scope</th>
+              <th>Noted Symptoms</th>
+              <th>Owner</th>
+              <th>Last Update</th>
+            </tr>
+          </thead>
+          <tbody id="statusBoardBody"></tbody>
+        </table>
+      </div>
+      <h2 style="margin-top:1.2em;font-size:1.17em;color:var(--primary-blue);font-weight:600;">Impact by Site</h2>
+      <ul class="impact-list" id="impactList" aria-label="Impact by Site"></ul>
+      <div class="root-cause">
+        <h2 style="font-size:1.09em;color:var(--danger-red);font-weight:600;">Root-Cause Hypothesis</h2>
+        <ul id="rootCauseList"></ul>
+      </div>
+      <div class="timeline">
+        <h2 style="font-size:1.09em;color:var(--primary-blue);font-weight:600;">Incident Timeline</h2>
+        <ul id="timelineList"></ul>
+      </div>
+      <div class="active-incidents-container" aria-label="Active Incidents">
+        <table class="active-incidents-table" aria-label="Active Incidents" id="activeIncidentsTable">
+          <thead>
+            <tr>
+              <th>Incident ID</th>
+              <th>System</th>
+              <th>Start</th>
+              <th>Status</th>
+              <th>Scope</th>
+              <th>Workstream Owner</th>
+              <th>Next Update</th>
+            </tr>
+          </thead>
+          <tbody id="activeIncidentsBody"></tbody>
+        </table>
+      </div>
+      <div class="recent-tickets" aria-label="Recent Tickets" id="recentTicketsList"></div>
+    </section>
+    <section id="tabpanel-maint" role="tabpanel" aria-labelledby="tab-maint" data-active="false">
+      <div class="overview">
+        This tab lists approved and scheduled maintenance, as well as vendor-announced upcoming incidents, that may affect HR/IT employee-facing systems. All windows and impacts are shown in local time.
+      </div>
+      <form class="filters-row-maint" id="maintFilters" aria-label="Maintenance Filters">
+        <div class="filter-group">
+          <label class="filter-label" for="maint-date-from">Date From</label>
+          <input type="date" id="maint-date-from" aria-label="Maintenance Date From" tabindex="0">
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="maint-date-to">Date To</label>
+          <input type="date" id="maint-date-to" aria-label="Maintenance Date To" tabindex="0">
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="maint-system">System</label>
+          <select multiple id="maint-system" aria-label="Maintenance System filter" tabindex="0">
+            <option>Workday</option>
+            <option>Cornerstone</option>
+            <option>Okta</option>
+            <option>Email/Teams</option>
+            <option>VPN</option>
+            <option>Intune/MDM</option>
+            <option>ServiceNow</option>
+            <option>SharePoint</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="maint-risk">Risk</label>
+          <select multiple id="maint-risk" aria-label="Maintenance Risk filter" tabindex="0">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="maint-status">Status</label>
+          <select multiple id="maint-status" aria-label="Maintenance Status filter" tabindex="0">
+            <option>Scheduled Maintenance</option>
+            <option>Approved</option>
+            <option>In Progress</option>
+            <option>Verifying</option>
+            <option>Rescheduled</option>
+            <option>Deferred</option>
+            <option>Cancelled</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="maint-search">Search</label>
+          <input type="text" id="maint-search" placeholder="Change ID or keywords" aria-label="Maintenance Search" tabindex="0">
+        </div>
+        <button type="button" class="filter-btn" id="maintApply">Apply</button>
+        <button type="button" class="filter-clear" id="maintClear">Clear</button>
+      </form>
+      <div class="filter-chips" id="maintChips" aria-label="Active Maintenance Filters"></div>
+      <div class="maintenance-list" id="maintenanceList" aria-label="Upcoming Maintenance"></div>
+      <div class="vendor-list" id="vendorList" aria-label="Vendor Announced Incidents"></div>
+      <div class="empty-state" id="maintEmptyState" style="display:none;">No scheduled work in the selected window.</div>
+      <button type="button" class="load-more-btn" id="maintLoadMore" style="display:none;">Load more</button>
+    </section>
+    <div class="modal-backdrop" id="modalBackdrop" aria-modal="true" aria-hidden="true" tabindex="-1">
+      <div class="modal" role="dialog" aria-label="Incident Details" tabindex="0">
+        <button class="modal-close" id="modalClose" aria-label="Close Incident Details" tabindex="0">&times;</button>
+        <div class="modal-summary" id="modalSummary"></div>
+        <div class="modal-timeline" id="modalTimeline"></div>
+      </div>
+    </div>
+  </main>
+  <footer style="border-top:1px solid var(--border);background:var(--card);padding:1.1em 2em;color:var(--dark-grey);font-size:.97em;">
+    &copy; 2025 Vmobile HR/IT. All rights reserved.
+  </footer>
+  <script>
+    // Status normalization
+    const STATUS_MAP = {
+      'investigating':'Investigating',
+      'identified':'Identified',
+      'mitigating':'Mitigating',
+      'monitoring':'Monitoring',
+      'resolved':'Resolved',
+      'closed':'Closed',
+      'scheduled maintenance':'Scheduled Maintenance',
+      'approved':'Approved',
+      'in progress':'In Progress',
+      'verifying':'Verifying',
+      'rescheduled':'Rescheduled',
+      'deferred':'Deferred',
+      'cancelled':'Cancelled'
+    };
+    function normalizeStatus(s, tab) {
+      if(!s) return tab==='outage' ? 'Investigating' : 'Scheduled Maintenance';
+      let v = String(s).trim().toLowerCase();
+      if(STATUS_MAP[v]) return STATUS_MAP[v];
+      // fallback
+      return tab==='outage' ? 'Investigating' : 'Scheduled Maintenance';
+    }
+    // Pill contrast guard
+    function getContrast(rgb1, rgb2) {
+      // https://www.w3.org/TR/WCAG20/#contrast-ratiodef
+      function luminance(rgb){
+        let a=rgb.map(function(v){
+          v=v/255;
+          return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);
+        });
+        return a[0]*0.2126+a[1]*0.7152+a[2]*0.0722;
+      }
+      let l1=luminance(rgb1),l2=luminance(rgb2);
+      return l1>l2?(l1+0.05)/(l2+0.05):(l2+0.05)/(l1+0.05);
+    }
+    function hexToRgb(hex){
+      hex=hex.replace('#','');
+      if(hex.length===3){hex=hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];}
+      let num=parseInt(hex,16);
+      return [num>>16&255,num>>8&255,num&255];
+    }
+    function contrastGuard() {
+      let pills=document.querySelectorAll('.badge');
+      pills.forEach(pill=>{
+        let status=pill.getAttribute('data-status');
+        let styles=getComputedStyle(pill);
+        let bg=styles.backgroundColor,text=styles.color;
+        let rgbBg=bg.match(/\d+/g).map(Number);
+        let rgbText=text.match(/\d+/g).map(Number);
+        if(getContrast(rgbText,rgbBg)<4.5){
+          pill.style.background=getComputedStyle(document.body).getPropertyValue('--pill-closed-bg');
+          pill.style.color=getComputedStyle(document.body).getPropertyValue('--pill-closed-text');
+        }
+      });
+    }
+    function updateRefresh(){
+      let now=new Date();
+      let options={hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false};
+      let ct=now.toLocaleString('en-US',{...options,timeZone:'America/Chicago'});
+      document.getElementById('last-refresh').textContent='Last refresh: '+ct+' CT';
+    }
+    updateRefresh();
+    // Dark mode
+    function setTheme(t){
+      document.documentElement.setAttribute('data-theme',t);
+      localStorage.setItem('vmobile-theme',t);
+      contrastGuard();
+    }
+    let theme=localStorage.getItem('vmobile-theme')||'light';
+    setTheme(theme);
+    document.getElementById('darkToggle').addEventListener('click',function(e){
+      theme=(theme==='light')?'dark':'light';
+      setTheme(theme);
+    });
+    // Tabs
+    const tabOutage=document.getElementById('tab-outage');
+    const tabMaint=document.getElementById('tab-maint');
+    const panelOutage=document.getElementById('tabpanel-outage');
+    const panelMaint=document.getElementById('tabpanel-maint');
+    function switchTab(idx){
+      if(idx===0){
+        tabOutage.setAttribute('aria-selected','true');
+        tabOutage.tabIndex=0;
+        tabMaint.setAttribute('aria-selected','false');
+        tabMaint.tabIndex=-1;
+        panelOutage.setAttribute('data-active','true');
+        panelMaint.setAttribute('data-active','false');
+      }else{
+        tabOutage.setAttribute('aria-selected','false');
+        tabOutage.tabIndex=-1;
+        tabMaint.setAttribute('aria-selected','true');
+        tabMaint.tabIndex=0;
+        panelOutage.setAttribute('data-active','false');
+        panelMaint.setAttribute('data-active','true');
+      }
+    }
+    tabOutage.addEventListener('click',()=>switchTab(0));
+    tabMaint.addEventListener('click',()=>switchTab(1));
+    tabOutage.addEventListener('keydown',e=>{
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'){switchTab(1);tabMaint.focus();}
+    });
+    tabMaint.addEventListener('keydown',e=>{
+      if(e.key==='ArrowLeft'||e.key==='ArrowUp'){switchTab(0);tabOutage.focus();}
+    });
+
+    // Outage Data
+    // 5-min slots 08:00–12:00 CT
+    function genSlots(){
+      let slots=[];
+      let base=new Date('2025-08-17T08:00:00-05:00');
+      for(let i=0;i<48;i++){
+        let dt=new Date(base.getTime()+i*5*60*1000);
+        let hh=dt.getHours().toString().padStart(2,'0');
+        let mm=dt.getMinutes().toString().padStart(2,'0');
+        slots.push(`${hh}:${mm} CT`);
+      }
+      return slots;
+    }
+    // Status Board
+    const statusBoardData=[
+      {
+        system:'Workday',
+        status:'Mitigating',
+        scope:'Remote – Global, Contractors',
+        symptoms:'SSO login error, session expires',
+        owner:'HRIS Ops',
+        update:'10:05 CT'
+      },
+      {
+        system:'Cornerstone',
+        status:'Monitoring',
+        scope:'Remote – US',
+        symptoms:'Occasional SSO timeouts',
+        owner:'LMS Team',
+        update:'09:52 CT'
+      },
+      {
+        system:'Okta',
+        status:'Identified',
+        scope:'Remote – Global',
+        symptoms:'Token validation failures',
+        owner:'IAM',
+        update:'10:15 CT'
+      },
+      {
+        system:'Email/Teams',
+        status:'Resolved',
+        scope:'All',
+        symptoms:'No user impact',
+        owner:'Collab Ops',
+        update:'09:28 CT'
+      },
+      {
+        system:'VPN',
+        status:'Mitigating',
+        scope:'Contractors, Remote',
+        symptoms:'Tunnel negotiation fails',
+        owner:'NetSec',
+        update:'10:07 CT'
+      },
+      {
+        system:'Intune/MDM',
+        status:'Closed',
+        scope:'All',
+        symptoms:'No user impact',
+        owner:'Device Mgmt',
+        update:'09:00 CT'
+      },
+      {
+        system:'ServiceNow',
+        status:'Monitoring',
+        scope:'Remote – US',
+        symptoms:'SSO login intermittency',
+        owner:'ITSM',
+        update:'09:58 CT'
+      },
+      {
+        system:'SharePoint',
+        status:'Closed',
+        scope:'All',
+        symptoms:'No user impact',
+        owner:'Collab Ops',
+        update:'09:00 CT'
+      }
+    ];
+    // Impact by Site
+    const impactSites=[
+      '1) Remote – US • SSO timeouts',
+      '2) Remote – Global • Token failures, VPN disconnects',
+      '3) Contractors • SSO intermittent, VPN failures',
+      '4) Dallas HQ • Minimal impact (VPN fallback)',
+      '5) London Office • No impact reported',
+      '6) Singapore Office • No impact reported'
+    ];
+    // Root-Cause Hypothesis
+    const rootCauseHypothesis=[
+      'Okta SSO vendor config change triggered token validation failures',
+      'Downstream impact to Workday authentication and VPN tunnel setup',
+      'Contractors and remote users affected due to federated authentication flow',
+      'No impact detected for Email/Teams or on-premise users',
+      'Initial root cause points to vendor-side misconfiguration'
+    ];
+    // Timeline (10–14 entries)
+    const timelineData=[
+      '08:00 CT — Pre-incident monitoring: no anomalies detected',
+      '08:07 CT — Major incident declared (MI-2025-0817-A)',
+      '08:10 CT — Spike in SSO errors from remote endpoints',
+      '08:15 CT — Contractors report VPN failures',
+      '08:20 CT — Okta status: token validation errors confirmed',
+      '08:25 CT — Workday SSO failures escalate',
+      '08:35 CT — Initial vendor escalation opened with Okta',
+      '08:40 CT — Email/Teams verified unaffected',
+      '08:50 CT — Okta identifies config change affecting token endpoint',
+      '09:00 CT — Mitigation steps initiated with Okta and VPN provider',
+      '09:15 CT — Monitoring for improvement in SSO and VPN services',
+      '09:45 CT — Contractors/remote users continue reporting issues',
+      '10:05 CT — Okta rollback initiated, partial improvement observed',
+      '10:15 CT — Next update scheduled (pending full resolution)'
+    ];
+    // Active Incidents Table
+    const activeIncidentsData=[
+      {
+        id:'MI-2025-0817-A',
+        system:'Okta',
+        start:'08:07 CT',
+        status:'Mitigating',
+        scope:'Remote – Global, Contractors',
+        owner:'IAM',
+        nextUpdate:'10:30 CT',
+        summary:'Major SSO authentication failures affecting remote/contractor logins. Okta vendor engaged. Rolling back recent config changes.',
+        timeline:[
+          '08:07 CT — Incident declared.',
+          '08:15 CT — Contractors report failures.',
+          '08:25 CT — Escalation to Okta.',
+          '08:50 CT — Vendor config identified.',
+          '09:00 CT — Mitigation initiated.',
+          '10:05 CT — Rollback underway.'
+        ]
+      },
+      {
+        id:'INC-2025-0817-02',
+        system:'VPN',
+        start:'08:15 CT',
+        status:'Mitigating',
+        scope:'Contractors, Remote',
+        owner:'NetSec',
+        nextUpdate:'10:30 CT',
+        summary:'VPN tunnel negotiation errors for contracted and remote users. Linked to SSO outage.',
+        timeline:[
+          '08:15 CT — VPN failures reported.',
+          '08:25 CT — Correlated with SSO errors.',
+          '08:35 CT — Vendor engaged.',
+          '09:00 CT — Mitigation in progress.'
+        ]
+      },
+      {
+        id:'INC-2025-0817-03',
+        system:'Workday',
+        start:'08:25 CT',
+        status:'Monitoring',
+        scope:'Remote – US',
+        owner:'HRIS Ops',
+        nextUpdate:'10:30 CT',
+        summary:'Workday SSO failures observed for remote users; monitoring post-mitigation.',
+        timeline:[
+          '08:25 CT — SSO failures escalate.',
+          '09:00 CT — Mitigation initiated.',
+          '09:45 CT — Monitoring.'
+        ]
+      },
+      {
+        id:'INC-2025-0817-04',
+        system:'Cornerstone',
+        start:'08:40 CT',
+        status:'Monitoring',
+        scope:'Remote – US',
+        owner:'LMS Team',
+        nextUpdate:'10:30 CT',
+        summary:'Cornerstone intermittent SSO timeouts for remote users; monitoring per Okta rollback.',
+        timeline:[
+          '08:40 CT — Intermittent timeouts reported.',
+          '09:52 CT — Monitoring.'
+        ]
+      },
+      {
+        id:'INC-2025-0817-05',
+        system:'ServiceNow',
+        start:'08:58 CT',
+        status:'Monitoring',
+        scope:'Remote – US',
+        owner:'ITSM',
+        nextUpdate:'10:30 CT',
+        summary:'ServiceNow SSO intermittency for remote US users, linked to Okta outage.',
+        timeline:[
+          '08:58 CT — SSO intermittency reported.',
+          '09:58 CT — Monitoring.'
+        ]
+      }
+    ];
+    // Recent Tickets (last 2h)
+    const recentTicketsData=[
+      {id:'#8421',system:'Workday',site:'Dallas HQ',desc:'Sign-in failed',status:'Open'},
+      {id:'#8422',system:'VPN',site:'Remote – US',desc:'Tunnel negotiation error',status:'Open'},
+      {id:'#8423',system:'Cornerstone',site:'Remote – US',desc:'SSO timeout',status:'Open'},
+      {id:'#8424',system:'Okta',site:'Contractors',desc:'Token error',status:'Open'},
+      {id:'#8425',system:'ServiceNow',site:'Remote – US',desc:'SSO intermittency',status:'Open'},
+      {id:'#8426',system:'VPN',site:'Remote – Global',desc:'Failed login',status:'Open'}
+    ];
+    function renderStatusBoard(data){
+      let body=document.getElementById('statusBoardBody');
+      body.innerHTML='';
+      data.forEach(row=>{
+        let status=normalizeStatus(row.status,'outage');
+        body.innerHTML+=`<tr>
+          <td>${row.system}</td>
+          <td><span class="badge" data-status="${status}">${status}</span></td>
+          <td>${row.scope}</td>
+          <td>${row.symptoms}</td>
+          <td>${row.owner}</td>
+          <td>${row.update}</td>
+        </tr>`;
+      });
+      contrastGuard();
+    }
+    function renderImpactList(list){
+      let ul=document.getElementById('impactList');
+      ul.innerHTML='';
+      list.forEach(item=>{
+        ul.innerHTML+=`<li>${item}</li>`;
+      });
+    }
+    function renderRootCause(list){
+      let ul=document.getElementById('rootCauseList');
+      ul.innerHTML='';
+      list.forEach(item=>{
+        ul.innerHTML+=`<li>${item}</li>`;
+      });
+    }
+    function renderTimeline(list){
+      let ul=document.getElementById('timelineList');
+      ul.innerHTML='';
+      list.forEach(item=>{
+        ul.innerHTML+=`<li>${item}</li>`;
+      });
+    }
+    function renderActiveIncidents(data){
+      let body=document.getElementById('activeIncidentsBody');
+      body.innerHTML='';
+      data.forEach((row,i)=>{
+        let status=normalizeStatus(row.status,'outage');
+        body.innerHTML+=`<tr tabindex="0" data-idx="${i}" aria-label="View incident details for ${row.id}">
+          <td>${row.id}</td>
+          <td>${row.system}</td>
+          <td>${row.start}</td>
+          <td><span class="badge" data-status="${status}">${status}</span></td>
+          <td>${row.scope}</td>
+          <td>${row.owner}</td>
+          <td>${row.nextUpdate}</td>
+        </tr>`;
+      });
+      contrastGuard();
+    }
+    function renderRecentTickets(data){
+      let div=document.getElementById('recentTicketsList');
+      div.innerHTML='';
+      data.forEach(row=>{
+        div.innerHTML+=`<span class="recent-ticket">${row.id} • ${row.system} • ${row.site} • ${row.desc} • ${row.status}</span>`;
+      });
+    }
+    // Active Incident Modal
+    const modalBackdrop=document.getElementById('modalBackdrop');
+    const modalSummary=document.getElementById('modalSummary');
+    const modalTimeline=document.getElementById('modalTimeline');
+    const modalClose=document.getElementById('modalClose');
+    function openModal(idx){
+      let inc=activeIncidentsData[idx];
+      modalSummary.textContent=inc.summary;
+      let tl='<ul>';
+      inc.timeline.forEach(item=>{
+        tl+='<li>'+item+'</li>';
+      });
+      tl+='</ul>';
+      modalTimeline.innerHTML=tl;
+      modalBackdrop.setAttribute('aria-hidden','false');
+      modalBackdrop.style.display='flex';
+      modalClose.focus();
+    }
+    function closeModal(){
+      modalBackdrop.setAttribute('aria-hidden','true');
+      modalBackdrop.style.display='none';
+    }
+    modalClose.addEventListener('click',closeModal);
+    modalBackdrop.addEventListener('click',function(e){
+      if(e.target===modalBackdrop) closeModal();
+    });
+    document.addEventListener('keydown',function(e){
+      if(modalBackdrop.getAttribute('aria-hidden')==='false'){
+        if(e.key==='Escape'||e.key==='Esc') closeModal();
+        if(e.key==='Tab'){
+          e.preventDefault();
+          modalClose.focus();
+        }
+      }
+    });
+    document.getElementById('activeIncidentsTable').addEventListener('click',function(e){
+      let tr=e.target.closest('tr[data-idx]');
+      if(tr){
+        openModal(Number(tr.getAttribute('data-idx')));
+      }
+    });
+    document.getElementById('activeIncidentsTable').addEventListener('keydown',function(e){
+      let tr=e.target.closest('tr[data-idx]');
+      if(tr&&(e.key==='Enter'||e.key===' ')){
+        openModal(Number(tr.getAttribute('data-idx')));
+      }
+    });
+    // Filters for Outage tab
+    function getSelectedOptions(sel){
+      return Array.from(sel.selectedOptions).map(o=>o.value);
+    }
+    function renderOutageChips(filters){
+      let chipsDiv=document.getElementById('outageChips');
+      chipsDiv.innerHTML='';
+      Object.entries(filters).forEach(([key,vals])=>{
+        vals.forEach((v,idx)=>{
+          let label=key.replace(/^./,m=>m.toUpperCase());
+          chipsDiv.innerHTML+=`<span class="chip" data-key="${key}" data-val="${v}">
+            ${label}: ${v}
+            <button type="button" class="chip-remove" aria-label="Remove filter ${label}: ${v}">&times;</button>
+          </span>`;
+        });
+      });
+    }
+    let outageFilters={system:[],site:[],segment:[]};
+    function applyOutageFilters(){
+      let sys=outageFilters.system.length?outageFilters.system:statusBoardData.map(x=>x.system);
+      let site=outageFilters.site.length?outageFilters.site:impactSites.map(s=>s.split('•')[0].replace(/^\d+\)\s*/,'').trim());
+      let seg=outageFilters.segment.length?outageFilters.segment:['Employees','Contractors','Executives'];
+      // Status Board
+      let filtered=statusBoardData.filter(row=>sys.includes(row.system));
+      renderStatusBoard(filtered);
+      // Impact List
+      let filteredImpact=impactSites.filter(item=>{
+        let siteName=item.split('•')[0].replace(/^\d+\)\s*/,'').trim();
+        return site.includes(siteName);
+      });
+      renderImpactList(filteredImpact);
+    }
+    document.getElementById('outageApply').addEventListener('click',function(){
+      let system=getSelectedOptions(document.getElementById('filter-system'));
+      let site=getSelectedOptions(document.getElementById('filter-site'));
+      let segment=getSelectedOptions(document.getElementById('filter-segment'));
+      outageFilters={system,site,segment};
+      renderOutageChips(outageFilters);
+      applyOutageFilters();
+    });
+    document.getElementById('outageClear').addEventListener('click',function(){
+      outageFilters={system:[],site:[],segment:[]};
+      document.getElementById('filter-system').selectedIndex=-1;
+      document.getElementById('filter-site').selectedIndex=-1;
+      document.getElementById('filter-segment').selectedIndex=-1;
+      renderOutageChips(outageFilters);
+      applyOutageFilters();
+    });
+    document.getElementById('outageChips').addEventListener('click',function(e){
+      if(e.target.classList.contains('chip-remove')){
+        let chip=e.target.closest('.chip');
+        let key=chip.getAttribute('data-key'),val=chip.getAttribute('data-val');
+        outageFilters[key]=outageFilters[key].filter(v=>v!==val);
+        renderOutageChips(outageFilters);
+        applyOutageFilters();
+      }
+    });
+    // Initial render Outage tab
+    renderStatusBoard(statusBoardData);
+    renderImpactList(impactSites);
+    renderRootCause(rootCauseHypothesis);
+    renderTimeline(timelineData);
+    renderActiveIncidents(activeIncidentsData);
+    renderRecentTickets(recentTicketsData);
+    // Maintenance Tab Data
+    const MAINTENANCE_DATA=[
+      {
+        id:'CHG-2025-0823-01',
+        system:'Okta',
+        window:'2025-08-23 22:00–23:30 CT',
+        type:'Config',
+        risk:'Low',
+        status:'Scheduled Maintenance',
+        impact:'Brief SSO interruptions ≤2 min.',
+        owner:'IAM',
+        backout:'Y',
+        prechecks:['Confirm test environment stable','Notify NOC','Review rollback plan'],
+        steps:['Apply config update','Monitor SSO endpoints','Notify stakeholders'],
+        verify:['Check login for test user','Monitor Okta dashboard'],
+        depfreeze:'None',
+        contacts:'Status Bridge, NOC, IAM Lead'
+      },
+      {
+        id:'CHG-2025-0824-01',
+        system:'VPN',
+        window:'2025-08-24 01:00–03:00 CT',
+        type:'Patch',
+        risk:'Medium',
+        status:'Approved',
+        impact:'Tunnels rekey, brief disconnects for remote users.',
+        owner:'NetSec',
+        backout:'Y',
+        prechecks:['Validate patch package','Backup config','Notify contractors'],
+        steps:['Apply firmware patch','Restart VPN appliances','Monitor tunnels','Validate connections'],
+        verify:['Check remote login','Monitor error logs'],
+        depfreeze:'None',
+        contacts:'Status Bridge, NetSec'
+      },
+      {
+        id:'CHG-2025-0830-01',
+        system:'Workday',
+        window:'2025-08-30 21:00–23:00 CT',
+        type:'Cert Rotation',
+        risk:'Low',
+        status:'Approved',
+        impact:'No user impact expected.',
+        owner:'HRIS Ops',
+        backout:'N',
+        prechecks:['Review cert expiration','Notify Workday support'],
+        steps:['Rotate certificates','Validate SSO','Monitor service'],
+        verify:['Check admin login','Confirm SSO flows'],
+        depfreeze:'None',
+        contacts:'Status Bridge, HRIS Ops'
+      },
+      {
+        id:'CHG-2025-0906-01',
+        system:'ServiceNow',
+        window:'2025-09-06 00:30–02:30 CT',
+        type:'Upgrade',
+        risk:'Medium',
+        status:'Approved',
+        impact:'Minor upgrade, possible short downtime.',
+        owner:'ITSM',
+        backout:'Y',
+        prechecks:['Notify NOC','Backup ServiceNow instance'],
+        steps:['Apply upgrade','Restart ServiceNow','Monitor'],
+        verify:['Check ticketing','Review logs'],
+        depfreeze:'None',
+        contacts:'Status Bridge, ITSM Lead'
+      },
+      {
+        id:'CHG-2025-0907-01',
+        system:'Intune/MDM',
+        window:'2025-09-07 02:00–04:00 CT',
+        type:'Patch',
+        risk:'High',
+        status:'In Progress',
+        impact:'Possible MDM enrollment delays.',
+        owner:'Device Mgmt',
+        backout:'Y',
+        prechecks:['Validate patch files','Notify support team'],
+        steps:['Apply patch','Monitor enrollment','Notify users'],
+        verify:['Test device enrollment','Review dashboard'],
+        depfreeze:'None',
+        contacts:'Status Bridge, Device Mgmt'
+      },
+      {
+        id:'CHG-2025-0913-01',
+        system:'SharePoint',
+        window:'2025-09-13 23:00–02:00 CT',
+        type:'Patch',
+        risk:'Medium',
+        status:'Rescheduled',
+        impact:'Some SharePoint features may be unavailable.',
+        owner:'Collab Ops',
+        backout:'Y',
+        prechecks:['Notify SharePoint admins','Backup site collection'],
+        steps:['Apply patch','Restart site','Monitor'],
+        verify:['Check site access','Review logs'],
+        depfreeze:'Quarter-end freeze',
+        contacts:'Status Bridge, Collab Ops'
+      },
+      {
+        id:'CHG-2025-0927-01',
+        system:'Cornerstone',
+        window:'2025-09-27 21:00–23:00 CT',
+        type:'Maintenance',
+        risk:'Low',
+        status:'Deferred',
+        impact:'Maintenance deferred due to quarter-end freeze.',
+        owner:'LMS Team',
+        backout:'N',
+        prechecks:['Review freeze calendar','Notify LMS stakeholders'],
+        steps:['No change applied during freeze'],
+        verify:['Confirm no change'],
+        depfreeze:'Quarter-end freeze',
+        contacts:'Status Bridge, LMS Team'
+      },
+      {
+        id:'CHG-2025-0831-01',
+        system:'Email/Teams',
+        window:'2025-08-31 00:30–02:00 CT',
+        type:'Patch',
+        risk:'Low',
+        status:'Scheduled Maintenance',
+        impact:'No user impact expected.',
+        owner:'Collab Ops',
+        backout:'N',
+        prechecks:['Notify team','Backup mailbox config'],
+        steps:['Apply patch','Restart services','Monitor'],
+        verify:['Check email delivery','Review logs'],
+        depfreeze:'None',
+        contacts:'Status Bridge, Collab Ops'
+      },
+      {
+        id:'CHG-2025-0909-01',
+        system:'Okta',
+        window:'2025-09-09 22:30–23:30 CT',
+        type:'Config',
+        risk:'High',
+        status:'Cancelled',
+        impact:'Change cancelled; no impact.',
+        owner:'IAM',
+        backout:'N',
+        prechecks:['Review change request'],
+        steps:['No change applied'],
+        verify:['Confirm status'],
+        depfreeze:'None',
+        contacts:'Status Bridge, IAM'
+      },
+      {
+        id:'CHG-2025-0915-01',
+        system:'VPN',
+        window:'2025-09-15 02:00–03:30 CT',
+        type:'Patch',
+        risk:'Medium',
+        status:'Scheduled Maintenance',
+        impact:'Brief disconnects expected for remote users.',
+        owner:'NetSec',
+        backout:'Y',
+        prechecks:['Backup config','Notify remote users'],
+        steps:['Apply patch','Restart VPN','Monitor'],
+        verify:['Check connections','Review error logs'],
+        depfreeze:'None',
+        contacts:'Status Bridge, NetSec'
+      },
+      {
+        id:'CHG-2025-0825-01',
+        system:'Intune/MDM',
+        window:'2025-08-25 01:00–02:30 CT',
+        type:'Upgrade',
+        risk:'Medium',
+        status:'Approved',
+        impact:'Possible delays in device registration.',
+        owner:'Device Mgmt',
+        backout:'Y',
+        prechecks:['Validate upgrade package','Notify support'],
+        steps:['Apply upgrade','Restart services','Monitor'],
+        verify:['Test registration','Review dashboard'],
+        depfreeze:'None',
+        contacts:'Status Bridge, Device Mgmt'
+      },
+      {
+        id:'CHG-2025-0902-01',
+        system:'Workday',
+        window:'2025-09-02 23:30–01:00 CT',
+        type:'Patch',
+        risk:'Low',
+        status:'Scheduled Maintenance',
+        impact:'No user impact expected.',
+        owner:'HRIS Ops',
+        backout:'N',
+        prechecks:['Review patch notes','Notify support'],
+        steps:['Apply patch','Monitor','Review logs'],
+        verify:['Check login','Review dashboard'],
+        depfreeze:'None',
+        contacts:'Status Bridge, HRIS Ops'
+      }
+    ];
+    // Vendor Notices
+    const VENDOR_INCIDENTS=[
+      {
+        id:'VEND-2025-0827-01',
+        vendor:'Okta',
+        system:'Okta',
+        window:'2025-08-27 20:00–21:30 CT',
+        risk:'Medium',
+        status:'Scheduled Maintenance',
+        summary:'Vendor-announced SSO maintenance, possible brief login delays.'
+      },
+      {
+        id:'VEND-2025-0911-01',
+        vendor:'Microsoft',
+        system:'Email/Teams',
+        window:'2025-09-11 01:00–03:00 CT',
+        risk:'Low',
+        status:'Cancelled',
+        summary:'Planned Teams maintenance cancelled by vendor.'
+      }
+    ];
+    // Filters - Maintenance
+    let maintFilters={
+      dateFrom:'',
+      dateTo:'',
+      system:[],
+      risk:[],
+      status:[],
+      search:''
+    };
+    let maintPage=1,MAINT_PAGE_SIZE=10;
+    function renderMaintChips(filters){
+      let chipsDiv=document.getElementById('maintChips');
+      chipsDiv.innerHTML='';
+      Object.entries(filters).forEach(([key,vals])=>{
+        if(key==='search'&&vals) chipsDiv.innerHTML+=`<span class="chip" data-key="${key}" data-val="${vals}">
+          Search: ${vals}
+          <button type="button" class="chip-remove" aria-label="Remove filter Search: ${vals}">&times;</button>
+        </span>`;
+        else if(Array.isArray(vals)) vals.forEach((v,idx)=>{
+          let label=key.replace(/^./,m=>m.toUpperCase());
+          chipsDiv.innerHTML+=`<span class="chip" data-key="${key}" data-val="${v}">
+            ${label}: ${v}
+            <button type="button" class="chip-remove" aria-label="Remove filter ${label}: ${v}">&times;</button>
+          </span>`;
+        });
+      });
+    }
+    function filterMaintenanceData(){
+      let from=maintFilters.dateFrom?new Date(maintFilters.dateFrom):new Date('2025-08-17');
+      let to=maintFilters.dateTo?new Date(maintFilters.dateTo):new Date('2025-09-16');
+      let filtered=MAINTENANCE_DATA.filter(item=>{
+        let itemDate=new Date(item.window.split(' ')[0]);
+        if(itemDate<from||itemDate>to) return false;
+        if(maintFilters.system.length&&!maintFilters.system.includes(item.system)) return false;
+        if(maintFilters.risk.length&&!maintFilters.risk.includes(item.risk)) return false;
+        let normStatus=normalizeStatus(item.status,'maint');
+        if(maintFilters.status.length&&!maintFilters.status.includes(normStatus)) return false;
+        if(maintFilters.search&&!(item.id.toLowerCase().includes(maintFilters.search.toLowerCase())||
+          item.system.toLowerCase().includes(maintFilters.search.toLowerCase())||
+          item.type.toLowerCase().includes(maintFilters.search.toLowerCase())||
+          item.impact.toLowerCase().includes(maintFilters.search.toLowerCase()))) return false;
+        return true;
+      });
+      return filtered;
+    }
+    function groupMaintByDay(data){
+      let days={};
+      data.forEach(item=>{
+        let dt=item.window.split(' ')[0];
+        let date=new Date(dt);
+        let label=date.toLocaleDateString('en-US',{weekday:'short',year:'numeric',month:'2-digit',day:'2-digit'});
+        if(!days[label]) days[label]=[];
+        days[label].push(item);
+      });
+      // Sort by date ascending
+      return Object.entries(days).sort((a,b)=>{
+        let d1=new Date(a[1][0].window.split(' ')[0]);
+        let d2=new Date(b[1][0].window.split(' ')[0]);
+        return d1-d2;
+      });
+    }
+    function renderMaintenanceList(){
+      let filtered=filterMaintenanceData();
+      let toShow=filtered.slice(0,MAINT_PAGE_SIZE*maintPage);
+      let grouped=groupMaintByDay(toShow);
+      let list=document.getElementById('maintenanceList');
+      list.innerHTML='';
+      if(!filtered.length){
+        document.getElementById('maintEmptyState').style.display='block';
+        document.getElementById('maintLoadMore').style.display='none';
+        return;
+      }
+      document.getElementById('maintEmptyState').style.display='none';
+      document.getElementById('maintLoadMore').style.display=filtered.length>MAINT_PAGE_SIZE*maintPage?'block':'none';
+      grouped.forEach(([day,items])=>{
+        list.innerHTML+=`<div class="day-heading" tabindex="0">${day} — ${items.length} event${items.length>1?'s':''}</div>`;
+        items.forEach((item,idx)=>{
+          let normStatus=normalizeStatus(item.status,'maint');
+          list.innerHTML+=`<div class="maintenance-item" data-id="${item.id}">
+            <div class="maintenance-main-row">
+              <span class="maintenance-id">${item.id}</span>
+              <span class="maintenance-system">${item.system}</span>
+              <span class="maintenance-window">${item.window}</span>
+              <span class="maintenance-type">${item.type}</span>
+              <span class="maintenance-risk"><span class="risk-dot risk-${item.risk.toLowerCase()}"></span>${item.risk}</span>
+              <span class="maintenance-status badge" data-status="${normStatus}">${normStatus}</span>
+              <span class="maintenance-impact">${item.impact}</span>
+              <span class="maintenance-owner">${item.owner}</span>
+              <span class="maintenance-backout">Backout: ${item.backout}</span>
+              <button type="button" class="accordion-toggle" aria-expanded="false" aria-controls="accordion-${item.id}" tabindex="0">Details</button>
+            </div>
+            <div class="accordion" id="accordion-${item.id}" aria-hidden="true">
+              <div class="accordion-content">
+                <strong>Pre-checks:</strong>
+                <ul>${item.prechecks.map(p=>`<li>${p}</li>`).join('')}</ul>
+                <strong>Steps:</strong>
+                <ul>${item.steps.map(p=>`<li>${p}</li>`).join('')}</ul>
+                <strong>Post-change verification:</strong>
+                <ul>${item.verify.map(p=>`<li>${p}</li>`).join('')}</ul>
+                <strong>Dependencies/Freeze notes:</strong>
+                <div>${item.depfreeze}</div>
+                <strong>Contacts:</strong>
+                <div>${item.contacts}</div>
+              </div>
+            </div>
+          </div>`;
+        });
+      });
+      contrastGuard();
+    }
+    function renderVendorList(){
+      let filtered=VENDOR_INCIDENTS.filter(item=>{
+        let from=maintFilters.dateFrom?new Date(maintFilters.dateFrom):new Date('2025-08-17');
+        let to=maintFilters.dateTo?new Date(maintFilters.dateTo):new Date('2025-09-16');
+        let itemDate=new Date(item.window.split(' ')[0]);
+        if(itemDate<from||itemDate>to) return false;
+        if(maintFilters.system.length&&!maintFilters.system.includes(item.system)) return false;
+        if(maintFilters.risk.length&&!maintFilters.risk.includes(item.risk)) return false;
+        let normStatus=normalizeStatus(item.status,'maint');
+        if(maintFilters.status.length&&!maintFilters.status.includes(normStatus)) return false;
+        if(maintFilters.search&&!(item.id.toLowerCase().includes(maintFilters.search.toLowerCase())||
+          item.system.toLowerCase().includes(maintFilters.search.toLowerCase())||
+          item.summary.toLowerCase().includes(maintFilters.search.toLowerCase()))) return false;
+        return true;
+      });
+      let list=document.getElementById('vendorList');
+      list.innerHTML='';
+      if(!filtered.length) return;
+      filtered.forEach(item=>{
+        let normStatus=normalizeStatus(item.status,'maint');
+        list.innerHTML+=`<div class="vendor-item">
+          <div class="vendor-main-row">
+            <span class="vendor-id">${item.id}</span>
+            <span class="vendor-system">${item.vendor} / ${item.system}</span>
+            <span class="vendor-window">${item.window}</span>
+            <span class="vendor-risk"><span class="risk-dot risk-${item.risk.toLowerCase()}"></span>${item.risk}</span>
+            <span class="vendor-status badge" data-status="${normStatus}">${normStatus}</span>
+            <span class="vendor-summary">${item.summary}</span>
+          </div>
+        </div>`;
+      });
+      contrastGuard();
+    }
+    function applyMaintFilters(){
+      renderMaintChips(maintFilters);
+      maintPage=1;
+      renderMaintenanceList();
+      renderVendorList();
+    }
+    document.getElementById('maintApply').addEventListener('click',function(){
+      let dateFrom=document.getElementById('maint-date-from').value;
+      let dateTo=document.getElementById('maint-date-to').value;
+      let system=getSelectedOptions(document.getElementById('maint-system'));
+      let risk=getSelectedOptions(document.getElementById('maint-risk'));
+      let status=getSelectedOptions(document.getElementById('maint-status'));
+      let search=document.getElementById('maint-search').value.trim();
+      maintFilters={dateFrom,dateTo,system,risk,status,search};
+      applyMaintFilters();
+    });
+    document.getElementById('maintClear').addEventListener('click',function(){
+      maintFilters={dateFrom:'',dateTo:'',system:[],risk:[],status:[],search:''};
+      document.getElementById('maint-date-from').value='';
+      document.getElementById('maint-date-to').value='';
+      document.getElementById('maint-system').selectedIndex=-1;
+      document.getElementById('maint-risk').selectedIndex=-1;
+      document.getElementById('maint-status').selectedIndex=-1;
+      document.getElementById('maint-search').value='';
+      applyMaintFilters();
+    });
+    document.getElementById('maintChips').addEventListener('click',function(e){
+      if(e.target.classList.contains('chip-remove')){
+        let chip=e.target.closest('.chip');
+        let key=chip.getAttribute('data-key'),val=chip.getAttribute('data-val');
+        if(key==='search') maintFilters.search='';
+        else maintFilters[key]=maintFilters[key].filter(v=>v!==val);
+        applyMaintFilters();
+      }
+    });
+    document.getElementById('maintLoadMore').addEventListener('click',function(){
+      maintPage+=1;
+      renderMaintenanceList();
+      renderVendorList();
+      let filtered=filterMaintenanceData();
+      document.getElementById('maintLoadMore').style.display=filtered.length>MAINT_PAGE_SIZE*maintPage?'block':'none';
+    });
+    // Accordion logic
+    document.getElementById('maintenanceList').addEventListener('click',function(e){
+      if(e.target.classList.contains('accordion-toggle')){
+        let btn=e.target;
+        let id=btn.closest('.maintenance-item').getAttribute('data-id');
+        let acc=document.getElementById('accordion-'+id);
+        let expanded=acc.classList.contains('open');
+        acc.classList.toggle('open',!expanded);
+        acc.setAttribute('aria-hidden',expanded?'true':'false');
+        btn.setAttribute('aria-expanded',!expanded);
+      }
+    });
+    document.getElementById('maintenanceList').addEventListener('keydown',function(e){
+      if(e.target.classList.contains('accordion-toggle')&&(e.key==='Enter'||e.key===' ')){
+        e.preventDefault();
+        e.target.click();
+      }
+    });
+    // Initial render Maintenance tab
+    renderMaintChips(maintFilters);
+    renderMaintenanceList();
+    renderVendorList();
+    // Accessibility: keyboard navigation for tables (tabindex=0, arrow keys)
+    function tableKeyboardNav(tableId){
+      let table=document.getElementById(tableId);
+      let rows=table.querySelectorAll('tbody tr');
+      rows.forEach((row,idx)=>{
+        row.tabIndex=0;
+        row.addEventListener('keydown',function(e){
+          if(e.key==='ArrowDown'){
+            let next=rows[idx+1];if(next)next.focus();
+          }
+          if(e.key==='ArrowUp'){
+            let prev=rows[idx-1];if(prev)prev.focus();
+          }
+        });
+      });
+    }
+    tableKeyboardNav('activeIncidentsTable');
+    tableKeyboardNav('statusBoardBody');
+    // Accessibility: tabs, filters, accordions, modal
+    document.querySelectorAll('select[multiple]').forEach(sel=>{
+      sel.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){
+          e.preventDefault();
+          sel.size=sel.size===8?1:8;
+        }
+      });
+      sel.addEventListener('blur',function(){sel.size=1;});
+    });
+    // On theme switch, rerun contrast guard
+    contrastGuard();
+  </script>
+</body>
+</html>

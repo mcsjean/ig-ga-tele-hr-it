@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vmobile HR KPI Dashboard</title>
+    <style>
+        :root {
+            --vmobile-blue: #004C97;
+            --safety-green: #28A745;
+            --alert-red: #FF4C4C;
+            --slate-gray: #6B7280;
+            --light-gray: #F3F4F6;
+            --card-bg: #fff;
+            --card-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            --border-radius: 10px;
+            --max-width: 1400px;
+            --header-height: 64px;
+            --focus-outline: 2px solid #004C97;
+            --table-header-bg: #e8eff5;
+            --table-row-hover: #f6f9fc;
+            --table-row-alt: #F3F4F6;
+        }
+        html {
+            font-size: 16px;
+        }
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: var(--light-gray);
+            color: var(--slate-gray);
+            min-height: 100vh;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            background: var(--vmobile-blue);
+            color: #fff;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+        }
+        .logo svg {
+            width: 40px;
+            height: 40px;
+            margin-right: 0.75rem;
+        }
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        main {
+            max-width: var(--max-width);
+            margin: 2rem auto 0 auto;
+            padding: 0 1rem 2rem 1rem;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2rem;
+        }
+        @media (max-width: 1100px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .side-panel {
+                margin-top: 2rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            main {
+                padding: 0 0.5rem 2rem 0.5rem;
+            }
+            .kpi-cards {
+                grid-template-columns: 1fr;
+            }
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .kpi-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 900px) {
+            .kpi-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .kpi-cards {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+        .kpi-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 1.25rem 1rem 1rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            min-width: 0;
+        }
+        .kpi-label {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--slate-gray);
+        }
+        .kpi-value-row {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0 0.25rem 0;
+        }
+        .kpi-value {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--vmobile-blue);
+            line-height: 1;
+        }
+        .kpi-delta {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-left: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        .kpi-delta.positive {
+            color: var(--safety-green);
+        }
+        .kpi-delta.negative {
+            color: var(--alert-red);
+        }
+        .kpi-delta.neutral {
+            color: var(--slate-gray);
+        }
+        .kpi-sparkline {
+            margin-top: 0.75rem;
+            width: 100%;
+            height: 46px;
+        }
+        .sparkline-svg {
+            width: 100%;
+            height: 44px;
+            display: block;
+        }
+        .tooltip {
+            position: absolute;
+            background: #fff;
+            color: var(--slate-gray);
+            border: 1px solid var(--slate-gray);
+            border-radius: 6px;
+            padding: 0.5em 0.75em;
+            font-size: 0.98rem;
+            z-index: 101;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            min-width: 120px;
+            max-width: 250px;
+        }
+        .chart-section {
+            margin-bottom: 2.2rem;
+        }
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        @media (max-width: 900px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+        figure {
+            margin: 0;
+            padding: 0;
+        }
+        figcaption {
+            font-size: 1.08rem;
+            font-weight: 500;
+            margin-top: 0.35rem;
+            color: var(--slate-gray);
+        }
+        .chart-svg {
+            width: 100%;
+            height: 240px;
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            display: block;
+        }
+        .sr-only {
+            position: absolute !important;
+            width: 1px; height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            border: 0;
+        }
+        .side-panel {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem 1.1rem 1.5rem 1.1rem;
+            min-width: 0;
+        }
+        .panel-title {
+            font-size: 1.18rem;
+            font-weight: 600;
+            color: var(--vmobile-blue);
+            margin-bottom: 0.7rem;
+        }
+        .definitions-list {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        .filters-panel {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 1.1rem 1rem;
+            margin-bottom: 2rem;
+        }
+        .filters-title {
+            font-size: 1.11rem;
+            font-weight: 600;
+            color: var(--vmobile-blue);
+            margin-bottom: 0.6rem;
+        }
+        .filters-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 160px;
+            margin-bottom: 0.8rem;
+        }
+        .filter-label {
+            font-size: 0.98rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        .filter-select,
+        .filter-multiselect,
+        .filter-radio-group {
+            font-size: 1rem;
+            border: 1px solid var(--slate-gray);
+            border-radius: 6px;
+            padding: 0.4em 0.5em;
+            background: var(--light-gray);
+            color: var(--slate-gray);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .filter-select:focus,
+        .filter-multiselect:focus {
+            border-color: var(--vmobile-blue);
+            box-shadow: 0 0 0 2px #e0eefd;
+        }
+        .filter-checkbox,
+        .filter-radio {
+            accent-color: var(--vmobile-blue);
+            margin-right: 0.5em;
+        }
+        .filter-radio-group {
+            display: flex;
+            gap: 1.5em;
+            align-items: center;
+            background: none;
+            border: none;
+            padding: 0.1em 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #fff;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        th, td {
+            padding: 0.8em 0.7em;
+            font-size: 0.98rem;
+            text-align: left;
+            min-width: 80px;
+        }
+        th {
+            background: var(--table-header-bg);
+            font-weight: 600;
+            color: var(--vmobile-blue);
+            position: relative;
+        }
+        td {
+            background: #fff;
+            color: var(--slate-gray);
+        }
+        tr:nth-child(even) td {
+            background: var(--table-row-alt);
+        }
+        tr:hover td {
+            background: var(--table-row-hover);
+        }
+        td.alert-cell {
+            background: var(--alert-red);
+            color: #fff;
+        }
+        .sort-icon, .download-icon {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 0.35em;
+            width: 1em;
+            height: 1em;
+        }
+        .sort-icon[aria-label] {
+            cursor: pointer;
+        }
+        .table-container {
+            overflow-x: auto;
+            background: none;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+        .download-btn {
+            float: right;
+            background: none;
+            border: none;
+            padding: 0.2em 0.3em;
+            cursor: pointer;
+        }
+        .download-btn:focus {
+            outline: var(--focus-outline);
+        }
+        .focusable:focus {
+            outline: var(--focus-outline);
+        }
+        footer {
+            margin-top: 3rem;
+            padding: 2rem 1rem 1.5rem 1rem;
+            background: var(--vmobile-blue);
+            color: #fff;
+            text-align: center;
+            font-size: 1rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        .footer-note {
+            margin-bottom: 0.7rem;
+            font-weight: 500;
+        }
+        .footer-meta {
+            font-size: 0.97rem;
+            opacity: 0.85;
+            margin-bottom: 0.7rem;
+        }
+        .footer-disclaimer {
+            font-size: 0.97rem;
+            color: #fff;
+            opacity: 0.88;
+            margin-top: 0.3rem;
+        }
+        /* Tooltip arrow */
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: -7px;
+            border-width: 0 7px 7px 7px;
+            border-style: solid;
+            border-color: transparent transparent #fff transparent;
+        }
+        /* Accessibility: focus outlines on interactive elements */
+        button:focus, a:focus, input:focus, select:focus {
+            outline: var(--focus-outline);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" aria-label="Vmobile Logo">
+            <svg viewBox="0 0 40 40" role="img" aria-label="Vmobile Logo">
+                <circle cx="20" cy="20" r="20" fill="#004C97"/>
+                <text x="20" y="25" text-anchor="middle" font-size="18" font-family="Segoe UI, Arial, sans-serif" fill="#fff" font-weight="bold">V</text>
+            </svg>
+        </div>
+        <span class="header-title">Vmobile HR KPI Dashboard</span>
+    </header>
+    <main>
+        <div class="dashboard-grid">
+            <section aria-label="Main HR Dashboard">
+                <section class="filters-panel" aria-label="Dashboard Filters">
+                    <div class="filters-title">Filters (mock)</div>
+                    <form class="filters-row" aria-label="Dashboard Filters">
+                        <fieldset class="filter-group">
+                            <legend class="filter-label">Date Range</legend>
+                            <select class="filter-select focusable" aria-label="Date Range">
+                                <option>Aug 2024 - Jul 2025</option>
+                            </select>
+                        </fieldset>
+                        <fieldset class="filter-group">
+                            <legend class="filter-label">Department</legend>
+                            <select multiple class="filter-multiselect focusable" aria-label="Department Multi-select" size="4">
+                                <option>Customer Care</option>
+                                <option>Engineering</option>
+                                <option>IT</option>
+                                <option>Sales</option>
+                                <option>Finance</option>
+                                <option>HR</option>
+                                <option>Legal</option>
+                                <option>Marketing</option>
+                            </select>
+                        </fieldset>
+                        <fieldset class="filter-group">
+                            <legend class="filter-label">Employee Type</legend>
+                            <div class="filter-radio-group">
+                                <label><input type="radio" name="emp_type" class="filter-radio focusable" checked> FTE</label>
+                                <label><input type="radio" name="emp_type" class="filter-radio focusable"> Contractor</label>
+                                <label><input type="radio" name="emp_type" class="filter-radio focusable"> Both</label>
+                            </div>
+                        </fieldset>
+                    </form>
+                </section>
+                <section aria-label="Top KPIs">
+                    <div class="kpi-cards" id="kpi-cards">
+                        <!-- KPI Cards go here -->
+                    </div>
+                </section>
+                <section class="chart-section" aria-label="HR KPI Trends">
+                    <div class="chart-grid">
+                        <figure aria-labelledby="headcount-trend-caption">
+                            <svg id="headcount-trend-chart" class="chart-svg" tabindex="0" aria-label="Headcount Trend Area Chart"></svg>
+                            <figcaption id="headcount-trend-caption">Headcount Trend (Aug 2024 – Jul 2025)</figcaption>
+                            <table class="sr-only" aria-label="Headcount Trend Data Table" id="headcount-trend-table"></table>
+                        </figure>
+                        <figure aria-labelledby="attrition-trend-caption">
+                            <svg id="attrition-trend-chart" class="chart-svg" tabindex="0" aria-label="Attrition Rate Trend Line Chart"></svg>
+                            <figcaption id="attrition-trend-caption">Attrition Rate Trend (Aug 2024 – Jul 2025)</figcaption>
+                            <table class="sr-only" aria-label="Attrition Rate Trend Data Table" id="attrition-trend-table"></table>
+                        </figure>
+                        <figure aria-labelledby="tt-hire-trend-caption">
+                            <svg id="tt-hire-trend-chart" class="chart-svg" tabindex="0" aria-label="Median Time-to-Hire Bar Chart"></svg>
+                            <figcaption id="tt-hire-trend-caption">Median Time-to-Hire (Days) (Aug 2024 – Jul 2025)</figcaption>
+                            <table class="sr-only" aria-label="Median Time-to-Hire Trend Data Table" id="tt-hire-trend-table"></table>
+                        </figure>
+                        <figure aria-labelledby="training-trend-caption">
+                            <svg id="training-trend-chart" class="chart-svg" tabindex="0" aria-label="Training Completion Trend Line Chart"></svg>
+                            <figcaption id="training-trend-caption">Training Completion Rate (%) (Aug 2024 – Jul 2025)</figcaption>
+                            <table class="sr-only" aria-label="Training Completion Trend Data Table" id="training-trend-table"></table>
+                        </figure>
+                    </div>
+                </section>
+                <section aria-label="Department Tables">
+                    <div class="table-container">
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <h2 style="margin:0;font-size:1.12rem;color:var(--vmobile-blue);font-weight:600;">Workforce & Movement (Jul 2025)</h2>
+                            <button class="download-btn" id="download-workforce" aria-label="Download Workforce Table JSON">
+                                <svg class="download-icon" role="img" aria-label="Download Workforce Table" viewBox="0 0 20 20">
+                                    <path d="M5 9v6h10V9h-3V3H8v6H5zm5 4l3-3h-2V3h-2v7H7l3 3z" fill="var(--vmobile-blue)"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <table id="workforce-table" aria-label="Workforce & Movement Table">
+                            <!-- Table rows go here -->
+                        </table>
+                    </div>
+                    <div class="table-container">
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <h2 style="margin:0;font-size:1.12rem;color:var(--vmobile-blue);font-weight:600;">Talent & Training (Last 90 Days)</h2>
+                            <button class="download-btn" id="download-talent" aria-label="Download Talent Table JSON">
+                                <svg class="download-icon" role="img" aria-label="Download Talent Table" viewBox="0 0 20 20">
+                                    <path d="M5 9v6h10V9h-3V3H8v6H5zm5 4l3-3h-2V3h-2v7H7l3 3z" fill="var(--vmobile-blue)"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <table id="talent-table" aria-label="Talent & Training Table">
+                            <!-- Table rows go here -->
+                        </table>
+                    </div>
+                </section>
+            </section>
+            <aside class="side-panel" aria-label="Definitions & HR KPI Formulas">
+                <div class="panel-title">KPI Definitions</div>
+                <ul class="definitions-list">
+                    <li><strong>Headcount (FTE)</strong>: Active full-time employees at month end.</li>
+                    <li><strong>Attrition Rate (FTE)</strong>: Terminations in month ÷ average headcount × 100, exclude contractors. Average Headcount = (start + end) ÷ 2.</li>
+                    <li><strong>Median Time-to-Hire</strong>: Median days from approved req → accepted offer (closed in month).</li>
+                    <li><strong>Training Completion Rate</strong>: % of active FTEs completing all mandatory courses by month end.</li>
+                </ul>
+            </aside>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-note">Maintained by Vmobile HR Analytics and Vmobile IT Data Services.</div>
+        <div class="footer-meta" id="footer-meta"></div>
+        <div class="footer-disclaimer">Contractor metrics are for mix only and excluded from attrition calculations.</div>
+    </footer>
+    <script>
+        // Synthetic data for 12 months, departments, etc.
+        const months = [
+            'Aug 2024', 'Sep 2024', 'Oct 2024', 'Nov 2024', 'Dec 2024', 'Jan 2025',
+            'Feb 2025', 'Mar 2025', 'Apr 2025', 'May 2025', 'Jun 2025', 'Jul 2025'
+        ];
+
+        const departmentList = [
+            'Customer Care', 'Engineering', 'IT', 'Sales', 'Finance', 'HR', 'Legal', 'Marketing'
+        ];
+
+        // Headcount (FTE) per month
+        const headcountData = [518, 520, 523, 527, 530, 535, 540, 545, 550, 552, 554, 558];
+        // Terminations per month (FTE only)
+        const terminationsData = [9, 8, 10, 9, 8, 7, 8, 6, 7, 7, 9, 8];
+        // Median Time-to-Hire per month (days)
+        const tthData = [39, 41, 36, 35, 32, 31, 34, 29, 28, 27, 29, 26];
+        // Training Completion Rate (%) per month
+        const trainingData = [81, 83, 84, 85, 86, 88, 89, 90, 90, 91, 93, 94];
+
+        // Workforce table (latest month: Jul 2025)
+        const workforceTableData = [
+            { dept: 'Customer Care', fte: 143, contractor: 29, hires: 7, terms: 3, attrition: null },
+            { dept: 'Engineering', fte: 118, contractor: 21, hires: 6, terms: 2, attrition: null },
+            { dept: 'IT', fte: 67, contractor: 14, hires: 2, terms: 1, attrition: null },
+            { dept: 'Sales', fte: 85, contractor: 11, hires: 3, terms: 2, attrition: null },
+            { dept: 'Finance', fte: 54, contractor: 5, hires: 1, terms: 1, attrition: null },
+            { dept: 'HR', fte: 37, contractor: 4, hires: 1, terms: 0, attrition: null },
+            { dept: 'Legal', fte: 23, contractor: 2, hires: 0, terms: 0, attrition: null },
+            { dept: 'Marketing', fte: 31, contractor: 6, hires: 2, terms: 1, attrition: null },
+        ];
+        // For each department, attrition % = terms / avg headcount * 100, avg headcount = (prev + curr) /2
+        const prevMonthFTE = [142, 117, 66, 85, 54, 36, 23, 31];
+
+        workforceTableData.forEach((row, i) => {
+            const avgHC = (prevMonthFTE[i] + row.fte)/2;
+            row.attrition = avgHC ? (row.terms/avgHC*100) : 0;
+        });
+
+        // Talent & Training table (last 90 days, use average of last 3 months)
+        const talentTableData = [
+            { dept: 'Customer Care', tth: [27,29,26], training: [93,94,94], openReqs: 7 },
+            { dept: 'Engineering', tth: [32,29,28], training: [89,90,91], openReqs: 5 },
+            { dept: 'IT', tth: [31,29,27], training: [88,90,91], openReqs: 3 },
+            { dept: 'Sales', tth: [27,29,26], training: [90,91,93], openReqs: 4 },
+            { dept: 'Finance', tth: [29,29,28], training: [91,93,94], openReqs: 2 },
+            { dept: 'HR', tth: [31,29,28], training: [88,90,91], openReqs: 1 },
+            { dept: 'Legal', tth: [27,29,26], training: [90,91,93], openReqs: 1 },
+            { dept: 'Marketing', tth: [31,29,28], training: [89,90,91], openReqs: 2 },
+        ];
+        talentTableData.forEach(row => {
+            row.avgTTH = median(row.tth);
+            row.avgTraining = average(row.training);
+        });
+
+        function average(arr) {
+            return arr.reduce((a,b)=>a+b,0)/arr.length;
+        }
+        function median(arr) {
+            arr = arr.slice().sort((a,b)=>a-b);
+            const mid = Math.floor(arr.length/2);
+            return arr.length%2 ? arr[mid] : (arr[mid-1]+arr[mid])/2;
+        }
+        function formatNumber(n) {
+            return n.toLocaleString('en-US');
+        }
+        function formatPercent(n, dec=1) {
+            return n.toFixed(dec)+'%';
+        }
+
+        // KPI calculations for latest month (Jul 2025, index 11)
+        function attritionRate(idx) {
+            const avgHeadcount = (headcountData[idx-1] + headcountData[idx])/2;
+            return avgHeadcount ? (terminationsData[idx]/avgHeadcount*100) : 0;
+        }
+        // MoM deltas: value this month vs. prev
+        function delta(val, prev) {
+            if (prev === 0) return {change: 0, percent: 0};
+            return {
+                change: val-prev,
+                percent: ((val-prev)/prev)*100
+            };
+        }
+
+        // KPI Cards
+        function renderKPICards() {
+            const kpiCardsEl = document.getElementById('kpi-cards');
+            kpiCardsEl.innerHTML = '';
+            // 1. Headcount (FTE)
+            const hcVal = headcountData[11];
+            const hcPrev = headcountData[10];
+            const hcDelta = delta(hcVal, hcPrev);
+            const hcSpark = headcountData.slice(6,12);
+            // 2. Attrition Rate (FTE)
+            const arVal = attritionRate(11);
+            const arPrev = attritionRate(10);
+            const arDelta = delta(arVal, arPrev);
+            const arSpark = Array.from({length:6}, (_,i)=>attritionRate(6+i));
+            // 3. Median Time-to-Hire
+            const tthVal = tthData[11];
+            const tthPrev = tthData[10];
+            const tthDelta = delta(tthVal, tthPrev);
+            const tthSpark = tthData.slice(6,12);
+            // 4. Training Completion (%)
+            const trVal = trainingData[11];
+            const trPrev = trainingData[10];
+            const trDelta = delta(trVal, trPrev);
+            const trSpark = trainingData.slice(6,12);
+
+            const kpiConfigs = [
+                {
+                    label: 'Headcount (FTE)',
+                    value: formatNumber(hcVal),
+                    delta: hcDelta,
+                    spark: hcSpark,
+                    tooltip: `Active full-time employees at month end: ${hcVal}. MoM change: ${hcDelta.change>=0?'+':''}${hcDelta.change} (${hcDelta.percent>=0?'+':''}${hcDelta.percent.toFixed(1)}%)`,
+                    color: 'var(--vmobile-blue)',
+                    deltaClass: hcDelta.change>=0 ? 'positive' : (hcDelta.change<0 ? 'negative' : 'neutral'),
+                    deltaIcon: hcDelta.change>=0 ? '▲' : '▼',
+                },
+                {
+                    label: 'Attrition Rate (FTE)',
+                    value: formatPercent(arVal,2),
+                    delta: arDelta,
+                    spark: arSpark,
+                    tooltip: `Terminations in month ÷ average headcount × 100: ${arVal.toFixed(2)}%. MoM change: ${arDelta.change>=0?'+':''}${arDelta.change.toFixed(2)} (${arDelta.percent>=0?'+':''}${arDelta.percent.toFixed(2)}%)`,
+                    color: arVal>2.5 ? 'var(--alert-red)' : 'var(--vmobile-blue)',
+                    deltaClass: arDelta.change>=0 ? 'negative' : 'positive',
+                    deltaIcon: arDelta.change>=0 ? '▲' : '▼',
+                },
+                {
+                    label: 'Median Time-to-Hire (days)',
+                    value: tthVal,
+                    delta: tthDelta,
+                    spark: tthSpark,
+                    tooltip: `Median days from approved req → accepted offer (closed in month): ${tthVal}. MoM change: ${tthDelta.change>=0?'+':''}${tthDelta.change} (${tthDelta.percent>=0?'+':''}${tthDelta.percent.toFixed(1)}%)`,
+                    color: tthDelta.change<0 ? 'var(--safety-green)' : 'var(--vmobile-blue)',
+                    deltaClass: tthDelta.change<0 ? 'positive' : 'negative',
+                    deltaIcon: tthDelta.change<0 ? '▼' : '▲',
+                },
+                {
+                    label: 'Training Completion (%)',
+                    value: formatPercent(trVal,1),
+                    delta: trDelta,
+                    spark: trSpark,
+                    tooltip: `% of active FTEs completing all mandatory courses: ${trVal.toFixed(1)}%. MoM change: ${trDelta.change>=0?'+':''}${trDelta.change.toFixed(1)} (${trDelta.percent>=0?'+':''}${trDelta.percent.toFixed(2)}%)`,
+                    color: trDelta.change>0 ? 'var(--safety-green)' : 'var(--vmobile-blue)',
+                    deltaClass: trDelta.change>0 ? 'positive' : 'neutral',
+                    deltaIcon: trDelta.change>0 ? '▲' : '→',
+                }
+            ];
+            kpiConfigs.forEach((kpi, i) => {
+                const card = document.createElement('div');
+                card.className = 'kpi-card focusable';
+                card.tabIndex = 0;
+                card.setAttribute('aria-label', `${kpi.label} card`);
+                // Label
+                const label = document.createElement('div');
+                label.className = 'kpi-label';
+                label.textContent = kpi.label;
+                card.appendChild(label);
+                // Value + Delta
+                const valueRow = document.createElement('div');
+                valueRow.className = 'kpi-value-row';
+                const value = document.createElement('span');
+                value.className = 'kpi-value';
+                value.textContent = kpi.value;
+                value.style.color = kpi.color;
+                valueRow.appendChild(value);
+                const delta = document.createElement('span');
+                delta.className = `kpi-delta ${kpi.deltaClass}`;
+                delta.innerHTML = `<span style="font-size:1.15em;margin-right:0.2em;">${kpi.deltaIcon}</span> ${Math.abs(kpi.delta.percent).toFixed(1)}%`;
+                valueRow.appendChild(delta);
+                card.appendChild(valueRow);
+                // Sparkline
+                const sparkDiv = document.createElement('div');
+                sparkDiv.className = 'kpi-sparkline';
+                sparkDiv.innerHTML = renderSparklineSVG(kpi.spark, kpi.color);
+                card.appendChild(sparkDiv);
+                // Tooltip
+                card.addEventListener('mouseenter', e => showTooltip(e, kpi.tooltip));
+                card.addEventListener('mouseleave', hideTooltip);
+                card.addEventListener('focus', e => showTooltip(e, kpi.tooltip));
+                card.addEventListener('blur', hideTooltip);
+                kpiCardsEl.appendChild(card);
+            });
+        }
+
+        function renderSparklineSVG(data, color) {
+            const w = 112, h = 38, pad = 8;
+            const min = Math.min(...data), max = Math.max(...data);
+            const points = data.map((v,i) => {
+                const x = pad + i*(w-pad*2)/(data.length-1);
+                const y = h-pad - ((v-min)/(max-min||1))*(h-pad*2);
+                return `${x},${y}`;
+            }).join(' ');
+            return `<svg class="sparkline-svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><polyline points="${points}" fill="none" stroke="${color}" stroke-width="2"/><circle cx="${pad + (data.length-1)*(w-pad*2)/(data.length-1)}" cy="${h-pad - ((data[data.length-1]-min)/(max-min||1))*(h-pad*2)}" r="3" fill="${color}" /></svg>`;
+        }
+
+        // Tooltips
+        let tooltipEl = null;
+        function showTooltip(e, text) {
+            hideTooltip();
+            tooltipEl = document.createElement('div');
+            tooltipEl.className = 'tooltip';
+            tooltipEl.textContent = text;
+            document.body.appendChild(tooltipEl);
+            positionTooltip(e.target, tooltipEl);
+        }
+        function hideTooltip() {
+            if (tooltipEl) {
+                tooltipEl.remove();
+                tooltipEl = null;
+            }
+        }
+        function positionTooltip(target, tooltip) {
+            const rect = target.getBoundingClientRect();
+            tooltip.style.left = (rect.left + window.scrollX + rect.width/2 - tooltip.offsetWidth/2) + 'px';
+            tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 12) + 'px';
+        }
+
+        // CHARTS: Inline SVG with tooltips and accessible tables
+        function renderCharts() {
+            // 1. Headcount Area/Line
+            renderAreaLineChartSVG(
+                'headcount-trend-chart',
+                headcountData,
+                months,
+                {
+                    yLabel: 'Headcount',
+                    color: 'var(--vmobile-blue)',
+                    fill: 'rgba(0,76,151,0.16)',
+                    tooltip: i => `${months[i]}: ${headcountData[i]}`
+                }
+            );
+            renderTrendTable('headcount-trend-table', months, headcountData, 'Headcount');
+
+            // 2. Attrition Line
+            renderLineChartSVG(
+                'attrition-trend-chart',
+                Array.from({length:12}, (_,i)=>attritionRate(i)),
+                months,
+                {
+                    yLabel: 'Attrition %',
+                    color: 'var(--vmobile-blue)',
+                    pointColorFn: v => v>2.5 ? 'var(--alert-red)' : 'var(--vmobile-blue)',
+                    tooltip: i => `${months[i]}: ${attritionRate(i).toFixed(2)}%${attritionRate(i)>2.5?' (Alert!)':''}`
+                }
+            );
+            renderTrendTable('attrition-trend-table', months, Array.from({length:12}, (_,i)=>attritionRate(i)), 'Attrition Rate (%)', 2);
+
+            // 3. Median Time-to-Hire Bar + target line at 30
+            renderBarChartSVG(
+                'tt-hire-trend-chart',
+                tthData,
+                months,
+                {
+                    yLabel: 'Days',
+                    color: 'var(--vmobile-blue)',
+                    target: 30,
+                    targetColor: 'var(--safety-green)',
+                    tooltip: i => `${months[i]}: ${tthData[i]} days`
+                }
+            );
+            renderTrendTable('tt-hire-trend-table', months, tthData, 'Median Time-to-Hire (days)');
+
+            // 4. Training Completion Line + goal line at 85%
+            renderLineChartSVG(
+                'training-trend-chart',
+                trainingData,
+                months,
+                {
+                    yLabel: 'Completion %',
+                    color: 'var(--safety-green)',
+                    goal: 85,
+                    goalColor: 'var(--safety-green)',
+                    tooltip: i => `${months[i]}: ${trainingData[i].toFixed(1)}%`
+                }
+            );
+            renderTrendTable('training-trend-table', months, trainingData, 'Training Completion (%)', 1);
+        }
+
+        function renderAreaLineChartSVG(id, data, xLabels, {yLabel, color, fill, tooltip}) {
+            const el = document.getElementById(id);
+            const w = el.clientWidth || 600, h = 220, padX = 48, padY = 28;
+            const minY = Math.min(...data), maxY = Math.max(...data);
+            const yTicks = getTicks(minY, maxY, 5);
+            const xStep = (w-padX*2)/(data.length-1);
+            let points = data.map((v,i) => {
+                const x = padX + i*xStep;
+                const y = h-padY - ((v-minY)/(maxY-minY||1))*(h-padY*2);
+                return [x,y];
+            });
+
+            // Area path
+            let area = `M${points[0][0]},${h-padY} ` +
+                points.map(([x,y])=>`L${x},${y}`).join(' ') +
+                `L${points[points.length-1][0]},${h-padY} Z`;
+            // Line path
+            let line = `M${points[0][0]},${points[0][1]} ` + points.map(([x,y])=>`L${x},${y}`).join(' ');
+
+            // Axes and ticks
+            let svg = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true" tabindex="0" style="background:#fff;border-radius:10px;">
+                <g>
+                    <text x="${padX-16}" y="${padY-16}" font-size="1.03em" fill="var(--slate-gray)" font-weight="600">${yLabel}</text>
+                </g>
+                <g>`;
+            yTicks.forEach((tick, i) => {
+                const y = h-padY - ((tick-minY)/(maxY-minY||1))*(h-padY*2);
+                svg += `<line x1="${padX-6}" y1="${y}" x2="${w-padX+6}" y2="${y}" stroke="#e5e7eb" stroke-width="1"/>
+                        <text x="${padX-20}" y="${y+4}" font-size="0.93em" fill="var(--slate-gray)">${Math.round(tick)}</text>`;
+            });
+            svg += `</g>
+                <g>`;
+            points.forEach(([x],i) => {
+                if (i%2===0 || data.length<=7) {
+                    svg += `<text x="${x}" y="${h-padY+18}" font-size="0.93em" text-anchor="middle" fill="var(--slate-gray)">${xLabels[i].split(' ')[0]}</text>`;
+                }
+            });
+            svg += `</g>
+                <path d="${area}" fill="${fill}" stroke="none"/>
+                <path d="${line}" fill="none" stroke="${color}" stroke-width="2"/>
+                <g>`;
+            points.forEach(([x,y],i) => {
+                svg += `<circle cx="${x}" cy="${y}" r="4" fill="${color}" data-idx="${i}" tabindex="0" aria-label="${tooltip(i)}"/>`;
+            });
+            svg += `</g>
+            </svg>`;
+            el.innerHTML = svg;
+
+            addChartTooltips(el, points, tooltip);
+        }
+
+        function renderLineChartSVG(id, data, xLabels, {yLabel, color, pointColorFn, goal, goalColor, tooltip}) {
+            const el = document.getElementById(id);
+            const w = el.clientWidth || 600, h = 220, padX = 48, padY = 28;
+            const minY = Math.min(...data), maxY = Math.max(...data);
+            const yTicks = getTicks(minY, maxY, 5);
+            const xStep = (w-padX*2)/(data.length-1);
+            let points = data.map((v,i) => {
+                const x = padX + i*xStep;
+                const y = h-padY - ((v-minY)/(maxY-minY||1))*(h-padY*2);
+                return [x,y];
+            });
+
+            let line = `M${points[0][0]},${points[0][1]} ` + points.map(([x,y])=>`L${x},${y}`).join(' ');
+
+            let svg = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true" tabindex="0" style="background:#fff;border-radius:10px;">
+                <g>
+                    <text x="${padX-16}" y="${padY-16}" font-size="1.03em" fill="var(--slate-gray)" font-weight="600">${yLabel}</text>
+                </g>
+                <g>`;
+            yTicks.forEach((tick, i) => {
+                const y = h-padY - ((tick-minY)/(maxY-minY||1))*(h-padY*2);
+                svg += `<line x1="${padX-6}" y1="${y}" x2="${w-padX+6}" y2="${y}" stroke="#e5e7eb" stroke-width="1"/>
+                        <text x="${padX-20}" y="${y+4}" font-size="0.93em" fill="var(--slate-gray)">${tick.toFixed(2)}</text>`;
+            });
+            svg += `</g>
+                <g>`;
+            points.forEach(([x],i) => {
+                if (i%2===0 || data.length<=7) {
+                    svg += `<text x="${x}" y="${h-padY+18}" font-size="0.93em" text-anchor="middle" fill="var(--slate-gray)">${xLabels[i].split(' ')[0]}</text>`;
+                }
+            });
+            svg += `</g>`;
+            if (goal!==undefined) {
+                const gy = h-padY - ((goal-minY)/(maxY-minY||1))*(h-padY*2);
+                svg += `<line x1="${padX-6}" y1="${gy}" x2="${w-padX+6}" y2="${gy}" stroke="${goalColor}" stroke-width="2" stroke-dasharray="5,4"/>
+                        <text x="${w-padX+14}" y="${gy+5}" font-size="0.94em" fill="${goalColor}" font-weight="600">${goal}</text>`;
+            }
+            svg += `<path d="${line}" fill="none" stroke="${color}" stroke-width="2"/>
+                <g>`;
+            points.forEach(([x,y],i) => {
+                const pc = pointColorFn ? pointColorFn(data[i]) : color;
+                svg += `<circle cx="${x}" cy="${y}" r="4" fill="${pc}" data-idx="${i}" tabindex="0" aria-label="${tooltip(i)}"/>`;
+            });
+            svg += `</g>
+            </svg>`;
+            el.innerHTML = svg;
+
+            addChartTooltips(el, points, tooltip);
+        }
+
+        function renderBarChartSVG(id, data, xLabels, {yLabel, color, target, targetColor, tooltip}) {
+            const el = document.getElementById(id);
+            const w = el.clientWidth || 600, h = 220, padX = 48, padY = 28;
+            const minY = 0, maxY = Math.max(...data, target||0);
+            const yTicks = getTicks(minY, maxY, 5);
+            const barW = (w-padX*2)/(data.length*1.25);
+            let bars = data.map((v,i) => {
+                const x = padX + i*(barW*1.25);
+                const y = h-padY - ((v-minY)/(maxY-minY||1))*(h-padY*2);
+                return {x, y, v};
+            });
+
+            let svg = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true" tabindex="0" style="background:#fff;border-radius:10px;">
+                <g>
+                    <text x="${padX-16}" y="${padY-16}" font-size="1.03em" fill="var(--slate-gray)" font-weight="600">${yLabel}</text>
+                </g>
+                <g>`;
+            yTicks.forEach((tick, i) => {
+                const y = h-padY - ((tick-minY)/(maxY-minY||1))*(h-padY*2);
+                svg += `<line x1="${padX-6}" y1="${y}" x2="${w-padX+6}" y2="${y}" stroke="#e5e7eb" stroke-width="1"/>
+                        <text x="${padX-20}" y="${y+4}" font-size="0.93em" fill="var(--slate-gray)">${Math.round(tick)}</text>`;
+            });
+            svg += `</g>
+                <g>`;
+            bars.forEach(({x},i) => {
+                if (i%2===0 || data.length<=7) {
+                    svg += `<text x="${x+barW/2}" y="${h-padY+18}" font-size="0.93em" text-anchor="middle" fill="var(--slate-gray)">${xLabels[i].split(' ')[0]}</text>`;
+                }
+            });
+            svg += `</g>`;
+            if (target!==undefined) {
+                const gy = h-padY - ((target-minY)/(maxY-minY||1))*(h-padY*2);
+                svg += `<line x1="${padX-6}" y1="${gy}" x2="${w-padX+6}" y2="${gy}" stroke="${targetColor}" stroke-width="2" stroke-dasharray="5,4"/>
+                        <text x="${w-padX+14}" y="${gy+5}" font-size="0.94em" fill="${targetColor}" font-weight="600">${target}</text>`;
+            }
+            svg += `<g>`;
+            bars.forEach(({x,y,v},i) => {
+                svg += `<rect x="${x}" y="${y}" width="${barW}" height="${h-padY-y}" fill="${color}" data-idx="${i}" tabindex="0" aria-label="${tooltip(i)}"/>
+                        <circle cx="${x+barW/2}" cy="${y}" r="4" fill="${color}" />`;
+            });
+            svg += `</g>
+            </svg>`;
+            el.innerHTML = svg;
+
+            addChartTooltips(el, bars.map(({x,y})=>[x+barW/2,y]), tooltip);
+        }
+
+        function getTicks(min, max, n) {
+            if (min === max) return [min];
+            const span = max - min;
+            const step = span / (n-1);
+            let arr = [];
+            for (let i=0; i<n; ++i) arr.push(min+i*step);
+            return arr;
+        }
+
+        function addChartTooltips(el, points, tooltipFn) {
+            el.querySelectorAll('[data-idx]').forEach((node, idx) => {
+                node.addEventListener('mouseenter', e => showTooltip(e, tooltipFn(idx)));
+                node.addEventListener('mouseleave', hideTooltip);
+                node.addEventListener('focus', e => showTooltip(e, tooltipFn(idx)));
+                node.addEventListener('blur', hideTooltip);
+            });
+        }
+
+        function renderTrendTable(tableId, months, vals, label, dec=0) {
+            const table = document.getElementById(tableId);
+            let html = `<thead><tr><th>Month</th><th>${label}</th></tr></thead><tbody>`;
+            months.forEach((m,i) => {
+                html += `<tr><td>${m}</td><td>${dec?vals[i].toFixed(dec):vals[i]}</td></tr>`;
+            });
+            html += '</tbody>';
+            table.innerHTML = html;
+        }
+
+        // Workforce & Movement Table
+        function renderWorkforceTable() {
+            const tbl = document.getElementById('workforce-table');
+            let html = `<thead>
+                <tr>
+                    <th>Department <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                    <th>FTE <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                    <th>Contractor <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                    <th>Hires (mo) <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                    <th>Terms (mo) <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                    <th>Attrition % <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>`;
+            workforceTableData.forEach(row => {
+                html += `<tr>
+                    <td>${row.dept}</td>
+                    <td>${row.fte}</td>
+                    <td>${row.contractor}</td>
+                    <td>${row.hires}</td>
+                    <td>${row.terms}</td>
+                    <td${row.attrition>3.0 ? ' class="alert-cell"' : ''}>${row.attrition.toFixed(2)}</td>
+                </tr>`;
+            });
+            html += '</tbody>';
+            tbl.innerHTML = html;
+        }
+
+        // Talent & Training Table
+        function renderTalentTable() {
+            const tbl = document.getElementById('talent-table');
+            let html = `<thead>
+                <tr>
+                    <th>Department <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                    <th>Median Time-to-Hire (days) <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                    <th>Training Completion % <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                    <th>Open Reqs (est.) <span class="sort-icon" role="img" aria-label="Sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>`;
+            talentTableData.forEach(row => {
+                html += `<tr>
+                    <td>${row.dept}</td>
+                    <td>${Math.round(row.avgTTH)}</td>
+                    <td>${row.avgTraining.toFixed(1)}</td>
+                    <td>${row.openReqs}</td>
+                </tr>`;
+            });
+            html += '</tbody>';
+            tbl.innerHTML = html;
+        }
+
+        // Download Table as JSON
+        function downloadTableJSON(data, filename) {
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        }
+        document.getElementById('download-workforce').addEventListener('click', function() {
+            downloadTableJSON(workforceTableData, 'workforce_table.json');
+        });
+        document.getElementById('download-talent').addEventListener('click', function() {
+            downloadTableJSON(talentTableData.map(({dept, avgTTH, avgTraining, openReqs}) => ({
+                Department: dept,
+                Median_Time_to_Hire: Math.round(avgTTH),
+                Training_Completion: avgTraining.toFixed(1),
+                Open_Reqs: openReqs
+            })), 'talent_training_table.json');
+        });
+
+        // Footer generated_at
+        const generatedAtMeta = { generated_at: (new Date()).toISOString().slice(0,19).replace('T',' ') + ' UTC' };
+        document.getElementById('footer-meta').textContent = 'Generated at: ' + generatedAtMeta.generated_at;
+
+        // Static sort icon SVGs for table headers
+        document.querySelectorAll('.sort-icon').forEach(icon => {
+            icon.innerHTML = `<svg width="14" height="14" viewBox="0 0 14 14" role="img" aria-label="Sort Icon">
+                <path d="M7 2l3 4H4l3-4zm0 10l-3-4h6l-3 4z" fill="var(--slate-gray)"/>
+            </svg>`;
+        });
+
+        // Initial render
+        renderKPICards();
+        renderCharts();
+        renderWorkforceTable();
+        renderTalentTable();
+    </script>
+</body>
+</html>
